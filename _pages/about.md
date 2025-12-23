@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Virginia Polytechnic and State University -- Genetics, Bioinformatics, & Computational Biology (GBCB)
+subtitle: Virginia Tech -- Genetics, Bioinformatics, & Computational Biology (GBCB)
 
 profile:
   align: right
