@@ -1,9 +1,9 @@
 ---
 layout: page
 title: submenus
-nav: true
+nav: false # was true
 nav_order: 8
-dropdown: false #Was TRUE in template
+dropdown: true
 children:
   - title: bookshelf
     permalink: /books/
