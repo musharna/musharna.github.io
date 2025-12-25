@@ -203,6 +203,7 @@ exclude:
   - _pages/teaching.md
   - _pages/repositories.md 
   - _pages/profiles.md
+  - _projects/?_project.md
   
 keep_files:
   - CNAME
