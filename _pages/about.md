@@ -28,6 +28,6 @@ latest_posts:
 ---
 PhD student, Genetics, Bioinformatics, & Computational Biology (GBCB)
 
-Jaret graduated from Kent State University (KSU) in Kent, Ohio with a B.S. in Biotechnology in 2022. During his time at KSU he participated in research in the Lobelia genus with [Dr. Andrea Case](https://directory.natsci.msu.edu/directory/Profiles/Person/103256). At this time Jaret worked on visualizing phenotypic diversity in North American Lobelia through digitial reconstruction of herbarium images.
+Jaret graduated from Kent State University (KSU) in Kent, Ohio with a B.S. in Biotechnology in 2022. During his time at KSU he participated in research in the _Lobelia_ genus with [Dr. Andrea Case](https://directory.natsci.msu.edu/directory/Profiles/Person/103256). At this time Jaret worked on visualizing phenotypic diversity in North American _Lobelia_ through digitial reconstruction of herbarium images.
 
 Afterwards in the Fall of 2024, Jaret was admitted into the Translational Plant Science Center PhD program. He joined [Dr. Clay Wright's lab](https://sites.google.com/vt.edu/wrightlab) in Spring of 2025 and is coadvised by [Dr. David Haak](https://spes.vt.edu/faculty-staff/faculty/haak-david.html). Jaret is focused on applications of Bioinformatics in synthetic biology and plant science. He is specifically interested in the potential applications of computer vision, artificial intelligence, and data science to agriculture. Besides plant science, Jaret enjoys spending time with his orchid collection, being in nature, and coding.
