@@ -55,7 +55,7 @@ ninja.data = [{
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-orchid-gan",
           title: 'Orchid GAN',
-          description: "with background image",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
             },},{id: "projects-phelipanche-transcriptomics",
