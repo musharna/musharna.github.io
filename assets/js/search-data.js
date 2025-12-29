@@ -45,7 +45,7 @@ ninja.data = [{
               window.location.href = "/books/the_godfather/";
             },},{id: "projects-project-z",
           title: 'Agrigen',
-          description: "with background image",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Agrigen/";
             },},{id: "projects-lobelia-silhouettes",
