@@ -50,7 +50,7 @@ ninja.data = [{
               window.location.href = "/projects/Agrigen/";
             },},{id: "projects-lobelia-silhouettes",
           title: 'Lobelia Silhouettes',
-          description: "Silhouettes of restored herbarium specimens of Lobelia.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-orchid-gan",
