@@ -50,7 +50,7 @@ ninja.data = [{
               window.location.href = "/projects/Agrigen/";
             },},{id: "projects-lobelia-silhouettes",
           title: 'Lobelia Silhouettes',
-          description: "with background image",
+          description: "Silhouettes of restored herbarium specimens of Lobelia.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-orchid-gan",
@@ -58,9 +58,9 @@ ninja.data = [{
           description: "with background image",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
-            },},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+            },},{id: "projects-phelipanche-transcriptomics",
+          title: 'Phelipanche Transcriptomics',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Phelipanche%20Transcriptomic%20Analysis/";
             },},{
