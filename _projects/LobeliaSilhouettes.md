@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Lobelia Silhouettes 
-description: Silhouettes of restored herbarium specimens of Lobelia.
+description: 
 img: assets/img/271344372.jpg
 importance: 1
 category: work
