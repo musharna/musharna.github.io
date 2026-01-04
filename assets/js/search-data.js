@@ -43,26 +43,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "projects-project-z",
-          title: 'Agrigen',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/Agrigen/";
-            },},{id: "projects-lobelia-silhouettes",
-          title: 'Lobelia Silhouettes',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-orchid-gan",
           title: 'Orchid GAN',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
-            },},{id: "projects-phelipanche-transcriptomics",
-          title: 'Phelipanche Transcriptomics',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/PhelipancheTranscriptomics/";
             },},{
         id: 'social-email',
         title: 'email',
