@@ -1,0 +1,38 @@
+<h2>Interactive OrchidGAN Sampler</h2>
+<p style="opacity:0.85;">
+  Loads <em>pre-generated</em> StyleGAN2-ADA outputs (no backend). Training images are not redistributed.
+</p>
+
+<div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px;">
+  <label>
+    Seed:
+    <input id="orchidgan-seed" type="number" min="0" max="99" step="1" value="0"
+           style="width:90px; padding:6px 8px; margin-left:6px;" />
+  </label>
+
+  <button id="orchidgan-load"
+          type="button"
+          style="padding:7px 12px; border-radius:10px; border:1px solid rgba(127,127,127,0.4);">
+    Load seed
+  </button>
+
+  <button id="orchidgan-random"
+          type="button"
+          style="padding:7px 12px; border-radius:10px; border:1px solid rgba(127,127,127,0.4);">
+    Random
+  </button>
+
+  <span id="orchidgan-status" style="opacity:0.8;"></span>
+</div>
+
+<figure style="margin:0;">
+  <img id="orchidgan-img"
+       src="/assets/img/orchidgan/samples/seed_0000.webp"
+       alt="OrchidGAN generated sample"
+       style="width:min(512px, 100%); border-radius:12px; border:1px solid rgba(127,127,127,0.25);" />
+  <figcaption id="orchidgan-caption" style="opacity:0.8; font-size:0.95em; margin-top:6px;">
+    seed_0000.webp
+  </figcaption>
+</figure>
+
+<script src="/assets/js/orchidgan-sampler.js"></script>
