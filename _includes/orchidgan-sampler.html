@@ -1,38 +1,33 @@
-<h2>Interactive OrchidGAN Sampler</h2>
-<p style="opacity:0.85;">
-  Loads <em>pre-generated</em> StyleGAN2-ADA outputs (no backend). Training images are not redistributed.
-</p>
+<div class="orchidgan-card">
+  <div class="orchidgan-head">
+    <h2 class="orchidgan-title">Interactive sampler</h2>
+    <p class="orchidgan-sub">
+      Browse pre-generated OrchidGAN samples (seeds 0–99).
+    </p>
+  </div>
 
-<div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px;">
-  <label>
-    Seed:
-    <input id="orchidgan-seed" type="number" min="0" max="99" step="1" value="0"
-           style="width:90px; padding:6px 8px; margin-left:6px;" />
-  </label>
+  <div class="orchidgan-controls">
+    <label class="orchidgan-label" for="orchidgan-seed">
+      Seed
+      <input id="orchidgan-seed" class="orchidgan-input" type="number" min="0" max="99" step="1" value="18" />
+    </label>
 
-  <button id="orchidgan-load"
-          type="button"
-          style="padding:7px 12px; border-radius:10px; border:1px solid rgba(127,127,127,0.4);">
-    Load seed
-  </button>
+    <div class="orchidgan-buttons">
+      <button id="orchidgan-load" class="orchidgan-btn" type="button">Load</button>
+      <button id="orchidgan-random" class="orchidgan-btn orchidgan-btn-primary" type="button">Random</button>
+    </div>
 
-  <button id="orchidgan-random"
-          type="button"
-          style="padding:7px 12px; border-radius:10px; border:1px solid rgba(127,127,127,0.4);">
-    Random
-  </button>
+    <div id="orchidgan-status" class="orchidgan-status" aria-live="polite"></div>
+  </div>
 
-  <span id="orchidgan-status" style="opacity:0.8;"></span>
+  <figure class="orchidgan-figure">
+    <img id="orchidgan-img"
+         class="orchidgan-img"
+         src="/assets/img/orchidgan/samples/seed_0018.webp"
+         alt="OrchidGAN generated orchid sample" />
+    <figcaption id="orchidgan-caption" class="orchidgan-caption">seed_0018.webp</figcaption>
+  </figure>
 </div>
 
-<figure style="margin:0;">
-  <img id="orchidgan-img"
-       src="/assets/img/orchidgan/samples/seed_0000.webp"
-       alt="OrchidGAN generated sample"
-       style="width:min(512px, 100%); border-radius:12px; border:1px solid rgba(127,127,127,0.25);" />
-  <figcaption id="orchidgan-caption" style="opacity:0.8; font-size:0.95em; margin-top:6px;">
-    seed_0000.webp
-  </figcaption>
-</figure>
-
-<script src="/assets/js/orchidgan-sampler.js"></script>
+<link rel="stylesheet" href="/assets/css/orchidgan.css">
+<script src="/assets/js/orch
