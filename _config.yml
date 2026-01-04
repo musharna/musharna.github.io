@@ -204,6 +204,10 @@ exclude:
   - _pages/repositories.md 
   - _pages/profiles.md
   - _projects/?_project.md
+  #WIP Projects:
+  - _projects/Agrigen.md
+  - _projects/LobeliaSilhouettes.md
+  - _projects/PhelipancheTranscriptomics.md
   
 keep_files:
   - CNAME
