@@ -88,3 +88,11 @@
   opacity: .65;
   font-size: .9rem;
 }
+
+.orchidgan-video{
+  display:block;
+  width:min(520px,100%);
+  margin: 10px auto 0;
+  border-radius: 18px;
+  border: 1px solid rgba(127,127,127,.22);
+}
