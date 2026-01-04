@@ -62,7 +62,7 @@ ninja.data = [{
           title: 'Phelipanche Transcriptomics',
           description: "",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/Phelipanche%20Transcriptomics/";
+              window.location.href = "/projects/PhelipancheTranscriptomics/";
             },},{
         id: 'social-email',
         title: 'email',
