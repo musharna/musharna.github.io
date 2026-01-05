@@ -1,0 +1,17 @@
+<!-- Plotly (load once on the page; ok to keep here for MVP) -->
+<script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+<section class="card">
+  <h2>Morphospace (PCA)</h2>
+  <p class="muted">Each point is a generated image embedded into 2D via PCA.</p>
+
+  <!-- IMPORTANT: put the data URL as an attribute so paths are always correct -->
+  <div
+    id="orchidgan-morphospace"
+    data-json="{{ '/assets/data/orchidgan/pca_points.json' | relative_url }}"
+    style="width:100%;height:560px;"
+  ></div>
+</section>
+
+<!-- Your plot code -->
+<script defer src="{{ '/assets/js/orchidgan-morphospace.js' | relative_url }}"></script>
