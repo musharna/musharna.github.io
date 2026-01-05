@@ -2,7 +2,7 @@
 layout: page
 title: Orchid GAN
 description: 
-img: assets/img/orchidgan/fakes001600 - Copy.png
+img: assets/img/orchidgan/orchidgan_card.mp4
 importance: 1
 category: 
 related_publications: false
