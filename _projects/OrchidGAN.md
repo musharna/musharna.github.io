@@ -3,8 +3,6 @@ layout: page
 title: Orchid GAN
 description: 
 img: assets/img/orchidgan/orchidgan_card.png
-video_poster: assets/img/orchidgan/orchidgan_card.png
-video: assets/img/orchidgan/orchidgan_card.mp4
 importance: 1
 category: 
 related_publications: false
