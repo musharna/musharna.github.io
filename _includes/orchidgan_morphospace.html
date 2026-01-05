@@ -1,17 +1,21 @@
-<!-- Plotly (load once on the page; ok to keep here for MVP) -->
 <script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
 <section class="card">
   <h2>Morphospace (PCA)</h2>
-  <p class="muted">Each point is a generated image embedded into 2D via PCA.</p>
+  <p class="muted">Each point is a seed projected from latent z into 2D via PCA. Click a point to view its sample.</p>
 
-  <!-- IMPORTANT: put the data URL as an attribute so paths are always correct -->
   <div
     id="orchidgan-morphospace"
-    data-json="{{ '/assets/data/orchidgan/pca_points.json' | relative_url }}"
-    style="width:100%;height:560px;"
+    data-json="{{ '/assets/data/orchidgan/morphospace_pca_z.json' | relative_url }}"
+    data-sample-base="{{ '/assets/img/orchidgan/samples/webp' | relative_url }}"
+    style="width:100%;height:520px;"
   ></div>
+
+  <figure class="orchidgan-figure">
+    <img id="orchidgan-morph-img" class="orchidgan-img"
+         src="{{ '/assets/img/orchidgan/samples/webp/seed_0000.webp' | relative_url }}" alt="Selected sample">
+    <figcaption id="orchidgan-morph-cap" class="orchidgan-caption">seed 0</figcaption>
+  </figure>
 </section>
 
-<!-- Your plot code -->
 <script defer src="{{ '/assets/js/orchidgan-morphospace.js' | relative_url }}"></script>
