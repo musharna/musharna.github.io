@@ -66,7 +66,7 @@
       const seed = ev?.points?.[0]?.customdata;
       if (seed === undefined || seed === null) return;
 
-      const src = `/assets/img/orchidgan/samples/webp/seed_${pad4(seed)}.webp`;
+      const src = `/assets/img/orchidgan/samples/seed_${pad4(seed)}.webp`;
       if (imgEl) imgEl.src = src;
       if (labelEl) labelEl.textContent = `seed ${seed}`;
     });
