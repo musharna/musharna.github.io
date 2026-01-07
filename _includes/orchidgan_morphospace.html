@@ -1,17 +1,20 @@
+<h2>Morphospace (PCA)</h2>
+<p style="opacity:.78; margin-top:-6px;">
+  Each point is a seed projected from latent <span style="font-family:ui-monospace;">z</span> into 2D via PCA. Click a point to view its sample.
+</p>
+
 <div class="orchidgan-card orchidgan-morpho">
-
-  <!-- Preview image section -->
-  <div class="orchidgan-morpho-preview">
-    <img id="orchidgan-morpho-img"
-         src="/assets/img/orchidgan/samples/seed_0000.webp"
-         alt="Orchid sample">
-    <div id="orchidgan-morpho-label" class="orchidgan-morpho-label">seed 0</div>
-  </div>
-
-  <!-- Morphospace plot -->
   <div id="orchidgan-morphospace"
        class="orchidgan-morpho-plot"
        data-json="/assets/data/orchidgan/pca_points.json"></div>
+
+  <figure class="orchidgan-figure">
+    <img id="orchidgan-morpho-img"
+         class="orchidgan-img"
+         src="/assets/img/orchidgan/samples/seed_0000.webp"
+         alt="Selected morphospace sample">
+    <figcaption id="orchidgan-morpho-label" class="orchidgan-caption">seed 0</figcaption>
+  </figure>
 </div>
 
 <script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
