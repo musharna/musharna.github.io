@@ -34,9 +34,50 @@
       return;
     }
 
+    // Try to load color data
+    let colorData = null;
+    try {
+      const colorRes = await fetch('/assets/data/orchidgan/colors.json', { cache: "no-store" });
+      if (colorRes.ok) {
+        colorData = await colorRes.json();
+      }
+    } catch (e) {
+      console.log("Color data not available, using default coloring");
+    }
+
     const xs = pts.map(d => d.x);
     const ys = pts.map(d => d.y);
     const seeds = pts.map(d => d.seed);
+
+    // Build color array based on hue
+    let colors = seeds; // Default: color by seed
+    let colorscale = 'Viridis';
+    let colorbarTitle = 'Seed';
+    let showscale = false;
+
+    if (colorData) {
+      // Create seed -> hue mapping
+      const seedToHue = {};
+      colorData.forEach(c => {
+        seedToHue[c.seed] = c.hue;
+      });
+
+      colors = seeds.map(s => seedToHue[s] || 300);
+      colorscale = [
+        [0, '#ff00ff'],     // Magenta (300°)
+        [0.111, '#ff0066'], // Pink-magenta (320°)
+        [0.222, '#ff0000'], // Red (0°)
+        [0.333, '#ff9900'], // Orange (40°)
+        [0.444, '#ffff00'], // Yellow (60°)
+        [0.556, '#66ff00'], // Yellow-green (100°)
+        [0.667, '#00ff99'], // Cyan-green (160°)
+        [0.778, '#0099ff'], // Cyan-blue (200°)
+        [0.889, '#6600ff'], // Blue-violet (260°)
+        [1, '#ff00ff']      // Magenta wraps (300°)
+      ];
+      colorbarTitle = 'Hue (°)';
+      showscale = true;
+    }
 
     const trace = {
       x: xs,
@@ -46,17 +87,22 @@
       customdata: seeds,
       text: seeds.map(s => `seed ${s}`),
       hovertemplate: "%{text}<extra></extra>",
-      marker: { 
-        size: 8, 
-        opacity: 0.7,
-        color: seeds,  // Color by seed number
-        colorscale: 'Viridis',
-        showscale: false
+      marker: {
+        size: 8,
+        opacity: 0.75,
+        color: colors,
+        colorscale: colorscale,
+        showscale: showscale,
+        colorbar: showscale ? {
+          title: colorbarTitle,
+          len: 0.5,
+          thickness: 15
+        } : undefined
       }
     };
 
     const layout = {
-      margin: { l: 45, r: 10, t: 10, b: 45 },
+      margin: { l: 45, r: 60, t: 10, b: 45 },
       xaxis: { title: "UMAP 1", zeroline: false, showgrid: false },
       yaxis: { title: "UMAP 2", zeroline: false, showgrid: false },
       dragmode: "pan"
