@@ -17,5 +17,7 @@ OrchidGAN is a StyleGAN2-ADA model fine-tuned to generate Cattleya orchid flower
 
 {% include orchidgan_morphospace.html %}
 
+{% include orchidgan_umap.html %}
+
 
 **Attribution**: This project builds on the StyleGAN2-ADA framework developed by NVIDIA. Initial model weights were pretrained on a publicly available flowers dataset and subsequently fine-tuned on a curated collection of Cattleya orchid images. Training images are not redistributed.
