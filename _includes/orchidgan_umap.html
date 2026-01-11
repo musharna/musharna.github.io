@@ -1,0 +1,21 @@
+<h2>Morphospace (UMAP)</h2>
+<p style="opacity:.78; margin-top:-6px;">
+  Each point is a seed projected from latent <span style="font-family:ui-monospace;">z</span> into 2D via UMAP. Click a point to view its sample.
+</p>
+
+<div class="orchidgan-card orchidgan-morpho">
+  <div id="orchidgan-umap"
+       class="orchidgan-morpho-plot"
+       data-json="/assets/data/orchidgan/umap_points.json"></div>
+
+  <figure class="orchidgan-figure">
+    <img id="orchidgan-umap-img"
+         class="orchidgan-img"
+         src="/assets/img/orchidgan/samples/seed_0000.webp"
+         alt="Selected UMAP sample">
+    <figcaption id="orchidgan-umap-label" class="orchidgan-caption">seed 0</figcaption>
+  </figure>
+</div>
+
+<script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script defer src="/assets/js/orchidgan-umap.js"></script>
