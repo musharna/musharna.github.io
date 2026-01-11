@@ -49,31 +49,34 @@
     const ys = pts.map(d => d.y);
     const seeds = pts.map(d => d.seed);
 
-    // Build color array
+    // Build color array based on hue
     let colors = seeds; // Default: color by seed
     let colorscale = 'Viridis';
     let colorbarTitle = 'Seed';
+    let showscale = false;
 
     if (colorData) {
-      // Create seed -> color mapping
-      const seedToColor = {};
+      // Create seed -> hue mapping
+      const seedToHue = {};
       colorData.forEach(c => {
-        seedToColor[c.seed] = c.hue;
+        seedToHue[c.seed] = c.hue;
       });
 
-      colors = seeds.map(s => seedToColor[s] || 300);
+      colors = seeds.map(s => seedToHue[s] || 300);
       colorscale = [
-        [0, '#ff0000'],      // Red (0°)
-        [0.083, '#ff7f00'], // Orange (30°)
-        [0.167, '#ffff00'], // Yellow (60°)
-        [0.25, '#7fff00'],  // Yellow-green (90°)
-        [0.333, '#00ff00'], // Green (120°)
-        [0.5, '#00ffff'],   // Cyan (180°)
-        [0.667, '#0000ff'], // Blue (240°)
-        [0.833, '#ff00ff'], // Magenta (300°)
-        [1, '#ff0000']      // Red (360° wraps)
+        [0, '#ff00ff'],     // Magenta (300°)
+        [0.111, '#ff0066'], // Pink-magenta (320°)
+        [0.222, '#ff0000'], // Red (0°)
+        [0.333, '#ff9900'], // Orange (40°)
+        [0.444, '#ffff00'], // Yellow (60°)
+        [0.556, '#66ff00'], // Yellow-green (100°)
+        [0.667, '#00ff99'], // Cyan-green (160°)
+        [0.778, '#0099ff'], // Cyan-blue (200°)
+        [0.889, '#6600ff'], // Blue-violet (260°)
+        [1, '#ff00ff']      // Magenta wraps (300°)
       ];
-      colorbarTitle = 'Hue';
+      colorbarTitle = 'Hue (°)';
+      showscale = true;
     }
 
     const trace = {
@@ -89,12 +92,12 @@
         opacity: 0.75,
         color: colors,
         colorscale: colorscale,
-        showscale: true,
-        colorbar: {
+        showscale: showscale,
+        colorbar: showscale ? {
           title: colorbarTitle,
           len: 0.5,
           thickness: 15
-        }
+        } : undefined
       }
     };
 
@@ -105,9 +108,9 @@
       dragmode: "pan"
     };
 
-    await Plotly.newPlot(el, [trace], layout, {
-      responsive: true,
-      displayModeBar: true
+    await Plotly.newPlot(el, [trace], layout, { 
+      responsive: true, 
+      displayModeBar: true 
     });
 
     // Click -> update preview image
