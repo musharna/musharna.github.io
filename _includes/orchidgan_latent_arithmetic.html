@@ -1,0 +1,67 @@
+<h2>Latent Space Arithmetic</h2>
+<p style="opacity:.78; margin-top:-6px;">
+  Discover interpretable directions in latent space. Adjust sliders to see how moving along these directions transforms the orchid.
+</p>
+
+<div class="orchidgan-card">
+  <!-- Seed selector -->
+  <div style="margin-bottom: 20px;">
+    <label style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9;">
+      Base Seed:
+      <select id="latent-seed-select" style="margin-left: 8px; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(127,127,127,0.3); background: transparent;">
+        <option value="18">18</option>
+        <option value="42">42</option>
+        <option value="119">119</option>
+        <option value="234">234</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Preview image -->
+  <figure class="orchidgan-figure" style="margin: 20px 0;">
+    <img id="latent-preview"
+         class="orchidgan-img"
+         src="/assets/img/orchidgan/latent_walks/seed_0018_color_to_white_plus0p0.webp"
+         alt="Latent manipulation preview"
+         style="max-width: 400px;">
+    <figcaption id="latent-caption" class="orchidgan-caption">seed 18 (base)</figcaption>
+  </figure>
+
+  <!-- Direction sliders -->
+  <div style="max-width: 500px; margin: 0 auto;">
+    <div style="margin-bottom: 24px;">
+      <label style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9;">
+        Color → White
+        <span id="color-value" style="float: right; font-family: ui-monospace; opacity: 0.7;">0.0</span>
+      </label>
+      <input type="range"
+             id="color-slider"
+             min="-2" max="2" step="0.5" value="0"
+             style="width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(to right, #ff1493, #ffffff);">
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <label style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9;">
+        Petal Size
+        <span id="size-value" style="float: right; font-family: ui-monospace; opacity: 0.7;">0.0</span>
+      </label>
+      <input type="range"
+             id="size-slider"
+             min="-2" max="2" step="0.5" value="0"
+             style="width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(to right, #4a90e2, #e24a4a);">
+    </div>
+
+    <button id="reset-sliders"
+            class="orchidgan-btn"
+            style="width: 100%; margin-top: 12px;">
+      Reset to Base
+    </button>
+  </div>
+
+  <p style="text-align: center; margin-top: 24px; font-size: 0.9em; opacity: 0.7;">
+    <strong>How it works:</strong> We find direction vectors by averaging seeds with similar traits.
+    Moving along these directions reveals what the model learned about flower morphology.
+  </p>
+</div>
+
+<script defer src="/assets/js/orchidgan-latent-arithmetic.js"></script>
