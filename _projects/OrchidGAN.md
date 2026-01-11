@@ -13,7 +13,7 @@ OrchidGAN is a StyleGAN2-ADA model fine-tuned to generate Cattleya orchid flower
 
 
 
-#{% include orchidgan-sampler.html %}
+{% include orchidgan-sampler.html %}
 
 {% include orchidgan_morphospace.html %}
 
