@@ -1,6 +1,6 @@
 (function () {
   const MIN_SEED = 0;
-  const MAX_SEED = 99; // IMPORTANT: you published 0–99
+  const MAX_SEED = 499; // Updated to support 500 seeds (0-499)
   const BASE = "/assets/img/orchidgan/samples/";
 
   const seedInput = document.getElementById("orchidgan-seed");
