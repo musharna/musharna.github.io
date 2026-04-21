@@ -185,7 +185,6 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -203,7 +202,6 @@ exclude:
   - _pages/teaching.md
   - _pages/repositories.md 
   - _pages/profiles.md
-  - _projects/?_project.md
   #WIP Projects:
   - _projects/Agrigen.md
   - _projects/LobeliaSilhouettes.md
