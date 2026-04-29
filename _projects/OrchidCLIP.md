@@ -10,7 +10,7 @@ related_publications: false
 
 Part of the [Orchid Vision]({{ '/projects/OrchidVision/' | relative_url }}) program.
 
-**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 (ViT-L/14) on roughly 2.5M orchid images covering ~10,000 post-WCVP-dedup binomials. It outputs a 768-dimensional L2-normalized image embedding suitable for fine-grained species classification, retrieval, and as a frozen feature extractor for downstream orchid tasks (bloom-stage, disease, mounting style).
+**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 (ViT-L/14) on a curated orchid dataset: ~2.5M images / ~10,000 binomials post-WCVP synonym dedup, narrowed to **1.14M images / 5,124 species** after quality, photo, and image↔label cosine filters. It outputs a 768-dimensional L2-normalized image embedding suitable for fine-grained species classification, retrieval, and as a frozen feature extractor for downstream orchid tasks (bloom-stage, disease, mounting style).
 
 ## Why this exists
 
