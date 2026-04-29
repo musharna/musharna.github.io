@@ -79,6 +79,21 @@ The headline is **NMI = 0.576 at the genus level** — emergent genus structure 
 
 {% include figure.liquid path="assets/img/orchidclip/fig4_umap_subfamily.png" class="img-fluid rounded z-depth-1" alt="UMAP projection of 18,858 v8 image-centroid prototypes colored by WCVP subfamily. Cypripedioideae and Vanilloideae form distinct islands; Epidendroideae and Orchidoideae overlap in the central region." caption="Figure 4. UMAP of v8 species centroids, colored by WCVP subfamily (n=8,022 known). Cypripedioideae (slipper orchids) and Vanilloideae land in clean islands. The two megadiverse subfamilies — Epidendroideae and Orchidoideae — partially mix, which is reflected in the modest subfamily ARI of 0.26. A hierarchical contrastive loss (BioCLIP-2 style) is the natural next lever for tightening this." %}
 
+## Errors prefer close relatives
+
+If the embedding has internalized taxonomy, then mistakes should be *biased* mistakes — predicting a sibling species, not a random orchid. To test this, I bucketed each of v8's 355 holdout errors by WCVP rank distance between the true and predicted class, and compared to a null where predictions are drawn uniformly from the 18,858-binomial label space:
+
+| rank distance         | observed | null   | lift over chance |
+| --------------------- | -------: | -----: | ---------------: |
+| same genus (d=1)      |   90.1%  |  1.6%  | **58×**          |
+| same tribe (d=2)      |    4.8%  | 14.8%  | 0.32×            |
+| same subfamily (d=3)  |    2.3%  | 20.4%  | 0.11×            |
+| diff subfamily (d=4)  |    0.3%  | 51.9%  | 0.01×            |
+
+90% of errors are *same-genus, different-species* — a 58× lift over the chance rate of 1.6%. Cross-subfamily mistakes are essentially absent (0.3% observed vs 52% null). This is the practical confidence story: when v8 says *Stelis galeata* and the truth is *S. pachyglossa*, that's the dominant failure mode; when it confuses *Stelis* with anything outside Pleurothallidinae, that effectively never happens.
+
+{% include figure.liquid path="assets/img/orchidclip/fig6_phylo_bias.png" class="img-fluid rounded z-depth-1" alt="Bar chart comparing observed v8 error fractions to a uniform-random null distribution at each taxonomic rank distance. Observed errors are concentrated 58x over null at the same-genus distance and below chance at every other rank, showing strong phylogenetic bias toward close relatives." caption="Figure 5. v8 errors at each WCVP rank distance vs. a uniform-random null over the 18,858-binomial prototype space. The 58× lift at same-genus and the near-zero rate at cross-subfamily mean that downstream callers can treat v8's top-1 as 'this genus, probably this species' and trust the genus-level signal much more than the species-level one." %}
+
 ## Use as a frozen embedding
 
 ```python
