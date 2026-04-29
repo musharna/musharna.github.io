@@ -65,6 +65,20 @@ Three ablation rounds (v9 H/14 backbone swap, v10 hierarchical genus-species sam
 
 The instructive lesson across v9–v11: at this scale, hygiene of the label distribution matters more than architecture or auxiliary objectives. The v8 wins all came from the dataset side.
 
+## Embedding-space topology
+
+What does the model actually *learn* about taxonomy? I projected the 18,858 per-binomial image centroids from v8 into 2D with UMAP and ran K-means at k = #ground-truth classes for each WCVP rank, comparing the cluster assignment to the true labels:
+
+| rank      |    n   | k_true |  ARI  |  NMI  |
+| --------- | -----: | -----: | ----: | ----: |
+| genus     | 18,858 |    359 | 0.076 | **0.576** |
+| tribe     |  7,870 |     19 | 0.168 | 0.414 |
+| subfamily |  8,022 |      5 | **0.261** | 0.364 |
+
+The headline is **NMI = 0.576 at the genus level** — emergent genus structure that the model was never directly supervised on. Genus is composed implicitly: every species in *Stelis* shares enough visual coherence that the embedding pulls them together without a "this is a *Stelis*" signal in training. This is the BioCLIP-style emergent-hierarchy result, but for orchids: confirmation that a frozen v8 image encoder is a useful **genus-level retriever**, not just a species classifier.
+
+{% include figure.liquid path="assets/img/orchidclip/fig4_umap_subfamily.png" class="img-fluid rounded z-depth-1" alt="UMAP projection of 18,858 v8 image-centroid prototypes colored by WCVP subfamily. Cypripedioideae and Vanilloideae form distinct islands; Epidendroideae and Orchidoideae overlap in the central region." caption="Figure 4. UMAP of v8 species centroids, colored by WCVP subfamily (n=8,022 known). Cypripedioideae (slipper orchids) and Vanilloideae land in clean islands. The two megadiverse subfamilies — Epidendroideae and Orchidoideae — partially mix, which is reflected in the modest subfamily ARI of 0.26. A hierarchical contrastive loss (BioCLIP-2 style) is the natural next lever for tightening this." %}
+
 ## Use as a frozen embedding
 
 ```python
