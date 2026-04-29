@@ -18,6 +18,8 @@ There is no orchid-specific vision foundation model. BioCLIP and BioCLIP 2 are e
 
 Five training versions in: v2 → v6 → v7 → v8. Earlier versions failed for instructive reasons (curriculum collapse, synonym-confusion floors, head-class oversampling); v8 lands by stacking three small wins on top of the v7 contrastive recipe.
 
+{% include figure.liquid path="assets/img/orchidclip/fig2_class_freq.png" class="img-fluid rounded z-depth-1" alt="Log-log species-frequency distribution of the v8 training pool: 5,124 species, 1.14M rows, median 23 rows/species." caption="Figure 1. The v8 training pool spans four orders of magnitude in per-species sample count (median 23 rows/species; 101 species hit the 2,000-row inverse-sqrt cap). The long tail is where this work earns its keep." %}
+
 ## Eval
 
 Clean held-out test, n = 4,000 images, 547 species, stratified hash-bucketed (no train leakage):
@@ -42,6 +44,8 @@ Per-genus top-1 — the long tail is where v8 actually earns its keep:
 | *Ophrys*        | 2754 | **0.933** | 0.905     | **+2.8 pp**  |
 | *Dendrobium*    |  161 | **0.919** | 0.907     | +1.2 pp  |
 
+{% include figure.liquid path="assets/img/orchidclip/fig1_per_genus.png" class="img-fluid rounded z-depth-1" alt="Per-genus top-1 accuracy: orchid-clip-v8 vs BioCLIP 2 baseline. Long-tail Pleurothallidinae (Stelis, Lepanthes, Bulbophyllum, Maxillaria, Pleurothallis) gain 11–28 pp; head genera shift only marginally." caption="Figure 2. The v8 win is concentrated on long-tail Pleurothallidinae genera that BioCLIP 2 struggles with. Head genera (Ophrys, Habenaria, Dendrobium) move only marginally — flat aggregate accuracy hides where the actual lift lives." %}
+
 Three ablation rounds (v9 H/14 backbone swap, v10 hierarchical genus-species sampler, v11 auxiliary genus head) each regressed against v8. v8 is the production checkpoint.
 
 ## What worked
@@ -50,6 +54,8 @@ Three ablation rounds (v9 H/14 backbone swap, v10 hierarchical genus-species sam
 2. **Inverse-sqrt class sampling with per-species cap.** Long-tail genera get sampled in proportion to `1/√n_rows` rather than uniform-by-row, lifting *Stelis* / *Lepanthes* / *Bulbophyllum* top-1 by 12–28 pp without hurting head-class accuracy.
 3. **Cosine-based filter.** Drop the bottom percentile of training rows by image↔binomial cosine against the previous training generation (v6). Removes the rows where the label is wrong before the next model has a chance to memorize the mistake.
 4. **Subfamily-gated quality filter.** Only Apostasioideae / Cypripedioideae / Epidendroideae / Orchidoideae / Vanilloideae rows survive. Removes the long tail of iNaturalist mistags into Orchidaceae homonym genera (e.g., insect taxa in *Pentatominae*).
+
+{% include figure.liquid path="assets/img/orchidclip/fig3_synonym_collapse.png" class="img-fluid rounded z-depth-1" alt="Top 12 v7 intra-genus error pairs as a horizontal bar chart. The Ophrys fuciflora ↔ holosericea pair (149 errors) is highlighted in red and dwarfs the next-largest error (20). WCVP collapses this synonym pair to a single accepted binomial, eliminating it entirely from v8." caption="Figure 3. The dominant v7 error mode (point 1 above): one synonym pair, *Ophrys fuciflora* ↔ *holosericea*, 149 errors = 29% of all v7 mistakes. WCVP 2026-01-07 collapses it to a single accepted binomial — gone in v8 by definition, not by learning." %}
 
 ## What didn't
 
