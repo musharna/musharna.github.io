@@ -43,6 +43,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
+            },},{id: "projects-orchidclip",
+          title: 'OrchidCLIP',
+          description: "A long-tail-aware CLIP model for fine-grained orchid identification across 5,124 species.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/OrchidCLIP/";
             },},{id: "projects-orchid-gan",
           title: 'Orchid GAN',
           description: "",
