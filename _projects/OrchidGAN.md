@@ -2,7 +2,7 @@
 layout: page
 title: Orchid GAN
 description: 
-img: assets/img/orchidgan/orchidgan_card.webp
+img: assets/img/orchidgan/stylemix/28-28.png
 importance: 1
 category: 
 related_publications: false
