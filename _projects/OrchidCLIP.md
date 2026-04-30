@@ -94,6 +94,17 @@ If the embedding has internalized taxonomy, then mistakes should be *biased* mis
 
 {% include figure.liquid path="assets/img/orchidclip/fig6_phylo_bias.png" class="img-fluid rounded z-depth-1" alt="Bar chart comparing observed v8 error fractions to a uniform-random null distribution at each taxonomic rank distance. Observed errors are concentrated 58x over null at the same-genus distance and below chance at every other rank, showing strong phylogenetic bias toward close relatives." caption="Figure 5. v8 errors at each WCVP rank distance vs. a uniform-random null over the 18,858-binomial prototype space. The 58× lift at same-genus and the near-zero rate at cross-subfamily mean that downstream callers can treat v8's top-1 as 'this genus, probably this species' and trust the genus-level signal much more than the species-level one." %}
 
+The same rank-distance buckets give hierarchical top-1 accuracy directly — a top-1 prediction is correct at rank *r* iff the rank-distance to the true class is ≤ *r*. Collapsing the 4,000-image holdout this way:
+
+| rank      | top-1     | denominator                |
+| --------- | --------- | -------------------------- |
+| species   | 0.911     | n=4000                     |
+| genus     | **0.991** | n=4000                     |
+| tribe     | **0.996** | n=4000                     |
+| subfamily | **0.997** | n=4000                     |
+
+Subfamily top-1 saturates: a single cross-subfamily mistake out of 4,000 holdout images. For downstream callers who need genus-level confidence rather than species-level, the model is >99% top-1 — a much stronger guarantee than the 0.911 species-level headline.
+
 ## Use as a frozen embedding
 
 ```python
