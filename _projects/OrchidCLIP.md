@@ -68,6 +68,27 @@ When v8 _is_ wrong, it's wrong in a structured way. Bucketing errors by WCVP ran
 
 Errors at d=1 are 58× more common than chance; cross-subfamily mistakes are essentially absent. The right framing for downstream consumers of v8's top-1 prediction is **"this genus, probably this species"** rather than as a hard species label. The model's effective competence is at the genus level, with a residual species-level disambiguation problem in cryptic-species complexes.
 
+## Can the species gap be closed? Six attempts, one wall
+
+That "this genus, probably this species" framing raises the obvious question: the residual species-disambiguation problem — can we *fix* it? v8 already proves the embedding organizes the domain hierarchically, so the species detail ought to be reachable with the right extra lever. We ran six independent extension attempts, each from a different mechanism class, each with its own kill-gate. They converge on one sharp answer: **genus structure transfers, survives, and stays decodable; species identity stalls, collapses, or refuses to be extracted — every single time.**
+
+| extension lever | genus | species |
+| --- | --- | --- |
+| a second modality — herbarium scans / written descriptions | 0.81–0.93 | 0.005 → 0.686, then plateaus |
+| more capacity — 2× ViT-H backbone, clade mixture-of-experts | — | no lever found |
+| interpretability — sparse autoencoder over frozen features | partial | 0 of 13 morphology axes |
+| open-set recognition — reject never-seen species | card holds | novel-rejection 0.155 |
+| generative augmentation — synthesize tail species | — | no lift past 2–3 real photos |
+| model-free control — classical CV morphology, no v8 | (within-photo only) | cross-modal corr ≈ 0 |
+
+A few are worth spelling out. **A second modality** is the most direct lever — give the model a dried herbarium specimen or a written description per species. It recovers genus cheaply but within-genus species climbs only from 0.005 to 0.686 as the alignment improves, and there it sticks; neither more capacity nor more data moves it. Each modality separates species *from itself* (herbarium→herbarium 0.88, photo→photo 0.99), but those axes don't line up across the gap between them. The **model-free control** is the cleanest: we threw out v8 entirely and measured fourteen classical computer-vision features — color clusters, texture, symmetry, aspect ratio — straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. The wall isn't a quirk of v8's learned features — it's in the data.
+
+Six levers, one wall. A single failed extension is a tuning anecdote; six independent failures, each with its own gate, all landing on the identical *genus-survives / species-locked* split is evidence about the embedding itself. And it generalizes: this is the fine-grained-taxonomy face of the **modality gap** that contrastive image-text models are known to exhibit, and no published herbarium-to-field plant system reports clean within-genus species transfer either.
+
+## Building around the boundary, not against it
+
+If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The deployed *Orchid Photo → ID card* does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus *X* (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 60% of photos — the genus survivor, bought back as a precision guarantee.
+
 ## Status
 
-The frozen image encoder is being prepared for public release as a foundation embedding for downstream orchid tasks. A draft paper and the full v9–v11 negative-result ablations are in <a href="https://github.com/musharna/project-x">musharna/project-x</a>. The cover figure on this page is a UMAP projection of v8 species centroids colored by WCVP subfamily — Cypripedioideae and Vanilloideae form clean islands while the two megadiverse subfamilies (Epidendroideae and Orchidoideae) partially overlap. That overlap is the natural target for the v12 hierarchical-distance-weighted contrastive loss currently in training.
+The frozen v8 image encoder is released on HuggingFace as <a href="https://huggingface.co/mjarnold/orchid-clip-v8"><code>mjarnold/orchid-clip-v8</code></a> (MIT) — a foundation embedding for downstream orchid tasks. The full extension program above — six mechanism classes with their kill-gates, plus the v9–v11 ablations — is written up as a negative-results manuscript, _"Genus Transfers, Species Doesn't: A Mechanism-Invariant Boundary in a Fine-Grained Taxonomic Embedding."_ The cover figure on this page is a UMAP projection of v8 species centroids colored by WCVP subfamily — Cypripedioideae and Vanilloideae form clean islands while the two megadiverse subfamilies (Epidendroideae and Orchidoideae) partially overlap, and that overlap is exactly where the within-genus species ceiling lives.
