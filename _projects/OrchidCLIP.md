@@ -21,7 +21,18 @@ The +3.8 pp top-1 lift comes at no cost in genus-top-1, confirming that the gain
 
 ## The long tail is the point
 
-{% include figure.liquid path="assets/img/orchidclip/per_genus.png" title="per-genus top-1 v8 vs BioCLIP 2" caption="Per-genus top-1 accuracy of orchid-clip-v8 vs BioCLIP 2, sorted by Δ. Lift concentrates on long-tail Pleurothallidinae genera." class="img-fluid rounded z-depth-1" %}
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_per_genus.html' | relative_url }}"
+            title="Interactive per-genus top-1 accuracy, orchid-clip-v8 vs BioCLIP 2"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:580px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+  Per-genus top-1 accuracy of orchid-clip-v8 vs BioCLIP 2, sorted by long-tail Δ. Hover any bar for the exact accuracies and Δ. Lift concentrates on the smallest, longest-tailed Pleurothallidinae genera.
+</div>
 
 | genus           |    n | v8        | BioCLIP 2 | Δ            |
 | --------------- | ---: | --------- | --------- | ------------ |
@@ -82,7 +93,7 @@ That taxonomy-shaped error structure is something you can *see*. Below is the sa
   </div>
 </div>
 <div class="caption">
-  Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Hover to identify a point; drag to zoom, double-click to reset.
+  Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown (top-left) to recolor the same projection by tribe — the finer the level, the tighter the knots. Hover to identify a point; drag to zoom, double-click to reset.
 </div>
 
 Zoom into almost any neighborhood and the points resolve into tight, same-genus knots — the genus level is exactly what v8 has learned to separate. The within-genus species detail that the six extension attempts below all chase is the residual spread *inside* those knots, and it is the part the projection never cleanly pulls apart.
@@ -108,7 +119,35 @@ Six levers, one wall. A single failed extension is a tuning anecdote; six indepe
 
 If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The [deployed **Orchid Photo → ID card**](https://huggingface.co/spaces/mjarnold/orchid-genus-id) does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus *X* (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 60% of photos — the genus survivor, bought back as a precision guarantee.
 
+That trade-off is the whole story, and you can ride it: every point below is one threshold on the top1−top2 margin, sweeping how often the card commits to a species against how often it's right when it does.
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-md-10 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_risk_coverage.html' | relative_url }}"
+            title="Shown-species precision vs coverage — the abstain trade-off"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:480px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+  Risk–coverage trade-off for the species-abstain, straight from the deployed calibration (n=7,137 leakage-safe in-vocab holdout). The orange star is the live operating point — margin τ=0.0149, precision 0.90 at 60% coverage; the grey dot at far right is the no-abstain baseline (0.71). Hover any point to read its τ.
+</div>
+
 <strong><a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">Try it live →</a></strong> Upload an orchid photo; the card names a species when the margin is confident and falls back to the genus when it isn't.
+
+<div class="row justify-content-center mt-2 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="https://mjarnold-orchid-genus-id.hf.space"
+            title="Live orchid genus-ID demo (HuggingFace Space)"
+            loading="lazy" frameborder="0"
+            style="width:100%; height:900px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+  The live <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">genus-ID Space</a>, embedded. The first request wakes the free CPU Space and loads the ViT-L/14 tower (a few seconds); after that, each photo embeds and ranks against 18,858 species in real time.
+</div>
 
 ## Status
 
