@@ -35,6 +35,8 @@ related_publications: false
 
 The +3.8 pp top-1 lift comes at no cost in genus-top-1, confirming that the gains are real species discrimination within genera, not a coarsening of the decision boundary.
 
+> **† Which number is the product?** These are *image-to-prototype* accuracies — an image embedding scored against per-species image centroids. The deployed demo runs a harder **cross-modal** path (image embedding vs. species *text*), which starts at **0.71** species before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on both. [Why the two paths differ →](#building-around-the-boundary-not-against-it)
+
 ## The long tail is the point
 
 <div class="row justify-content-center mt-3 mb-2">
@@ -97,7 +99,7 @@ The lesson: at this scale, in this domain, the dominant variable is the label di
 
 ## Errors are taxonomy-shaped
 
-{% include figure.liquid path="assets/img/orchidclip/phylo_bias.png" title="phylogenetic confusion bias" caption="Observed v8 error distribution across WCVP rank distances vs. a uniform-random null over the 18,858-binomial prototype space. Same-genus errors are 58× more common than chance." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/orchidclip/phylo_bias.png" title="phylogenetic confusion bias" caption="Observed v8 error distribution across WCVP rank distances vs. a uniform-random null over the 18,858-species candidate space (the full text-ranking vocabulary). Same-genus errors are 58× more common than chance." class="img-fluid rounded z-depth-1" %}
 
 When v8 _is_ wrong, it's wrong in a structured way. Bucketing errors by WCVP rank distance between the true and predicted class:
 
@@ -109,6 +111,19 @@ When v8 _is_ wrong, it's wrong in a structured way. Bucketing errors by WCVP ran
 | diff subfamily (d=4) |     0.3% | 51.9% |          0.01× |
 
 Errors at d=1 are 58× more common than chance; cross-subfamily mistakes are essentially absent. The right framing for downstream consumers of v8's top-1 prediction is **"this genus, probably this species"** rather than as a hard species label. The model's effective competence is at the genus level, with a residual species-level disambiguation problem in cryptic-species complexes.
+
+Concretely — which species does v8 mix up? Pulling its 355 holdout errors apart, **320 (90%) are within-genus** and only 35 cross a genus boundary. The within-genus mistakes cluster in exactly the cryptic, long-tailed genera the sampler targets — sister species even specialists separate on subtle floral-segment detail:
+
+| genus           | within-genus errors | rate | an illustrative cryptic pair  |
+| --------------- | :-----------------: | :--: | ----------------------------- |
+| _Maxillaria_    |       19 / 94       | 20%  | _hematoglossa_ → _meleagris_  |
+| _Lepanthes_     |        8 / 40       | 20%  | _tachirensis_ → _scopula_     |
+| _Pleurothallis_ |       17 / 100      | 17%  | _cordata_ → _erymnochila_     |
+| _Encyclia_      |       15 / 101      | 15%  | _tampensis_ → _adenocarpos_   |
+| _Oncidium_      |        7 / 57       | 12%  | _sphacelatum_ → _obryzatum_   |
+| _Masdevallia_   |        7 / 64       | 11%  | _bonplandii_ → _floribunda_   |
+
+Every pair is two species of the *same* genus — the mistake stays inside the genus knot, which is the wall made concrete. (The single largest raw within-genus count, _Ophrys fuciflora_ → _holosericea_ at 82, is deliberately left out: it's the WCVP synonym from ["What lifted the long tail"](#what-lifted-the-long-tail-and-what-didnt) — the *same accepted species* mislabeled in the holdout, a labeling artifact rather than a real confusion.)
 
 ## The embedding, up close
 
@@ -126,6 +141,8 @@ That taxonomy-shaped error structure is something you can *see*. Below is the sa
 <div class="caption">
   Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown (top-left) to recolor the same projection by tribe — the finer the level, the tighter the knots. Hover to identify a point; drag to zoom, double-click to reset.
 </div>
+
+> **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every named species in the shipped text table the live demo ranks each photo against; **18,601** of those have at least one image to build a v8 centroid *and* a known orchid subfamily — the points plotted above (a handful of empty- or non-orchid-subfamily rows are dropped).
 
 Zoom into almost any neighborhood and the points resolve into tight, same-genus knots — the genus level is exactly what v8 has learned to separate. The within-genus species detail that the six extension attempts below all chase is the residual spread *inside* those knots, and it is the part the projection never cleanly pulls apart.
 
@@ -187,3 +204,26 @@ That trade-off is the whole story, and you can ride it: every point below is one
 ## Status
 
 The frozen v8 image encoder is released on HuggingFace as <a href="https://huggingface.co/mjarnold/orchid-clip-v8"><code>mjarnold/orchid-clip-v8</code></a> (MIT) — a foundation embedding for downstream orchid tasks — and the abstain-gated genus-ID card runs as a live Space at <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id"><code>mjarnold/orchid-genus-id</code></a>. The full extension program above — six mechanism classes with their kill-gates, plus the v9–v11 ablations — is written up as a negative-results manuscript, _"Genus Transfers, Species Doesn't: A Mechanism-Invariant Boundary in a Fine-Grained Taxonomic Embedding."_ The interactive UMAP above projects those v8 species centroids colored by WCVP subfamily — Cypripedioideae and Vanilloideae form clean islands while the two megadiverse subfamilies (Epidendroideae and Orchidoideae) partially overlap, and that overlap is exactly where the within-genus species ceiling lives.
+
+### Using v8 as an embedding
+
+`orchid-clip-v8` is an [open_clip](https://github.com/mlfoundations/open_clip) checkpoint (ViT-L/14, fine-tuned on top of BioCLIP 2). Loading it and embedding a photo is a few lines:
+
+```python
+# pip install open_clip_torch huggingface_hub torch pillow
+import torch, open_clip
+from huggingface_hub import snapshot_download
+from PIL import Image
+
+ckpt = snapshot_download("mjarnold/orchid-clip-v8")          # model_config.json + open_clip_pytorch_model.bin
+model, _, preprocess = open_clip.create_model_and_transforms("ViT-L-14", pretrained=None)
+state = torch.load(f"{ckpt}/open_clip_pytorch_model.bin", map_location="cpu", weights_only=False)
+model.load_state_dict(state["state_dict"]); model.eval()     # weights live under state["state_dict"]
+
+img = preprocess(Image.open("orchid.jpg").convert("RGB")).unsqueeze(0)
+with torch.no_grad():
+    feat = model.encode_image(img)
+feat = feat / feat.norm(dim=-1, keepdim=True)                # 768-d, L2-normalized
+```
+
+That 768-d feature is the foundation embedding — cosine-rank it against per-species image centroids or text embeddings for ID, or use it directly for retrieval and downstream heads (bloom-stage, disease, mounting-style). The repo ships [`embed_example.py`](https://huggingface.co/mjarnold/orchid-clip-v8/blob/main/embed_example.py) (with zero-shot scoring against arbitrary species names) and a `sanity_check.py`.
