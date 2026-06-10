@@ -17,10 +17,12 @@ related_publications: false
   <div style="margin-top:0.5rem; font-size:0.9em;">
     <strong>On this page:</strong>
     <a href="#the-long-tail-is-the-point">The long tail</a> ·
+    <a href="#what-lifted-the-long-tail-and-what-didnt">What lifted it</a> ·
     <a href="#errors-are-taxonomy-shaped">Taxonomy-shaped errors</a> ·
     <a href="#the-embedding-up-close">The embedding</a> ·
     <a href="#can-the-species-gap-be-closed-six-attempts-one-wall">Six attempts, one wall</a> ·
-    <a href="#building-around-the-boundary-not-against-it">Try the demo</a>
+    <a href="#building-around-the-boundary-not-against-it">Try the demo</a> ·
+    <a href="#status">Status &amp; usage</a>
   </div>
 </div>
 
