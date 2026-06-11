@@ -91,6 +91,8 @@ The recipe that worked:
 
 {% include figure.liquid path="assets/img/orchidclip/synonym_collapse.png" title="WCVP synonym collapse" caption="The dominant v7 confusion pairs on the 4,000-row holdout. _Ophrys fuciflora_ → _holosericea_ (149 errors) is a WCVP synonym — the same accepted species — so it collapses entirely under the 2026 dedup; resolving synonyms removes the single largest error source before a single training step." class="img-fluid rounded z-depth-1" %}
 
+And the dedup is robust both ways: re-running the holdout in WCVP-*accepted* label space scores top-1 **0.9145** — essentially identical to the raw-label **0.911** — because collapsing _fuciflora_ → _holosericea_ just surfaces the next cryptic pair (_Ophrys argolica_ → _sphegodes_) beneath it, so the residual within-genus confusion is **real morphology, not a labeling artifact**.
+
 Three substantial ablations against this recipe each underperformed:
 
 - **v9** — backbone swap to BioCLIP 2.5-H ViT-H/14 — regressed −2.5 pp top-1.
