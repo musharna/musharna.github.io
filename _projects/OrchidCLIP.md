@@ -35,7 +35,7 @@ related_publications: false
 | BioCLIP 2          | 0.873     | 0.978     | 0.992       |
 | **orchid-clip-v8** | **0.911** | **0.986** | **0.991**   |
 
-The +3.8 pp top-1 lift comes at no cost in genus-top-1, confirming that the gains are real species discrimination within genera, not a coarsening of the decision boundary.
+The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992 — within noise), confirming that the gains are real species discrimination within genera, not a coarsening of the decision boundary.
 
 > **† Which number is the product?** This is a **closed-set** benchmark — each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**. Same cross-modal image→text scoring both ways; genus stays reliable (~0.94) on the open set too. [How the two compare →](#building-around-the-boundary-not-against-it)
 
@@ -113,6 +113,8 @@ When v8 _is_ wrong, it's wrong in a structured way. Bucketing errors by WCVP ran
 | same tribe (d=2)     |     4.8% | 14.8% |          0.32× |
 | same subfamily (d=3) |     2.3% | 20.4% |          0.11× |
 | diff subfamily (d=4) |     0.3% | 51.9% |          0.01× |
+
+_(The observed column sums to 97.5% — the remaining 9 of 355 errors fall on predictions with no resolvable WCVP rank distance to the true class.)_
 
 Errors at d=1 are 58× more common than chance; cross-subfamily mistakes are essentially absent. The right framing for downstream consumers of v8's top-1 prediction is **"this genus, probably this species"** rather than as a hard species label. The model's effective competence is at the genus level, with a residual species-level disambiguation problem in cryptic-species complexes.
 
@@ -209,6 +211,10 @@ That trade-off is the whole story, and you can ride it: every point below is one
 
 The frozen v8 image encoder is released on HuggingFace as <a href="https://huggingface.co/mjarnold/orchid-clip-v8"><code>mjarnold/orchid-clip-v8</code></a> (MIT) — a foundation embedding for downstream orchid tasks — and the abstain-gated genus-ID card runs as a live Space at <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id"><code>mjarnold/orchid-genus-id</code></a>. The full extension program above — six mechanism classes with their kill-gates, plus the v9–v11 ablations — is written up as a negative-results manuscript, _"Genus Transfers, Species Doesn't: A Mechanism-Invariant Boundary in a Fine-Grained Taxonomic Embedding."_ The interactive UMAP above projects those v8 species centroids colored by WCVP subfamily — Cypripedioideae and Vanilloideae form clean islands while the two megadiverse subfamilies (Epidendroideae and Orchidoideae) partially overlap, and that overlap is exactly where the within-genus species ceiling lives.
 
+### Where it works — and where it doesn't
+
+Every benchmark here is on an **iNaturalist-dominated** holdout, and v8 inherits that distribution. On other in-situ *photo* sources it degrades only mildly — OrchidRoots, Tree-of-Life, and Flickr cohorts lose **−0.10 to −0.11** top-1, with genus largely intact. But on **botanically-curated archives** heavy with herbarium specimens and illustrations — IOSPE, POWO — it **collapses**: top-1 falls to **0.14–0.19** and even *genus* drops to ~0.55. The within-genus species wall documented above is a property of field *photographs*; herbarium and illustration imagery is a separate, larger modality gap — and exactly the second-modality lever in the six-attempt table. Heads built on v8 inherit this: deploy it on field photos, not on scanned plates.
+
 ### Using v8 as an embedding
 
 `orchid-clip-v8` is an [open_clip](https://github.com/mlfoundations/open_clip) checkpoint (ViT-L/14, fine-tuned on top of BioCLIP 2). Loading it and embedding a photo is a few lines:
@@ -231,3 +237,7 @@ feat = feat / feat.norm(dim=-1, keepdim=True)                # 768-d, L2-normali
 ```
 
 That 768-d feature is the foundation embedding — cosine-rank it against per-species image centroids or text embeddings for ID, or use it directly for retrieval and downstream heads (bloom-stage, disease, mounting-style). The repo ships [`embed_example.py`](https://huggingface.co/mjarnold/orchid-clip-v8/blob/main/embed_example.py) (with zero-shot scoring against arbitrary species names) and a `sanity_check.py`.
+
+---
+
+<p style="font-size:0.85em; color:#888; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a>. All accuracies are on a stratified, iNaturalist-dominated holdout; closed-set unless noted.</p>
