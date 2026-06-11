@@ -37,7 +37,7 @@ related_publications: false
 
 The +3.8 pp top-1 lift comes at no cost in genus-top-1, confirming that the gains are real species discrimination within genera, not a coarsening of the decision boundary.
 
-> **† Which number is the product?** These are *image-to-prototype* accuracies — an image embedding scored against per-species image centroids. The deployed demo runs a harder **cross-modal** path (image embedding vs. species *text*), which starts at **0.71** species before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on both. [Why the two paths differ →](#building-around-the-boundary-not-against-it)
+> **† Which number is the product?** This is a **closed-set** benchmark — each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**. Same cross-modal image→text scoring both ways; genus stays reliable (~0.94) on the open set too. [How the two compare →](#building-around-the-boundary-not-against-it)
 
 ## The long tail is the point
 
@@ -173,7 +173,7 @@ Six levers, one wall. A single failed extension is a tuning anecdote; six indepe
 
 If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The [deployed **Orchid Photo → ID card**](https://huggingface.co/spaces/mjarnold/orchid-genus-id) does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus *X* (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 60% of photos — the genus survivor, bought back as a precision guarantee.
 
-That 0.71 starting point is lower than the **0.911** headline at the top of this page for a reason worth stating plainly: the card ranks each photo against species *text* embeddings — a harder **cross-modal** path than v8's image-to-prototype classification, but the one that lets a single shipped text table cover all 18,858 species. Genus stays reliable either way (~0.94 here); the abstain is what buys species precision back.
+That 0.71 starting point is lower than the **0.911** headline at the top of this page for a reason worth stating plainly: the headline is a **closed-set** benchmark — each image ranked against only the **547 species present in the holdout** — while the card faces the full **open set** of all **18,858** named species, a 34× larger candidate pool. Both use the same cross-modal image→text scoring; the demo is simply harder because it can confuse a photo with any orchid on Earth, not just the few hundred in a test split. Genus stays reliable either way (~0.94 here); the abstain is what buys species precision back.
 
 That trade-off is the whole story, and you can ride it: every point below is one threshold on the top1−top2 margin, sweeping how often the card commits to a species against how often it's right when it does.
 
