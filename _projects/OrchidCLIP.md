@@ -150,7 +150,7 @@ That taxonomy-shaped error structure is something you can _see_. Below is the sa
   Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown (top-left) to recolor the same projection by tribe — the finer the level, the tighter the knots. Hover to identify a point; drag to zoom, double-click to reset.
 </div>
 
-> **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every named species in the shipped text table the live demo ranks each photo against; **18,601** of those have at least one image to build a v8 centroid _and_ a known orchid subfamily — the points plotted above (a handful of empty- or non-orchid-subfamily rows are dropped).
+> **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every species in the shipped gallery the live demo ranks each photo against — now one per-species v8 **image centroid** each (each built from ≥1 photo); **18,601** of those _also_ carry a known orchid subfamily — the points plotted above (a few hundred centroids whose subfamily is empty or non-orchid are dropped from that plot).
 
 Zoom into almost any neighborhood and the points resolve into tight, same-genus knots — the genus level is exactly what v8 has learned to separate. The within-genus species detail that the six extension attempts below all chase is the residual spread _inside_ those knots, and it is the part the projection never cleanly pulls apart.
 
