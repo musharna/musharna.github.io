@@ -218,15 +218,28 @@ That trade-off is the whole story, and you can ride it: every point below is one
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-md-9 p-0">
-    <iframe src="{{ '/assets/plotly/orchidclip_tail_lift.html' | relative_url }}"
-            title="Starved-tail accuracy before vs after the source-expansion bank"
+    <iframe src="{{ '/assets/plotly/orchidclip_tail_coverage.html' | relative_url }}"
+            title="Starved-tail photo coverage before vs after the source-expansion"
             loading="lazy" frameborder="0" scrolling="no"
             style="width:100%; height:440px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
     </iframe>
   </div>
 </div>
 <div class="caption">
-  Starved-tail (≤12 corpus photos, n=209 holdout queries) top-1 before — the text-embedding path — vs after the deployed image-centroid bank. The full holdout (n=7,137) barely moves (species 0.71→0.71, genus 0.94→0.94): the gain is concentrated exactly on the starved tail the data targeted.
+  Photos per species for the 3,597 starved-tail species the haul fed — corpus only vs after the source-expansion. Mass drains out of the 1–2-photo bin into 3–30: the rare species finally getting the views they lacked (median coverage 2 → 5). This is the coverage the within-genus species signal was starved of.
+</div>
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-md-10 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_tail_sources.html' | relative_url }}"
+            title="Net-new tail images by source"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:520px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+  Where the 27,770 net-new images came from — the cultivated, curated, and literature sources the iNaturalist- and GBIF-dominated corpus misses; hover for per-source species counts. Three homogeneous catalogs (New Guinea, Epidendra, OrchidWeb) were scraped but <em>discarded</em>: their standardized rendering drags species centroids off the field-photo manifold and <em>hurts</em> accuracy — clean labels aren't enough if every photo looks the same.
 </div>
 
 Six embedding-side levers couldn't move within-genus species identity — but the wall isn't only in the model, it's also in the _inputs_. The deepest-tail species are starved: the corpus carries a median of ~2 photos for them, too few to pin a stable centroid. A targeted **source-expansion** pass — vendor, captive, and curated photo sources the iNaturalist-dominated corpus misses — feeds those species exactly the views they lacked, and the deployed card ranks against the expanded image-centroid gallery.
