@@ -12,9 +12,15 @@
 
   if (!seedInput || !img || !caption || !status || !loadBtn || !randomBtn) return;
 
-  function clamp(n) { return Math.max(MIN_SEED, Math.min(MAX_SEED, n)); }
-  function pad4(n) { return String(n).padStart(4, "0"); }
-  function setStatus(t) { status.textContent = t || ""; }
+  function clamp(n) {
+    return Math.max(MIN_SEED, Math.min(MAX_SEED, n));
+  }
+  function pad4(n) {
+    return String(n).padStart(4, "0");
+  }
+  function setStatus(t) {
+    status.textContent = t || "";
+  }
 
   function loadSeed(n) {
     const seed = clamp(parseInt(n, 10) || 0);
