@@ -23,6 +23,7 @@ related_publications: false
     <a href="#the-embedding-up-close">The embedding</a> ·
     <a href="#can-the-species-gap-be-closed-six-attempts-one-wall">Six attempts, one wall</a> ·
     <a href="#building-around-the-boundary-not-against-it">Try the demo</a> ·
+    <a href="#what-finally-moved-the-tail">What moved the tail</a> ·
     <a href="#status">Status &amp; usage</a>
   </div>
 </div>
@@ -38,7 +39,7 @@ related_publications: false
 
 The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992 — within noise), confirming that the gains are real species discrimination within genera, not a coarsening of the decision boundary.
 
-> **† Which number is the product?** This is a **closed-set** benchmark — each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on the open set too. (The live demo now ranks each photo against per-species **image centroids** rather than the text table — the open-set rates are essentially unchanged, but a source-expansion pass has since lifted the *starved tail* well above them; see below.) [How the two compare →](#building-around-the-boundary-not-against-it)
+> **† Which number is the product?** This is a **closed-set** benchmark — each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on the open set too. (The live demo now ranks each photo against per-species **image centroids** rather than the text table — the open-set rates are essentially unchanged, but a source-expansion pass has since lifted the _starved tail_ well above them; see below.) [How the two compare →](#building-around-the-boundary-not-against-it)
 
 ## The long tail is the point
 
@@ -176,7 +177,7 @@ Six levers, one wall. A single failed extension is a tuning anecdote; six indepe
 
 If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The [deployed **Orchid Photo → ID card**](https://huggingface.co/spaces/mjarnold/orchid-genus-id) does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus _X_ (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 57% of photos — the genus survivor, bought back as a precision guarantee.
 
-That 0.71 starting point is lower than the **0.911** headline at the top of this page for a reason worth stating plainly: the headline is a **closed-set** benchmark — each image ranked against only the **547 species present in the holdout** — while the card faces the full **open set** of all **18,858** named species, a 34× larger candidate pool — simply harder, because it can confuse a photo with any orchid on Earth, not just the few hundred in a test split. (The card now ranks against per-species **image centroids** rather than the text table; the open-set species rate is essentially unchanged at ~0.71, while the starved tail is much improved — see *What finally moved the tail*, below.) Genus stays reliable either way (~0.94 here); the abstain is what buys species precision back.
+That 0.71 starting point is lower than the **0.911** headline at the top of this page for a reason worth stating plainly: the headline is a **closed-set** benchmark — each image ranked against only the **547 species present in the holdout** — while the card faces the full **open set** of all **18,858** named species, a 34× larger candidate pool — simply harder, because it can confuse a photo with any orchid on Earth, not just the few hundred in a test split. (The card now ranks against per-species **image centroids** rather than the text table; the open-set species rate is essentially unchanged at ~0.71, while the starved tail is much improved — see [what moved the tail](#what-finally-moved-the-tail), below.) Genus stays reliable either way (~0.94 here); the abstain is what buys species precision back.
 
 That trade-off is the whole story, and you can ride it: every point below is one threshold on the top1−top2 margin, sweeping how often the card commits to a species against how often it's right when it does.
 
@@ -208,11 +209,29 @@ That trade-off is the whole story, and you can ride it: every point below is one
   The live <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">genus-ID Space</a>, embedded. The first request wakes the free CPU Space and loads the ViT-L/14 tower (a few seconds); after that, each photo embeds and ranks against 18,858 species in real time.
 </div>
 
-### What finally moved the tail — data, not the embedding
+## What finally moved the tail
 
-Six embedding-side levers couldn't move within-genus species identity — but the wall isn't only in the model, it's also in the *inputs*. The deepest-tail species are starved: the corpus carries a median of ~2 photos for them, too few to pin a stable centroid. A targeted **source-expansion** pass — vendor, captive, and curated photo sources the iNaturalist-dominated corpus misses — folded fresh images into exactly those starved species, and the live card now ranks against that expanded image-centroid gallery. On a leakage-clean holdout it lifts the **starved tail's species top-1 from 0.16 to 0.50 and genus from 0.64 to 0.81**, with overall genus held at ~0.94.
+<div style="border:1px solid rgba(232,89,12,0.35); border-left:4px solid #e8590c; border-radius:8px; background:rgba(232,89,12,0.05); padding:0.9rem 1.1rem; margin:0.5rem 0 1.3rem;">
+  <strong style="color:#e8590c;">The first lever that actually moved the species wall — and it wasn't the model.</strong>
+  Folding the missing photos into the starved tail lifts <strong>species top-1 from 0.16 to 0.50</strong> and <strong>genus from 0.64 to 0.81</strong> on those species — a 3× species gain — while overall accuracy holds flat. The live card now ranks against that expanded image-centroid gallery.
+</div>
 
-The lesson cuts against a purely architectural reading of the wall: where the embedding is finally fed enough views of a rare species, it *can* separate it — the six levers stalled because they re-tuned the model, not the photons. Two caveats keep it honest. Blending helps *only* the starved species: pooling the same sources into already-well-photographed species *regresses* them (catalog-style images drag a healthy centroid off the field-photo manifold), so the deploy blends the thin tail and leaves the rest untouched. And the genuinely-unphotographed deep tail still resists — that's a data-collection frontier, not a modeling one.
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-md-9 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_tail_lift.html' | relative_url }}"
+            title="Starved-tail accuracy before vs after the source-expansion bank"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:440px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+  Starved-tail (≤12 corpus photos, n=209 holdout queries) top-1 before — the text-embedding path — vs after the deployed image-centroid bank. The full holdout (n=7,137) barely moves (species 0.71→0.71, genus 0.94→0.94): the gain is concentrated exactly on the starved tail the data targeted.
+</div>
+
+Six embedding-side levers couldn't move within-genus species identity — but the wall isn't only in the model, it's also in the _inputs_. The deepest-tail species are starved: the corpus carries a median of ~2 photos for them, too few to pin a stable centroid. A targeted **source-expansion** pass — vendor, captive, and curated photo sources the iNaturalist-dominated corpus misses — feeds those species exactly the views they lacked, and the deployed card ranks against the expanded image-centroid gallery.
+
+The lesson cuts against a purely architectural reading of the wall: where the embedding is finally fed enough views of a rare species, it _can_ separate it — the six levers stalled because they re-tuned the model, not the photons. Two caveats keep it honest. Blending helps _only_ the starved species: pooling the same sources into already-well-photographed species _regresses_ them (catalog-style images drag a healthy centroid off the field-photo manifold), so the deploy blends the thin tail and leaves the rest untouched. And the genuinely-unphotographed deep tail still resists — that's a data-collection frontier, not a modeling one.
 
 ## Status
 
