@@ -28,15 +28,15 @@
     }
 
     const raw = await res.json();
-    const pts = Array.isArray(raw) ? raw : (raw.points || []);
+    const pts = Array.isArray(raw) ? raw : raw.points || [];
     if (!Array.isArray(pts) || pts.length === 0) {
       el.innerHTML = `<p style="color:#b00;">UMAP JSON loaded but had no points.<br>${url}</p>`;
       return;
     }
 
-        const xs = pts.map(d => d.x);
-    const ys = pts.map(d => d.y);
-    const seeds = pts.map(d => d.seed);
+    const xs = pts.map((d) => d.x);
+    const ys = pts.map((d) => d.y);
+    const seeds = pts.map((d) => d.seed);
 
     const trace = {
       x: xs,
@@ -44,27 +44,27 @@
       mode: "markers",
       type: "scattergl",
       customdata: seeds,
-      text: seeds.map(s => `seed ${s}`),
+      text: seeds.map((s) => `seed ${s}`),
       hovertemplate: "%{text}<extra></extra>",
       marker: {
         size: 8,
         opacity: 0.7,
         color: seeds,
-        colorscale: 'Viridis',
-        showscale: false
-      }
+        colorscale: "Viridis",
+        showscale: false,
+      },
     };
 
     const layout = {
       margin: { l: 45, r: 10, t: 10, b: 45 },
       xaxis: { title: "UMAP 1", zeroline: false, showgrid: false },
       yaxis: { title: "UMAP 2", zeroline: false, showgrid: false },
-      dragmode: "pan"
+      dragmode: "pan",
     };
 
-    await Plotly.newPlot(el, [trace], layout, { 
-      responsive: true, 
-      displayModeBar: true 
+    await Plotly.newPlot(el, [trace], layout, {
+      responsive: true,
+      displayModeBar: true,
     });
 
     // Click -> update preview image

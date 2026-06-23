@@ -55,13 +55,13 @@ The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.99
   Per-genus top-1 accuracy of orchid-clip-v8 vs BioCLIP 2, sorted by long-tail Δ. Hover any bar for the exact accuracies and Δ. Lift concentrates on the smallest, longest-tailed Pleurothallidinae genera.
 </div>
 
-| genus           |    n | v8        | BioCLIP 2 | Δ            |
-| --------------- | ---: | --------- | --------- | ------------ |
-| _Stelis_        |   25 | **0.640** | 0.400     | **+24.0 pp** |
-| _Lepanthes_     |   40 | **0.800** | 0.525     | **+27.5 pp** |
-| _Bulbophyllum_  |   41 | **0.732** | 0.585     | **+14.6 pp** |
-| _Maxillaria_    |   94 | **0.787** | 0.649     | **+13.8 pp** |
-| _Pleurothallis_ |  100 | **0.800** | 0.690     | **+11.0 pp** |
+| genus           |   n | v8        | BioCLIP 2 | Δ            |
+| --------------- | --: | --------- | --------- | ------------ |
+| _Stelis_        |  25 | **0.640** | 0.400     | **+24.0 pp** |
+| _Lepanthes_     |  40 | **0.800** | 0.525     | **+27.5 pp** |
+| _Bulbophyllum_  |  41 | **0.732** | 0.585     | **+14.6 pp** |
+| _Maxillaria_    |  94 | **0.787** | 0.649     | **+13.8 pp** |
+| _Pleurothallis_ | 100 | **0.800** | 0.690     | **+11.0 pp** |
 
 The biggest lifts come on the smallest, longest-tailed genera — _Stelis_ (~1,300 species worldwide, n=25 in our holdout) gains +24 pp; _Lepanthes_ (~1,200 species, n=40) gains +27.5 pp. Head genera like _Ophrys_ (n=2,754) gain modestly but never regress.
 
@@ -92,7 +92,7 @@ The recipe that worked:
 
 {% include figure.liquid path="assets/img/orchidclip/synonym_collapse.png" title="WCVP synonym collapse" caption="The dominant v7 confusion pairs on the 4,000-row holdout. _Ophrys fuciflora_ → _holosericea_ (149 errors) is a WCVP synonym — the same accepted species — so it collapses entirely under the 2026 dedup; resolving synonyms removes the single largest error source before a single training step." class="img-fluid rounded z-depth-1" %}
 
-And the dedup is robust both ways: re-running the holdout in WCVP-*accepted* label space scores top-1 **0.9145** — essentially identical to the raw-label **0.911** — because collapsing _fuciflora_ → _holosericea_ just surfaces the next cryptic pair (_Ophrys argolica_ → _sphegodes_) beneath it, so the residual within-genus confusion is **real morphology, not a labeling artifact**.
+And the dedup is robust both ways: re-running the holdout in WCVP-_accepted_ label space scores top-1 **0.9145** — essentially identical to the raw-label **0.911** — because collapsing _fuciflora_ → _holosericea_ just surfaces the next cryptic pair (_Ophrys argolica_ → _sphegodes_) beneath it, so the residual within-genus confusion is **real morphology, not a labeling artifact**.
 
 Three substantial ablations against this recipe each underperformed:
 
@@ -121,20 +121,20 @@ Errors at d=1 are 58× more common than chance; cross-subfamily mistakes are ess
 
 Concretely — which species does v8 mix up? Pulling its 355 holdout errors apart, **320 (90%) are within-genus** and only 35 cross a genus boundary. The within-genus mistakes cluster in exactly the cryptic, long-tailed genera the sampler targets — sister species even specialists separate on subtle floral-segment detail:
 
-| genus           | within-genus errors | rate | an illustrative cryptic pair  |
-| --------------- | :-----------------: | :--: | ----------------------------- |
-| _Maxillaria_    |       19 / 94       | 20%  | _hematoglossa_ → _meleagris_  |
-| _Lepanthes_     |        8 / 40       | 20%  | _tachirensis_ → _scopula_     |
-| _Pleurothallis_ |       17 / 100      | 17%  | _cordata_ → _erymnochila_     |
-| _Encyclia_      |       15 / 101      | 15%  | _tampensis_ → _adenocarpos_   |
-| _Oncidium_      |        7 / 57       | 12%  | _sphacelatum_ → _obryzatum_   |
-| _Masdevallia_   |        7 / 64       | 11%  | _bonplandii_ → _floribunda_   |
+| genus           | within-genus errors | rate | an illustrative cryptic pair |
+| --------------- | :-----------------: | :--: | ---------------------------- |
+| _Maxillaria_    |       19 / 94       | 20%  | _hematoglossa_ → _meleagris_ |
+| _Lepanthes_     |       8 / 40        | 20%  | _tachirensis_ → _scopula_    |
+| _Pleurothallis_ |      17 / 100       | 17%  | _cordata_ → _erymnochila_    |
+| _Encyclia_      |      15 / 101       | 15%  | _tampensis_ → _adenocarpos_  |
+| _Oncidium_      |       7 / 57        | 12%  | _sphacelatum_ → _obryzatum_  |
+| _Masdevallia_   |       7 / 64        | 11%  | _bonplandii_ → _floribunda_  |
 
-Every pair is two species of the *same* genus — the mistake stays inside the genus knot, which is the wall made concrete. (The single largest raw within-genus count, _Ophrys fuciflora_ → _holosericea_ at 82, is deliberately left out: it's the WCVP synonym from ["What lifted the long tail"](#what-lifted-the-long-tail-and-what-didnt) — the *same accepted species* mislabeled in the holdout, a labeling artifact rather than a real confusion.)
+Every pair is two species of the _same_ genus — the mistake stays inside the genus knot, which is the wall made concrete. (The single largest raw within-genus count, _Ophrys fuciflora_ → _holosericea_ at 82, is deliberately left out: it's the WCVP synonym from ["What lifted the long tail"](#what-lifted-the-long-tail-and-what-didnt) — the _same accepted species_ mislabeled in the holdout, a labeling artifact rather than a real confusion.)
 
 ## The embedding, up close
 
-That taxonomy-shaped error structure is something you can *see*. Below is the same v8 prototype space as the cover figure, made explorable: every point is one of **18,601 species** — its mean v8 image embedding — projected to 2D with UMAP and colored by WCVP subfamily. Hover any point to read off its species, genus, and how many images built the prototype; drag to zoom into a clade.
+That taxonomy-shaped error structure is something you can _see_. Below is the same v8 prototype space as the cover figure, made explorable: every point is one of **18,601 species** — its mean v8 image embedding — projected to 2D with UMAP and colored by WCVP subfamily. Hover any point to read off its species, genus, and how many images built the prototype; drag to zoom into a clade.
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -149,32 +149,32 @@ That taxonomy-shaped error structure is something you can *see*. Below is the sa
   Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown (top-left) to recolor the same projection by tribe — the finer the level, the tighter the knots. Hover to identify a point; drag to zoom, double-click to reset.
 </div>
 
-> **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every named species in the shipped text table the live demo ranks each photo against; **18,601** of those have at least one image to build a v8 centroid *and* a known orchid subfamily — the points plotted above (a handful of empty- or non-orchid-subfamily rows are dropped).
+> **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every named species in the shipped text table the live demo ranks each photo against; **18,601** of those have at least one image to build a v8 centroid _and_ a known orchid subfamily — the points plotted above (a handful of empty- or non-orchid-subfamily rows are dropped).
 
-Zoom into almost any neighborhood and the points resolve into tight, same-genus knots — the genus level is exactly what v8 has learned to separate. The within-genus species detail that the six extension attempts below all chase is the residual spread *inside* those knots, and it is the part the projection never cleanly pulls apart.
+Zoom into almost any neighborhood and the points resolve into tight, same-genus knots — the genus level is exactly what v8 has learned to separate. The within-genus species detail that the six extension attempts below all chase is the residual spread _inside_ those knots, and it is the part the projection never cleanly pulls apart.
 
 ## Can the species gap be closed? Six attempts, one wall
 
-That "this genus, probably this species" framing raises the obvious question: the residual species-disambiguation problem — can we *fix* it? v8 already proves the embedding organizes the domain hierarchically, so the species detail ought to be reachable with the right extra lever. We ran six independent extension attempts, each from a different mechanism class, each with its own kill-gate. They converge on one sharp answer: **genus structure transfers, survives, and stays decodable; species identity stalls, collapses, or refuses to be extracted — every single time.**
+That "this genus, probably this species" framing raises the obvious question: the residual species-disambiguation problem — can we _fix_ it? v8 already proves the embedding organizes the domain hierarchically, so the species detail ought to be reachable with the right extra lever. We ran six independent extension attempts, each from a different mechanism class, each with its own kill-gate. They converge on one sharp answer: **genus structure transfers, survives, and stays decodable; species identity stalls, collapses, or refuses to be extracted — every single time.**
 
-| extension lever | genus | species |
-| --- | --- | --- |
-| a second modality — herbarium scans / written descriptions | 0.81–0.93 | 0.005 → 0.686, then plateaus |
-| more capacity — 2× ViT-H backbone, clade mixture-of-experts | — | no lever found |
-| interpretability — sparse autoencoder over frozen features | partial | 0 of 13 morphology axes |
-| open-set recognition — reject never-seen species | card holds | novel-rejection 0.155 |
-| generative augmentation — synthesize tail species | — | no lift past 2–3 real photos |
-| model-free control — classical CV morphology, no v8 | (within-photo only) | cross-modal corr ≈ 0 |
+| extension lever                                             | genus               | species                      |
+| ----------------------------------------------------------- | ------------------- | ---------------------------- |
+| a second modality — herbarium scans / written descriptions  | 0.81–0.93           | 0.005 → 0.686, then plateaus |
+| more capacity — 2× ViT-H backbone, clade mixture-of-experts | —                   | no lever found               |
+| interpretability — sparse autoencoder over frozen features  | partial             | 0 of 13 morphology axes      |
+| open-set recognition — reject never-seen species            | card holds          | novel-rejection 0.155        |
+| generative augmentation — synthesize tail species           | —                   | no lift past 2–3 real photos |
+| model-free control — classical CV morphology, no v8         | (within-photo only) | cross-modal corr ≈ 0         |
 
-A few are worth spelling out. **A second modality** is the most direct lever — give the model a dried herbarium specimen or a written description per species. It recovers genus cheaply but within-genus species climbs only from 0.005 to 0.686 as the alignment improves, and there it sticks; neither more capacity nor more data moves it. Each modality separates species *from itself* (herbarium→herbarium 0.88, photo→photo 0.99), but those axes don't line up across the gap between them. The **model-free control** is the cleanest: we threw out v8 entirely and measured fourteen classical computer-vision features — color clusters, texture, symmetry, aspect ratio — straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. The wall isn't a quirk of v8's learned features — it's in the data.
+A few are worth spelling out. **A second modality** is the most direct lever — give the model a dried herbarium specimen or a written description per species. It recovers genus cheaply but within-genus species climbs only from 0.005 to 0.686 as the alignment improves, and there it sticks; neither more capacity nor more data moves it. Each modality separates species _from itself_ (herbarium→herbarium 0.88, photo→photo 0.99), but those axes don't line up across the gap between them. The **model-free control** is the cleanest: we threw out v8 entirely and measured fourteen classical computer-vision features — color clusters, texture, symmetry, aspect ratio — straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. The wall isn't a quirk of v8's learned features — it's in the data.
 
 {% include figure.liquid path="assets/img/orchidclip/crossmodal_climb.png" title="the cross-modal climb" caption="The most direct lever, spelled out. Across three alignment stages the genus signal stays flat near the top while within-genus species top-1 climbs two orders of magnitude — 0.005 → 0.077 → 0.686 — and then stalls below 0.69. The mechanism keeps improving; the species ceiling holds." class="img-fluid rounded z-depth-1" %}
 
-Six levers, one wall. A single failed extension is a tuning anecdote; six independent failures, each with its own gate, all landing on the identical *genus-survives / species-locked* split is evidence about the embedding itself. And it generalizes: this is the fine-grained-taxonomy face of the **modality gap** that contrastive image-text models are known to exhibit, and no published herbarium-to-field plant system reports clean within-genus species transfer either.
+Six levers, one wall. A single failed extension is a tuning anecdote; six independent failures, each with its own gate, all landing on the identical _genus-survives / species-locked_ split is evidence about the embedding itself. And it generalizes: this is the fine-grained-taxonomy face of the **modality gap** that contrastive image-text models are known to exhibit, and no published herbarium-to-field plant system reports clean within-genus species transfer either.
 
 ## Building around the boundary, not against it
 
-If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The [deployed **Orchid Photo → ID card**](https://huggingface.co/spaces/mjarnold/orchid-genus-id) does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus *X* (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 60% of photos — the genus survivor, bought back as a precision guarantee.
+If the species gap is structural, the right move is to stop pretending it's closed and serve predictions at the granularity the embedding actually earns. The [deployed **Orchid Photo → ID card**](https://huggingface.co/spaces/mjarnold/orchid-genus-id) does exactly that: a zero-training layer reads the margin between the top-1 and top-2 species scores and, when it's too thin, abstains to **"Genus _X_ (species uncertain)"** rather than committing to a confident wrong binomial. That one rule lifts shown-species precision from 0.71 to **0.90** while still naming a species on 60% of photos — the genus survivor, bought back as a precision guarantee.
 
 That 0.71 starting point is lower than the **0.911** headline at the top of this page for a reason worth stating plainly: the headline is a **closed-set** benchmark — each image ranked against only the **547 species present in the holdout** — while the card faces the full **open set** of all **18,858** named species, a 34× larger candidate pool. Both use the same cross-modal image→text scoring; the demo is simply harder because it can confuse a photo with any orchid on Earth, not just the few hundred in a test split. Genus stays reliable either way (~0.94 here); the abstain is what buys species precision back.
 
@@ -214,7 +214,7 @@ The frozen v8 image encoder is released on HuggingFace as <a href="https://huggi
 
 ### Where it works — and where it doesn't
 
-Every benchmark here is on an **iNaturalist-dominated** holdout, and v8 inherits that distribution. On other in-situ *photo* sources it degrades only mildly — OrchidRoots, Tree-of-Life, and Flickr cohorts lose **−0.10 to −0.11** top-1, with genus largely intact. But on **botanically-curated archives** heavy with herbarium specimens and illustrations — IOSPE, POWO — it **collapses**: top-1 falls to **0.14–0.19** and even *genus* drops to ~0.55. The within-genus species wall documented above is a property of field *photographs*; herbarium and illustration imagery is a separate, larger modality gap — and exactly the second-modality lever in the six-attempt table. Heads built on v8 inherit this: deploy it on field photos, not on scanned plates.
+Every benchmark here is on an **iNaturalist-dominated** holdout, and v8 inherits that distribution. On other in-situ _photo_ sources it degrades only mildly — OrchidRoots, Tree-of-Life, and Flickr cohorts lose **−0.10 to −0.11** top-1, with genus largely intact. But on **botanically-curated archives** heavy with herbarium specimens and illustrations — IOSPE, POWO — it **collapses**: top-1 falls to **0.14–0.19** and even _genus_ drops to ~0.55. The within-genus species wall documented above is a property of field _photographs_; herbarium and illustration imagery is a separate, larger modality gap — and exactly the second-modality lever in the six-attempt table. Heads built on v8 inherit this: deploy it on field photos, not on scanned plates.
 
 ### Using v8 as an embedding
 
