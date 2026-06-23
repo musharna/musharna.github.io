@@ -1,23 +1,23 @@
 (function () {
-  const seedSelect = document.getElementById('latent-seed-select');
-  const colorSlider = document.getElementById('color-slider');
-  const sizeSlider = document.getElementById('size-slider');
-  const colorValue = document.getElementById('color-value');
-  const sizeValue = document.getElementById('size-value');
-  const preview = document.getElementById('latent-preview');
-  const caption = document.getElementById('latent-caption');
-  const resetBtn = document.getElementById('reset-sliders');
+  const seedSelect = document.getElementById("latent-seed-select");
+  const colorSlider = document.getElementById("color-slider");
+  const sizeSlider = document.getElementById("size-slider");
+  const colorValue = document.getElementById("color-value");
+  const sizeValue = document.getElementById("size-value");
+  const preview = document.getElementById("latent-preview");
+  const caption = document.getElementById("latent-caption");
+  const resetBtn = document.getElementById("reset-sliders");
 
   if (!seedSelect || !colorSlider || !sizeSlider || !preview) return;
 
   function formatStrength(value) {
-    const sign = value >= 0 ? 'plus' : 'minus';
-    const abs = Math.abs(value).toFixed(1).replace('.', 'p');
+    const sign = value >= 0 ? "plus" : "minus";
+    const abs = Math.abs(value).toFixed(1).replace(".", "p");
     return `${sign}${abs}`;
   }
 
   function updateImage() {
-    const seed = seedSelect.value.padStart(4, '0');
+    const seed = seedSelect.value.padStart(4, "0");
     const colorStrength = parseFloat(colorSlider.value);
     const sizeStrength = parseFloat(sizeSlider.value);
 
@@ -26,10 +26,10 @@
 
     let direction, strength;
     if (Math.abs(colorStrength) >= Math.abs(sizeStrength)) {
-      direction = 'color_to_white';
+      direction = "color_to_white";
       strength = colorStrength;
     } else {
-      direction = 'petal_size';
+      direction = "petal_size";
       strength = sizeStrength;
     }
 
@@ -45,14 +45,14 @@
     if (sizeStrength !== 0) {
       parts.push(sizeStrength > 0 ? `larger petals (+${sizeStrength.toFixed(1)})` : `smaller petals (${sizeStrength.toFixed(1)})`);
     }
-    caption.textContent = parts.join(', ');
+    caption.textContent = parts.join(", ");
   }
 
-  seedSelect.addEventListener('change', updateImage);
-  colorSlider.addEventListener('input', updateImage);
-  sizeSlider.addEventListener('input', updateImage);
+  seedSelect.addEventListener("change", updateImage);
+  colorSlider.addEventListener("input", updateImage);
+  sizeSlider.addEventListener("input", updateImage);
 
-  resetBtn.addEventListener('click', () => {
+  resetBtn.addEventListener("click", () => {
     colorSlider.value = 0;
     sizeSlider.value = 0;
     updateImage();

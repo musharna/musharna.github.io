@@ -1,10 +1,10 @@
 ---
 layout: page
 title: Phelipanche Transcriptomics
-description: 
+description:
 img: assets/img/12.jpg
 importance: 1
-category: 
+category:
 related_publications: false
 ---
 

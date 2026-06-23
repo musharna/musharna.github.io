@@ -1,25 +1,27 @@
-.orchidgan-card{
+.orchidgan-card {
   max-width: 720px;
   margin: 18px auto 0;
   padding: 18px 18px 14px;
-  border: 1px solid rgba(127,127,127,.25);
+  border: 1px solid rgba(127, 127, 127, 0.25);
   border-radius: 16px;
-  background: rgba(255,255,255,.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.orchidgan-head{ margin-bottom: 12px; }
-.orchidgan-title{
+.orchidgan-head {
+  margin-bottom: 12px;
+}
+.orchidgan-title {
   margin: 0 0 6px;
   font-size: 1.35rem;
   line-height: 1.2;
 }
-.orchidgan-sub{
+.orchidgan-sub {
   margin: 0;
-  opacity: .78;
-  font-size: .98rem;
+  opacity: 0.78;
+  font-size: 0.98rem;
 }
 
-.orchidgan-controls{
+.orchidgan-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 14px;
@@ -28,86 +30,88 @@
   margin: 12px 0 10px;
 }
 
-.orchidgan-label{
+.orchidgan-label {
   display: grid;
   gap: 6px;
-  font-size: .92rem;
-  opacity: .9;
+  font-size: 0.92rem;
+  opacity: 0.9;
 }
 
-.orchidgan-input{
+.orchidgan-input {
   width: 120px;
   padding: 8px 10px;
   border-radius: 12px;
-  border: 1px solid rgba(127,127,127,.28);
+  border: 1px solid rgba(127, 127, 127, 0.28);
   background: transparent;
 }
 
-.orchidgan-buttons{
+.orchidgan-buttons {
   display: flex;
   gap: 10px;
 }
 
-.orchidgan-btn{
+.orchidgan-btn {
   padding: 9px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(127,127,127,.28);
+  border: 1px solid rgba(127, 127, 127, 0.28);
   background: transparent;
   cursor: pointer;
 }
-.orchidgan-btn:hover{ filter: brightness(1.06); }
-
-.orchidgan-btn-primary{
-  border-color: rgba(190, 90, 255, .55);
+.orchidgan-btn:hover {
+  filter: brightness(1.06);
 }
 
-.orchidgan-status{
+.orchidgan-btn-primary {
+  border-color: rgba(190, 90, 255, 0.55);
+}
+
+.orchidgan-status {
   flex: 1;
   min-width: 200px;
   text-align: right;
-  font-size: .92rem;
-  opacity: .7;
+  font-size: 0.92rem;
+  opacity: 0.7;
 }
 
-.orchidgan-figure{
+.orchidgan-figure {
   margin: 0;
   padding-top: 6px;
 }
 
-.orchidgan-img{
+.orchidgan-img {
   display: block;
   width: min(520px, 100%);
   margin: 0 auto;
   border-radius: 18px;
-  border: 1px solid rgba(127,127,127,.22);
+  border: 1px solid rgba(127, 127, 127, 0.22);
 }
 
-.orchidgan-caption{
+.orchidgan-caption {
   text-align: center;
   margin-top: 8px;
-  opacity: .65;
-  font-size: .9rem;
+  opacity: 0.65;
+  font-size: 0.9rem;
 }
 
-.orchidgan-video{
-  display:block;
-  width:min(520px,100%);
+.orchidgan-video {
+  display: block;
+  width: min(520px, 100%);
   margin: 10px auto 0;
   border-radius: 18px;
-  border: 1px solid rgba(127,127,127,.22);
+  border: 1px solid rgba(127, 127, 127, 0.22);
 }
 
 /* Morphospace card */
-.orchidgan-morpho.card{
+.orchidgan-morpho.card {
   max-width: 720px;
   margin: 18px auto 0;
   padding: 18px 18px 14px;
-  border: 1px solid rgba(127,127,127,.25);
+  border: 1px solid rgba(127, 127, 127, 0.25);
   border-radius: 16px;
-  background: rgba(255,255,255,.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.orchidgan-morpho-preview{
+.orchidgan-morpho-preview {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,23 +123,23 @@
   min-height: 0;
 }
 
-#orchidgan-morpho-img{
+#orchidgan-morpho-img {
   display: block;
-  width: min(520px, 100%);   /* scale up your 256px images */
+  width: min(520px, 100%); /* scale up your 256px images */
   height: auto;
   border-radius: 18px;
-  border: 1px solid rgba(127,127,127,.22);
+  border: 1px solid rgba(127, 127, 127, 0.22);
 }
 
-.orchidgan-morpho-label{
+.orchidgan-morpho-label {
   text-align: center;
-  opacity: .7;
-  font-size: .92rem;
+  opacity: 0.7;
+  font-size: 0.92rem;
 }
 
 /* Plot container must have an explicit height for Plotly */
-.orchidgan-morpho-plot{
+.orchidgan-morpho-plot {
   width: 100%;
-  height: 460px;             /* tune 380–520px to taste */
+  height: 460px; /* tune 380–520px to taste */
   min-height: 360px;
 }
