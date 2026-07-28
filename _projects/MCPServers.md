@@ -7,7 +7,7 @@ category: research tooling
 related_publications: false
 ---
 
-Most of what an AI agent can reach through the **Model Context Protocol** is *retrieval* —
+Most of what an AI agent can reach through the **Model Context Protocol** is _retrieval_ —
 search an index, fetch a record, summarize it. That is the easy tier, and it is crowded.
 
 The harder tier is **compute**: tools that actually run the analysis, return a number that
