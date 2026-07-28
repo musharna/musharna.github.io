@@ -82,7 +82,9 @@ jobs:
           python-version: "3.13"
           cache: "pip" # caching pip dependencies
       - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+        # Pinned: @main is a floating branch ref, and this workflow PUBLISHES the
+        # site — whatever lands on that action's main would run in the publish path.
+        uses: fjogeleit/yaml-update-action@v0.17.0
         with:
           commitChange: false
           valueFile: "_config.yml"

@@ -144,7 +144,12 @@ newsletter:
 
 collections:
   books:
-    output: true
+    # al-folio ships a demo book review (The Godfather, with a fabricated reading
+    # log and a buy link). Deleting _pages/books.md only removed the index — the
+    # COLLECTION kept generating /books/the_godfather/, /books/category/crime/,
+    # /books/tag/top-100/ and 6 more, all returning 200 and all listed in
+    # sitemap.xml. Output disabled and the demo content deleted.
+    output: false
   news:
     defaults:
       layout: post
@@ -191,18 +196,21 @@ exclude:
   - readme_preview/
   - vendor
   #Additions beyond template:
+  # _bibliography/ and publications.md are NO LONGER excluded — the page now
+  # carries the four Zenodo-archived software entries (concept DOIs).
+  # teaching/repositories/profiles/books/dropdown were unedited al-folio template
+  # pages; they are DELETED rather than excluded, so their placeholder text
+  # ("Replace this text with your description", "your own GitHub profile") cannot
+  # resurface if an exclude line is ever dropped. books.md proved the point: it was
+  # never excluded, so /books/ was serving al-folio's demo bookshelf publicly and
+  # was listed in sitemap.xml.
   - _news/announcement_*.md
   - _pages/news.md
   - _pages/blog.md
   - _posts/
   - assets/jupyter/blog.ipynb
   - _news/
-  - _bibliography/
-  - _pages/publications.md
   - _pages/cv.md
-  - _pages/teaching.md
-  - _pages/repositories.md
-  - _pages/profiles.md
   #WIP Projects:
   - _projects/Agrigen.md
   - _projects/LobeliaSilhouettes.md

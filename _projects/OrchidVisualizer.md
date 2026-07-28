@@ -62,7 +62,7 @@ actually reaches the model.
 ## Generation
 
 - **Base model:** [`stabilityai/stable-diffusion-xl-base-1.0`](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
-- **LoRA:** [`mjarnold/orchid-ancestry-lora-v2`](https://huggingface.co/mjarnold/orchid-ancestry-lora-v2) — one ancestry-aware LoRA, applied at an ancestry-weighted scale
+- **LoRA:** `mjarnold/orchid-ancestry-lora-v2` (not yet public) — one ancestry-aware LoRA, applied at an ancestry-weighted scale
 - **Hue tokens:** small textual-inversion embeddings trained per pigment channel
   (anthocyanin-red, carotenoid-yellow), so colour can be steered independently of the prose
   prompt
