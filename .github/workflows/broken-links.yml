@@ -41,7 +41,13 @@ on:
 jobs:
   link-checker:
     runs-on: ubuntu-latest
-    # only run on the main repo
+    # INERT ON THIS FORK, DELIBERATELY. This condition is upstream's; on
+    # musharna/musharna.github.io it can never be true, which is why every run of
+    # this workflow shows "skipped". Leaving it inert rather than enabling it:
+    # it scans SOURCE .md, where Liquid is unresolved, so `{{ '/x' | relative_url }}`
+    # reports as a missing file. Measured on _projects/: 9 errors, all Liquid, zero
+    # real. broken-links-site.yml supersedes it — same checker, run against the BUILT
+    # site where Liquid is resolved, and now with external checking enabled.
     if: github.repository == 'alshedivat/al-folio'
     steps:
       - uses: actions/checkout@v7

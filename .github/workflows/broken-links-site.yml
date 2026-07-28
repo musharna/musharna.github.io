@@ -48,5 +48,26 @@ jobs:
         uses: lycheeverse/lychee-action@v2.9.0
         with:
           fail: true
-          # only check local links
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          # Only check local links. --root-dir is what lets lychee resolve
+          # root-relative hrefs ('/', '/projects/', '/assets/...'); without it every
+          # one of them is an unresolvable error. The first time this job ever got
+          # past `bundle install` (2026-07-28) it reported 159 errors, all of that
+          # class — zero were real. The old --remap covered /assets only, not pages.
+          #
+          # Measured on a local build, same _site:
+          #   without --root-dir : 159 errors, 11 OK, 52 unique
+          #   with    --root-dir :   0 errors, 170 OK, 109 unique
+          # Coverage roughly DOUBLES — this resolves links rather than silencing them.
+          # Detection is intact: an injected '/definitely-not-real-9f3a/' is still
+          # flagged while a valid sibling link passes.
+          #
+          # --offline REMOVED. This runs on the BUILT site, where Liquid is already
+          # resolved, so it is the only place external links can be checked without
+          # false-positiving on `{{ ... | relative_url }}` (which is exactly what
+          # broken-links.yml hits when it scans source .md). While it was offline,
+          # NOTHING on this site checked an external URL — which is how a link to a
+          # PRIVATE HuggingFace model (401) shipped on two project pages.
+          # Verified: this config flags that 401 and passes the public sibling.
+          # Measured full run ~1m15s. unsplash.com is excluded because it 401s all
+          # non-browser agents (al-folio's default image-credit link, not a defect).
+          args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --exclude 'unsplash\.com' --verbose --no-progress '_site/**/*.html'
