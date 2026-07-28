@@ -53,6 +53,16 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
+            },},{id: "projects-orchid-vision",
+          title: 'Orchid Vision',
+          description: "A computer-vision program built on orchids - generation, recognition, and guided hybridization - because the long tail is where fine-grained models actually break.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/OrchidVision/";
+            },},{id: "projects-cattleya-hybrid-visualizer",
+          title: 'Cattleya Hybrid Visualizer',
+          description: "What would this orchid cross look like? SDXL steered by a botanical phenotype engine, for hybrids that take 4-7 years to actually flower.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/OrchidVisualizer/";
             },},{
         id: 'social-email',
         title: 'email',
