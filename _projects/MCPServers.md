@@ -2,6 +2,7 @@
 layout: page
 title: MCP Servers
 description: Model Context Protocol servers that let an AI agent run the instrument, not just read about it — plant genomics, phenotyping, research-data acquisition, and the broker that schedules the GPU work.
+img: assets/img/mcpservers/card.svg
 importance: 1
 category: research tooling
 related_publications: false
