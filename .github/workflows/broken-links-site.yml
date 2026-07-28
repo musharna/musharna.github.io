@@ -17,10 +17,15 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2.2"
+          # Must match deploy.yml. This workflow sat on 3.2.2 while deploy.yml moved
+          # to 3.3.5, and css_parser 3.0.0 (a transitive dep) now requires >= 3.3 —
+          # so `bundle install` exited 5 and this job reported RED for a dependency
+          # failure, not for broken links. It had never actually checked a link.
+          ruby-version: "3.3.5"
           bundler-cache: true
       - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+        # Pinned: @main is a floating branch ref — whatever lands there runs here.
+        uses: fjogeleit/yaml-update-action@v0.17.0
         with:
           commitChange: false
           valueFile: "_config.yml"
