@@ -3,8 +3,9 @@ layout: page
 title: Cattleya Hybrid Visualizer
 description: What would this orchid cross look like? SDXL steered by a botanical phenotype engine, for hybrids that take 4-7 years to actually flower.
 img: assets/img/orchidvisualizer/card.jpg
-importance: 1
-category:
+importance: 4
+# Deep dive — see OrchidCLIP.md. Not in display_categories.
+category: orchid deep dive
 related_publications: false
 ---
 
