@@ -1,0 +1,52 @@
+version: 2
+updates:
+  # GitHub Actions used in .github/workflows.
+  #
+  # This repo had no Dependabot config at all, so its 14 workflows were never
+  # offered an update and drifted onto Node 20-era action majors. Node 20 is
+  # removed from GitHub-hosted runners on 2026-09-16, which would have broken
+  # every workflow here — including deploy.yml, which publishes the site.
+  # Grouping minor/patch keeps the PR volume low; majors (the ones that carry
+  # the Node runtime bump) arrive as individual PRs so each can be reviewed
+  # and CI-checked on its own.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Ruby gems for the Jekyll build (Gemfile + Gemfile.lock).
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      bundler-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Node tooling for the prettier / HTML-format checks (package.json).
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Base images for the containerised local-preview / deploy images.
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
