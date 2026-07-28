@@ -115,19 +115,24 @@ giscus:
   lang: en
 
 # Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
+# Was `al-folio` — the upstream template's own shortname. Cleared so comments could
+# never be routed to someone else's Disqus if this were ever re-enabled.
+disqus_shortname: # put your disqus shortname
 # https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 # External sources.
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
+#
+# EMPTIED. This shipped pointing at al-folio's OWN Medium feed plus a Google Blog
+# announcement, and it generated four live, sitemap-indexed pages under my name:
+#   /blog/2022/displaying-external-posts-on-your-al-folio-blog/
+#   /blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/
+#   /blog/2022/  /blog/2024/
+# Excluding _pages/blog.md and _posts/ did NOT stop this — the posts are generated
+# from external_sources, not from _posts. Same mechanism as the books collection:
+# removing an index page does not stop the content that feeds it.
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
 
 # -----------------------------------------------------------------------------
 # Newsletter
