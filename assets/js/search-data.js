@@ -9,7 +9,14 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-projects",
+  },{id: "nav-publications",
+          title: "publications",
+          description: "Software I maintain, cited by concept DOI. Peer-reviewed publications will appear here as they are published.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-projects",
           title: "projects",
           description: "More projects coming soon!",
           section: "Navigation",
@@ -38,12 +45,7 @@ ninja.data = [{
             window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
           
         },
-      },{id: "books-the-godfather",
-          title: 'The Godfather',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
-            },},{id: "projects-orchidclip",
+      },{id: "projects-orchidclip",
           title: 'OrchidCLIP',
           description: "A long-tail-aware CLIP model for fine-grained orchid identification across 5,124 species.",
           section: "Projects",handler: () => {
