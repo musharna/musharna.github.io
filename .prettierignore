@@ -3,6 +3,9 @@
 **/*.min.js
 assets/css/main.scss
 assets/js/distillpub/template.v2.js
+# Vendored distill.pub source, same origin as template.v2.js above. Prettier
+# 3.9 reformats it; it is not ours to restyle.
+assets/js/distillpub/transforms.v2.js
 assets/js/search/*.js
 assets/plotly/demo.html
 lighthouse_results/**
