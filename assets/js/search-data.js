@@ -18,12 +18,17 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "projects",
-          description: "More projects coming soon!",
+          description: "Computer vision on the long tail of plant diversity, and the research tooling built along the way.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "projects-orchidclip",
+        },{id: "projects-mcp-servers",
+          title: 'MCP Servers',
+          description: "Model Context Protocol servers that let an AI agent run the instrument, not just read about it — plant genomics, phenotyping, research-data acquisition, and the broker that schedules the GPU work.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/MCPServers/";
+            },},{id: "projects-orchidclip",
           title: 'OrchidCLIP',
           description: "A long-tail-aware CLIP model for fine-grained orchid identification across 5,124 species.",
           section: "Projects",handler: () => {
