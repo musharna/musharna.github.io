@@ -68,6 +68,18 @@ jobs:
           # NOTHING on this site checked an external URL — which is how a link to a
           # PRIVATE HuggingFace model (401) shipped on two project pages.
           # Verified: this config flags that 401 and passes the public sibling.
-          # Measured full run ~1m15s. unsplash.com is excluded because it 401s all
-          # non-browser agents (al-folio's default image-credit link, not a defect).
-          args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --exclude 'unsplash\.com' --verbose --no-progress '_site/**/*.html'
+          # Measured full run ~1m30s. Tuning below is from the FIRST online run,
+          # which went red on things that were provably healthy:
+          #   --timeout 45      doi.org -> zenodo redirect chains exceeded the 20s
+          #                     default and reported TIMEOUT on all four DOIs. All
+          #                     four return 200 to curl. Real links, slow resolver.
+          #   --retry-wait-time 2
+          # Exclusions are for hosts that reject non-browser agents, NOT for links
+          # that are actually down — each verified 200 via curl before excluding:
+          #   unsplash.com  401s every non-browser UA (al-folio image credit)
+          #   hf.space      resets lychee's UA (connection reset by peer) while
+          #                 returning 200 to curl. The canonical
+          #                 huggingface.co/spaces/... URL is still checked, so the
+          #                 private-model 401 class of defect remains covered.
+          # Validated on a local build of this commit: 231 OK, 0 errors.
+          args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --timeout 45 --retry-wait-time 2 --exclude 'unsplash\.com' --exclude 'hf\.space' --verbose --no-progress '_site/**/*.html'
