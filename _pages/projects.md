@@ -2,10 +2,19 @@
 layout: page
 title: projects
 permalink: /projects/
-description: More projects coming soon!
+description: Computer vision on the long tail of plant diversity, and the research tooling built along the way.
 nav: true
 nav_order: 3
-display_categories:
+# Grid order. `enable_project_categories` was already true in _config.yml, but this
+# list was empty and every project had an empty `category:`, so all cards rendered
+# as one ungrouped pile — four of five of them orchid.
+#
+# Only categories LISTED HERE render as cards. That is deliberate: the orchid
+# deep-dive pages (OrchidCLIP / OrchidGAN / OrchidVisualizer) carry
+# `category: orchid deep dive`, which is absent here, so they keep their pages and
+# URLs but come off the grid. Orchid Vision is the hub and already links all three,
+# so the grid was duplicating it.
+display_categories: [orchid vision, research tooling]
 horizontal: false
 ---
 
