@@ -3,8 +3,10 @@ layout: page
 title: OrchidCLIP
 description: A long-tail-aware CLIP model for fine-grained orchid identification across 5,124 species.
 img: assets/img/orchidclip/orchidclip_card.png
-importance: 1
-category:
+importance: 2
+# Deep dive: page and URL stay live, card comes off the /projects/ grid. Reached
+# from the Orchid Vision hub, which links all three. Not in display_categories.
+category: orchid deep dive
 related_publications: false
 ---
 

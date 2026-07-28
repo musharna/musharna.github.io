@@ -3,8 +3,9 @@ layout: page
 title: Orchid GAN
 description:
 img: assets/img/orchidgan/stylemix/28-28.png
-importance: 1
-category:
+importance: 3
+# Deep dive — see OrchidCLIP.md. Not in display_categories.
+category: orchid deep dive
 related_publications: false
 ---
 
