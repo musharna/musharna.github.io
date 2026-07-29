@@ -499,6 +499,18 @@ footer.fixed-bottom {
 
   a {
     color: var(--global-footer-link-color);
+    // axe rule link-in-text-block on /projects/MCPServers/: these credit links
+    // sit inside a run of prose ("Powered by Jekyll with al-folio theme. Hosted
+    // by GitHub Pages.") and were distinguished from it by COLOUR ALONE, which
+    // is WCAG 1.4.1. An underline is the standard remedy and does not depend on
+    // the link and text colours ever reaching a 3:1 ratio.
+    //
+    // Only some pages reported it — the footer markup is byte-identical
+    // everywhere, so the trigger is layout-dependent (this footer is
+    // position: fixed, so whether content sits behind it varies by page height).
+    // Underlining fixes the rule wherever it evaluates rather than only where it
+    // happened to fire.
+    text-decoration: underline;
 
     &:hover {
       color: var(--global-theme-color);
