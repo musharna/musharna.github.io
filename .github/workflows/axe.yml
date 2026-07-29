@@ -53,24 +53,59 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> $GITHUB_ENV
-      - name: Setup Chrome 🌐
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
-        run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
+      # NO Chrome installation step, deliberately.
+      #
+      # Two attempts were made at managing the browser ourselves and both failed
+      # the same way — ChromeDriver launching a Chrome it did not match:
+      #   1. version scraped from chrome-for-testing + ChromeDriver from npm
+      #      -> "only supports Chrome version 151"
+      #   2. setup-chrome with install-chromedriver (a genuinely matched pair,
+      #      both build 1669995), plus PATH symlinks and CHROME_PATH
+      #      -> "only supports Chrome version 153"
+      # (2) failed because ChromeDriver resolves Chrome from well-known absolute
+      # paths BEFORE consulting PATH, so it kept finding the runner's own
+      # preinstalled Chrome regardless of what we put in front of it.
+      #
+      # The ubuntu runner image already ships Google Chrome and a version-matched
+      # ChromeDriver, and exposes the driver directory as $CHROMEWEBDRIVER. Using
+      # that pair removes the class of bug rather than fighting it: there is no
+      # version to synchronise because we no longer install either one.
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
+        #
+        # The first time this workflow was ever dispatched (2026-07-28) it failed
+        # here, and NOT on an accessibility finding:
+        #   npm error code EACCES
+        #   npm error syscall symlink
+        #   npm error dest /usr/local/share/man/man1/http-server.1
+        # `npm install -g http-server` cannot write its man page into
+        # /usr/local/share/man on the runner, so axe never executed at all.
+        #
+        # Serving with python3's stdlib http.server removes the failure mode
+        # rather than working around it: no global install, no man pages, no
+        # permissions, and python3 is present on every GitHub runner. Waiting on
+        # the port instead of racing the background process removes a second one.
         run: |
-          npm install -g @axe-core/cli
-          npm install -g http-server
-          http-server _site/ &
-          axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080/${{ github.event.inputs.url || env.URL }} --load-delay=1500 --exit
+          python3 -m http.server 8080 --directory _site &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8080/ >/dev/null && break
+            sleep 1
+          done
+          curl -sf http://localhost:8080/ >/dev/null || { echo "::error::site did not come up on :8080"; exit 1; }
+
+          # The runner image's own matched pair. $CHROMEWEBDRIVER is set by the
+          # image; fall back to PATH so this still works if that ever changes.
+          DRIVER="${CHROMEWEBDRIVER:+$CHROMEWEBDRIVER/chromedriver}"
+          [ -x "$DRIVER" ] || DRIVER="$(command -v chromedriver || true)"
+          [ -x "$DRIVER" ] || { echo "::error::no chromedriver found"; exit 1; }
+
+          # Echo both versions BEFORE running. Every failure of this step so far
+          # has been a version mismatch diagnosed from a stack trace; logging the
+          # pair makes the next one visible at a glance.
+          echo "chrome:       $(google-chrome --version 2>&1 || true)"
+          echo "chromedriver: $DRIVER ($("$DRIVER" --version 2>&1 || true))"
+
+          npx --yes @axe-core/cli \
+            --chromedriver-path "$DRIVER" \
+            "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" \
+            --load-delay=1500 --exit

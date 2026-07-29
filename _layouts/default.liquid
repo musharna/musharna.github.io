@@ -21,7 +21,22 @@
     {% include header.liquid %}
 
     <!-- Content -->
-    <div class="container mt-5" role="main">
+    <!--
+      A real <main> element, not <div role="main">.
+
+      axe rule landmark-banner-is-top-level flagged .post-header as a banner
+      landmark nested inside the main landmark. The cause is here: <header> only
+      loses its implicit `banner` role when it descends from a sectioning
+      ELEMENT (main / article / section / nav / aside). A <div> carrying
+      role="main" is not one, so every page's <header class="post-header"> was
+      still computing as a second, nested banner.
+
+      Using the element instead of the role fixes it at the source and gives the
+      page a genuine main landmark. Nothing in _sass or assets/js keys off
+      [role="main"], and .container styling is by class, so this is inert
+      visually.
+    -->
+    <main class="container mt-5">
       {% if page.toc and page.toc.sidebar %}
         {% if page.toc.sidebar == 'right' %}
           <div class="row">
@@ -45,7 +60,7 @@
       {% else %}
         {{ content }}
       {% endif %}
-    </div>
+    </main>
 
     <!-- Footer -->
     {% include footer.liquid %}
