@@ -105,7 +105,40 @@ jobs:
           echo "chrome:       $(google-chrome --version 2>&1 || true)"
           echo "chromedriver: $DRIVER ($("$DRIVER" --version 2>&1 || true))"
 
+          # Coverage comes from sitemap.xml, not from a hand-kept list.
+          #
+          # This workflow used to check exactly ONE page per dispatch (default:
+          # the homepage). When it was first made to run, four pages were audited
+          # by hand and THREE of them had violations the homepage did not — so
+          # one-page-per-dispatch was not a small gap, it was most of the site.
+          # A hand-maintained list would have the same failure mode one page later.
+          #
+          # Deriving targets from the built sitemap means a new page is covered
+          # the moment it is published, with nothing to remember. The `url` input
+          # still works for checking a single page.
+          REQ='${{ github.event.inputs.url }}'
+          if [ -n "$REQ" ]; then
+            TARGETS="http://localhost:8080/${REQ}"
+          else
+            TARGETS=$(python3 - <<'PY'
+          import re, pathlib
+          xml = pathlib.Path("_site/sitemap.xml").read_text(encoding="utf-8", errors="replace")
+          locs = re.findall(r"<loc>([^<]+)</loc>", xml)
+          seen, out = set(), []
+          for u in locs:
+              path = re.sub(r"^https?://[^/]+", "", u) or "/"
+              if path not in seen:
+                  seen.add(path)
+                  out.append("http://localhost:8080" + path)
+          print(" ".join(out))
+          PY
+          )
+          fi
+          [ -n "$TARGETS" ] || { echo "::error::no targets resolved from sitemap.xml"; exit 1; }
+          echo "auditing $(printf '%s\n' $TARGETS | wc -l) page(s):"
+          printf '  %s\n' $TARGETS
+
           npx --yes @axe-core/cli \
             --chromedriver-path "$DRIVER" \
-            "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" \
+            $TARGETS \
             --load-delay=1500 --exit

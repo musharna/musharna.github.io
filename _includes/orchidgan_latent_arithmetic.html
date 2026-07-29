@@ -35,7 +35,10 @@
   <!-- Direction sliders -->
   <div style="max-width: 500px; margin: 0 auto">
     <div style="margin-bottom: 24px">
-      <label style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9">
+      <!-- for= is what makes this a programmatic label. Without it the text is
+           only visually adjacent, and axe reports rule "label" on #color-slider:
+           a screen reader announces an unnamed range input. -->
+      <label for="color-slider" style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9">
         Color → White
         <span id="color-value" style="float: right; font-family: ui-monospace; opacity: 0.7">0.0</span>
       </label>
@@ -51,7 +54,7 @@
     </div>
 
     <div style="margin-bottom: 24px">
-      <label style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9">
+      <label for="size-slider" style="display: block; margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9">
         Petal Size
         <span id="size-value" style="float: right; font-family: ui-monospace; opacity: 0.7">0.0</span>
       </label>
