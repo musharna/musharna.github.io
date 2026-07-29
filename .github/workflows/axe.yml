@@ -53,20 +53,22 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> $GITHUB_ENV
+      # Chrome and ChromeDriver come from ONE source so they cannot drift apart.
+      # Previously the version was scraped from chrome-for-testing with wget, Chrome
+      # was installed from it, and ChromeDriver was installed separately from npm —
+      # three moving parts that had to agree. They did not: axe reached
+      # chrome-headless and died with
+      #   "session not created: This version of ChromeDriver only supports Chrome
+      #    version 151"
+      # because the npm ChromeDriver launched a different Chrome than the one this
+      # step installed. install-chromedriver guarantees a matched pair, and the
+      # paths are read from the action's own outputs rather than guessed.
       - name: Setup Chrome 🌐
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
-        run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
+          install-chromedriver: true
+          install-dependencies: true
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         #
@@ -89,7 +91,21 @@ jobs:
             sleep 1
           done
           curl -sf http://localhost:8080/ >/dev/null || { echo "::error::site did not come up on :8080"; exit 1; }
+
+          # Put the Chrome that setup-chrome installed first on PATH under the
+          # names ChromeDriver looks for. Without this, ChromeDriver finds the
+          # runner's own preinstalled Chrome and the versions mismatch even though
+          # the driver itself is correct.
+          CHROME_BIN='${{ steps.setup-chrome.outputs.chrome-path }}'
+          mkdir -p "$RUNNER_TEMP/chromebin"
+          ln -sf "$CHROME_BIN" "$RUNNER_TEMP/chromebin/google-chrome"
+          ln -sf "$CHROME_BIN" "$RUNNER_TEMP/chromebin/chrome"
+          export PATH="$RUNNER_TEMP/chromebin:$PATH"
+          export CHROME_PATH="$CHROME_BIN"
+          echo "chrome:       $CHROME_BIN ($('$CHROME_BIN' --version 2>&1))"
+          echo "chromedriver: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
+
           npx --yes @axe-core/cli \
-            --chromedriver-path "$(npm root -g)/chromedriver/bin/chromedriver" \
+            --chromedriver-path "${{ steps.setup-chrome.outputs.chromedriver-path }}" \
             "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" \
             --load-delay=1500 --exit
