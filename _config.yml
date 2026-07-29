@@ -685,11 +685,16 @@ third_party_libraries:
 # DISABLED along with the deletion of assets/json/resume.json (al-folio's Einstein demo
 # CV, which was publicly served — see the _pages/cv.md note in the exclude list above).
 #
-# This is load-bearing, not cosmetic: jekyll-get-json resolves this path on EVERY build,
-# not just when /cv/ is rendered. Deleting the JSON while leaving the block active fails
-# the build even though the CV page is excluded. Kept here, commented, because these two
-# blocks plus the cv.md exclude line are the complete set of changes needed to turn a real
-# CV page back on.
+# Why this block had to be touched at all, rather than left pointing at a deleted file:
+# jekyll-get-json is a Generator, so it resolves this path on EVERY build, not only when
+# /cv/ renders. It does NOT fail when the file is missing — v1.0.0 wraps the fetch in
+# `begin ... rescue; next` (read from the published gem), so Errno::ENOENT is swallowed and
+# the build stays green forever while site.data.resume is silently nil. A config line
+# pointing at a file that does not exist and never complains is worse than one that breaks,
+# which is why this is disabled rather than abandoned in place.
+#
+# Kept here, commented, because these two blocks plus the cv.md exclude line are the
+# complete set of changes needed to turn a real CV page back on.
 #
 # jekyll_get_json:
 #   - data: resume
