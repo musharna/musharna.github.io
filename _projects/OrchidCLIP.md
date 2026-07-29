@@ -214,7 +214,7 @@ That trade-off is the whole story, and you can ride it: every point below is one
 ## What finally moved the tail
 
 <div style="border:1px solid rgba(232,89,12,0.35); border-left:4px solid #e8590c; border-radius:8px; background:rgba(232,89,12,0.05); padding:0.9rem 1.1rem; margin:0.5rem 0 1.3rem;">
-  <strong style="color:#e8590c;">The first lever that actually moved the species wall — and it wasn't the model.</strong>
+  <strong style="color:#c54b0a;">The first lever that actually moved the species wall — and it wasn't the model.</strong>
   Folding the missing photos into the starved tail lifts <strong>species top-1 from 0.16 to 0.50</strong> and <strong>genus from 0.64 to 0.81</strong> on those species — a 3× species gain — while overall accuracy holds flat. The live card now ranks against that expanded image-centroid gallery.
 </div>
 
