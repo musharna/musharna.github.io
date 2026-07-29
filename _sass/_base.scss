@@ -747,7 +747,11 @@ footer.sticky-bottom {
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
+    // Same upstream defect as h2.category above: --global-divider-color is a
+    // hairline colour being used as a text colour. axe flagged the year heading
+    // on /publications/ with color-contrast. Border keeps the divider colour;
+    // the text takes the theme's text colour.
+    color: var(--global-text-color);
     border-top: 1px solid var(--global-divider-color);
     padding-top: 1rem;
     margin-top: 2rem;
