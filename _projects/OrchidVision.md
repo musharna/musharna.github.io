@@ -18,7 +18,7 @@ distinct taxa, cultivar names standing in for species. A model that survives tha
 has to earn it through unglamorous curation work, and that work, far more than the
 architecture, determines the result.
 
-Three pieces, built in this order.
+## Three pieces, built in this order
 
 <div class="row mt-4">
 <div class="col-md-6">

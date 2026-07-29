@@ -13,7 +13,7 @@ related_publications: false
 <div style="border:1px solid rgba(0,0,0,0.1); border-left:4px solid #2c5282; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
   <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model — top-1 <strong>0.911</strong> across 5,124 species, gains concentrated on the rarest genera. Its sharper lesson is a wall: across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. So rather than guess a binomial, the live demo serves a <em>calibrated genus</em> — naming a species only when the top-1/top-2 margin earns it.
   <div style="margin-top:0.7rem;">
-    <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id" style="display:inline-block; background:#e8590c; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🌿 Try the live demo</a>
+    <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id" style="display:inline-block; background:#cc4e0b; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🌿 Try the live demo</a>
     <a href="https://huggingface.co/mjarnold/orchid-clip-v8" style="display:inline-block; background:#2c5282; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🤗 Model on HF</a>
     <a href="https://github.com/musharna/orchid-clip" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">💻 Code on GitHub</a>
   </div>
