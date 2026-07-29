@@ -22,13 +22,13 @@ Three pieces, built in this order.
 
 <div class="row mt-4">
 <div class="col-md-6">
-  <h4><a href="{{ '/projects/OrchidGAN/' | relative_url }}">OrchidGAN</a> — generative</h4>
+  <h3><a href="{{ '/projects/OrchidGAN/' | relative_url }}">OrchidGAN</a> — generative</h3>
   <p>StyleGAN2-ADA fine-tuned on a curated set of <em>Cattleya</em>. Established that orchid
   floral morphology is learnable and produced a navigable latent "morphospace" supporting
   seed sampling, interpolation and style mixing. Where the program started.</p>
 </div>
 <div class="col-md-6">
-  <h4><a href="{{ '/projects/OrchidCLIP/' | relative_url }}">orchid-clip-v8</a> — recognition</h4>
+  <h3><a href="{{ '/projects/OrchidCLIP/' | relative_url }}">orchid-clip-v8</a> — recognition</h3>
   <p>A long-tail-aware CLIP for fine-grained orchid ID: <strong>top-1 0.911 across 5,124
   species</strong>, <strong>+3.8 pp</strong> over the BioCLIP 2 baseline overall and up to
   <strong>+28 pp</strong> on the rarest genera. Its sharper result is a wall — across six
@@ -39,14 +39,14 @@ Three pieces, built in this order.
 
 <div class="row mt-3">
 <div class="col-md-6">
-  <h4><a href="{{ '/projects/OrchidVisualizer/' | relative_url }}">Cattleya Hybrid Visualizer</a> — guided hybridization</h4>
+  <h3><a href="{{ '/projects/OrchidVisualizer/' | relative_url }}">Cattleya Hybrid Visualizer</a> — guided hybridization</h3>
   <p>SDXL plus an ancestry LoRA, prompted from a botanical phenotype engine that blends
   parent traits as independent pigment channels with dominance rules and
   generation-dependent recessive thresholds. Predicts what a cross would plausibly look like
   — four to seven years before it flowers.</p>
 </div>
 <div class="col-md-6">
-  <h4>Where it goes next — closing the loop</h4>
+  <h3>Where it goes next — closing the loop</h3>
   <p>The three pieces are not yet a system. The obvious next step is to let recognition
   <em>gate</em> generation: score each generated bloom against a per-species prototype and
   reject the ones that miss, turning generation into a measurable loop rather than a thing a

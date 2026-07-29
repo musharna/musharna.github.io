@@ -69,7 +69,7 @@ into Claude Code or any MCP client with a single config entry.
 
 All five are on PyPI:
 
-```
+```bash
 pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp ldraw-mcp jobd
 ```
 

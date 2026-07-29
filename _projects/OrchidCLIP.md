@@ -281,4 +281,4 @@ That 768-d feature is the foundation embedding — cosine-rank it against per-sp
 
 ---
 
-<p style="font-size:0.85em; color:#888; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a stratified, iNaturalist-dominated holdout; closed-set unless noted.</p>
+<p style="font-size:0.85em; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a stratified, iNaturalist-dominated holdout; closed-set unless noted.</p>
