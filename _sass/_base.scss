@@ -703,7 +703,20 @@ footer.sticky-bottom {
   }
 
   h2.category {
-    color: var(--global-divider-color);
+    // Upstream al-folio uses --global-divider-color here as the TEXT colour. That
+    // variable is a hairline colour: rgba(0, 0, 0, 0.1) in the light theme, which
+    // is roughly 1.2:1 against a white background where WCAG AA wants 4.5:1, and
+    // #424246 on dark. axe flagged both category headings on /projects/:
+    //   Violation of "color-contrast" with 2 occurrences
+    //     - #orchid\ vision > .category
+    //     - #research\ tooling > .category
+    // It only surfaced now because the categories were never populated before,
+    // so this heading had never rendered.
+    //
+    // A divider colour is correct for the divider and wrong for type. The border
+    // keeps it; the text takes the theme's actual text colour, which the theme
+    // already guarantees is readable in both light and dark.
+    color: var(--global-text-color);
     border-bottom: 1px solid var(--global-divider-color);
     padding-top: 0.5rem;
     margin-top: 2rem;
