@@ -499,6 +499,18 @@ footer.fixed-bottom {
 
   a {
     color: var(--global-footer-link-color);
+    // axe rule link-in-text-block on /projects/MCPServers/: these credit links
+    // sit inside a run of prose ("Powered by Jekyll with al-folio theme. Hosted
+    // by GitHub Pages.") and were distinguished from it by COLOUR ALONE, which
+    // is WCAG 1.4.1. An underline is the standard remedy and does not depend on
+    // the link and text colours ever reaching a 3:1 ratio.
+    //
+    // Only some pages reported it — the footer markup is byte-identical
+    // everywhere, so the trigger is layout-dependent (this footer is
+    // position: fixed, so whether content sits behind it varies by page height).
+    // Underlining fixes the rule wherever it evaluates rather than only where it
+    // happened to fire.
+    text-decoration: underline;
 
     &:hover {
       color: var(--global-theme-color);
@@ -703,7 +715,20 @@ footer.sticky-bottom {
   }
 
   h2.category {
-    color: var(--global-divider-color);
+    // Upstream al-folio uses --global-divider-color here as the TEXT colour. That
+    // variable is a hairline colour: rgba(0, 0, 0, 0.1) in the light theme, which
+    // is roughly 1.2:1 against a white background where WCAG AA wants 4.5:1, and
+    // #424246 on dark. axe flagged both category headings on /projects/:
+    //   Violation of "color-contrast" with 2 occurrences
+    //     - #orchid\ vision > .category
+    //     - #research\ tooling > .category
+    // It only surfaced now because the categories were never populated before,
+    // so this heading had never rendered.
+    //
+    // A divider colour is correct for the divider and wrong for type. The border
+    // keeps it; the text takes the theme's actual text colour, which the theme
+    // already guarantees is readable in both light and dark.
+    color: var(--global-text-color);
     border-bottom: 1px solid var(--global-divider-color);
     padding-top: 0.5rem;
     margin-top: 2rem;
@@ -734,7 +759,11 @@ footer.sticky-bottom {
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
+    // Same upstream defect as h2.category above: --global-divider-color is a
+    // hairline colour being used as a text colour. axe flagged the year heading
+    // on /publications/ with color-contrast. Border keeps the divider colour;
+    // the text takes the theme's text colour.
+    color: var(--global-text-color);
     border-top: 1px solid var(--global-divider-color);
     padding-top: 1rem;
     margin-top: 2rem;
