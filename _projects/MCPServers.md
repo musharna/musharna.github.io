@@ -20,14 +20,14 @@ into Claude Code or any MCP client with a single config entry.
 
 <div class="row mt-4">
 <div class="col-md-6">
-  <h4><a href="https://github.com/musharna/plant-genomics-mcp">plant-genomics-mcp</a></h4>
+  <h3><a href="https://github.com/musharna/plant-genomics-mcp">plant-genomics-mcp</a></h3>
   <p><strong>50 tools across 23 public backends</strong> — Ensembl Plants, Phytozome,
   UniProt, AlphaFold DB, PDBe, InterPro, JASPAR, PANTHER, OrthoDB, AraGWAS, NCBI BLAST,
   Gramene, KEGG, STRING-DB, ATTED-II, BAR and more — plus cross-source synthesis, so a
   locus question does not become twenty browser tabs. stdio and Streamable-HTTP.</p>
 </div>
 <div class="col-md-6">
-  <h4><a href="https://github.com/musharna/data-aggregator-mcp">data-aggregator-mcp</a></h4>
+  <h3><a href="https://github.com/musharna/data-aggregator-mcp">data-aggregator-mcp</a></h3>
   <p>Unified research-data acquisition. Search and fetch datasets across <strong>Zenodo,
   DataCite, NCBI omics (GEO / SRA / BioProject)</strong> and the literature
   (PubMed, OpenAIRE) behind <em>one normalized model</em> — the point being that
@@ -37,14 +37,14 @@ into Claude Code or any MCP client with a single config entry.
 
 <div class="row mt-3">
 <div class="col-md-6">
-  <h4><a href="https://github.com/musharna/plantcv-mcp">plantcv-mcp</a></h4>
+  <h3><a href="https://github.com/musharna/plantcv-mcp">plantcv-mcp</a></h3>
   <p>Exposes <strong>PlantCV as a measurement instrument</strong>: plant traits <em>and the
   segmentation overlay they were measured from</em>. Returning the overlay is the whole
   design — a trait value with no picture of what was segmented is a number you have to take
   on faith, and a wrong segmentation produces a perfectly plausible one.</p>
 </div>
 <div class="col-md-6">
-  <h4><a href="https://github.com/musharna/ldraw-mcp">ldraw-mcp</a></h4>
+  <h3><a href="https://github.com/musharna/ldraw-mcp">ldraw-mcp</a></h3>
   <p>Renders LDraw / LEGO models to images with <strong>real part geometry</strong> — studs,
   glass, tires — via headless Blender and ImportLDraw. It gives a vision-capable model eyes
   for brick builds, which turns "describe this model" into something it can actually check.
@@ -56,7 +56,7 @@ into Claude Code or any MCP client with a single config entry.
 
 <div class="row mt-3">
 <div class="col-md-12">
-  <h4><a href="https://github.com/musharna/jobd">jobd</a></h4>
+  <h3><a href="https://github.com/musharna/jobd">jobd</a></h3>
   <p>A <strong>self-hostable, GPU-aware job broker</strong> for your own machines, with
   native MCP integration. Not a data server — it is what runs the work the others imply.
   Agents submit long jobs, the broker serializes GPU access across machines and sessions,
@@ -69,7 +69,7 @@ into Claude Code or any MCP client with a single config entry.
 
 All five are on PyPI:
 
-```bash
+```
 pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp ldraw-mcp jobd
 ```
 
