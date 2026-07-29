@@ -53,22 +53,23 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      # Chrome and ChromeDriver come from ONE source so they cannot drift apart.
-      # Previously the version was scraped from chrome-for-testing with wget, Chrome
-      # was installed from it, and ChromeDriver was installed separately from npm —
-      # three moving parts that had to agree. They did not: axe reached
-      # chrome-headless and died with
-      #   "session not created: This version of ChromeDriver only supports Chrome
-      #    version 151"
-      # because the npm ChromeDriver launched a different Chrome than the one this
-      # step installed. install-chromedriver guarantees a matched pair, and the
-      # paths are read from the action's own outputs rather than guessed.
-      - name: Setup Chrome 🌐
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          install-chromedriver: true
-          install-dependencies: true
+      # NO Chrome installation step, deliberately.
+      #
+      # Two attempts were made at managing the browser ourselves and both failed
+      # the same way — ChromeDriver launching a Chrome it did not match:
+      #   1. version scraped from chrome-for-testing + ChromeDriver from npm
+      #      -> "only supports Chrome version 151"
+      #   2. setup-chrome with install-chromedriver (a genuinely matched pair,
+      #      both build 1669995), plus PATH symlinks and CHROME_PATH
+      #      -> "only supports Chrome version 153"
+      # (2) failed because ChromeDriver resolves Chrome from well-known absolute
+      # paths BEFORE consulting PATH, so it kept finding the runner's own
+      # preinstalled Chrome regardless of what we put in front of it.
+      #
+      # The ubuntu runner image already ships Google Chrome and a version-matched
+      # ChromeDriver, and exposes the driver directory as $CHROMEWEBDRIVER. Using
+      # that pair removes the class of bug rather than fighting it: there is no
+      # version to synchronise because we no longer install either one.
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         #
@@ -92,20 +93,19 @@ jobs:
           done
           curl -sf http://localhost:8080/ >/dev/null || { echo "::error::site did not come up on :8080"; exit 1; }
 
-          # Put the Chrome that setup-chrome installed first on PATH under the
-          # names ChromeDriver looks for. Without this, ChromeDriver finds the
-          # runner's own preinstalled Chrome and the versions mismatch even though
-          # the driver itself is correct.
-          CHROME_BIN='${{ steps.setup-chrome.outputs.chrome-path }}'
-          mkdir -p "$RUNNER_TEMP/chromebin"
-          ln -sf "$CHROME_BIN" "$RUNNER_TEMP/chromebin/google-chrome"
-          ln -sf "$CHROME_BIN" "$RUNNER_TEMP/chromebin/chrome"
-          export PATH="$RUNNER_TEMP/chromebin:$PATH"
-          export CHROME_PATH="$CHROME_BIN"
-          echo "chrome:       $CHROME_BIN ($('$CHROME_BIN' --version 2>&1))"
-          echo "chromedriver: ${{ steps.setup-chrome.outputs.chromedriver-path }}"
+          # The runner image's own matched pair. $CHROMEWEBDRIVER is set by the
+          # image; fall back to PATH so this still works if that ever changes.
+          DRIVER="${CHROMEWEBDRIVER:+$CHROMEWEBDRIVER/chromedriver}"
+          [ -x "$DRIVER" ] || DRIVER="$(command -v chromedriver || true)"
+          [ -x "$DRIVER" ] || { echo "::error::no chromedriver found"; exit 1; }
+
+          # Echo both versions BEFORE running. Every failure of this step so far
+          # has been a version mismatch diagnosed from a stack trace; logging the
+          # pair makes the next one visible at a glance.
+          echo "chrome:       $(google-chrome --version 2>&1 || true)"
+          echo "chromedriver: $DRIVER ($("$DRIVER" --version 2>&1 || true))"
 
           npx --yes @axe-core/cli \
-            --chromedriver-path "${{ steps.setup-chrome.outputs.chromedriver-path }}" \
+            --chromedriver-path "$DRIVER" \
             "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" \
             --load-delay=1500 --exit
