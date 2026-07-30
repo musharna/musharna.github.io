@@ -7,13 +7,23 @@ first_name: Jaret
 middle_name:
 last_name: Arnold
 contact_note: > #
-description:
-  > # the ">" symbol means to ignore newlines until "footer_text:" #A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+# Shipped in <meta name="description">, og:description, twitter:description AND the
+# JSON-LD blob (see _includes/metadata.liquid:42,60,69,238) on EVERY page. It was
+# empty until 2026-07-29, so search results and Slack/LinkedIn link previews had no
+# summary at all, and `keywords` below still advertised the al-folio THEME rather
+# than this site.
+#
+# metadata.liquid interpolates this raw into an HTML attribute and into JSON — so no
+# double quotes and no bare ampersands here, or the JSON-LD breaks. Hence "and".
+description: >
+  PhD student in Genetics, Bioinformatics and Computational Biology at Virginia Tech,
+  working on computer vision and machine learning for plant science and on open-source
+  tooling for plant genomics.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
   Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
+keywords: plant science, bioinformatics, computational biology, computer vision, machine learning, plant genomics, synthetic biology, phenotyping, Model Context Protocol, Virginia Tech
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: 🧬 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
@@ -27,13 +37,11 @@ back_to_top: true # set to false to disable the back to top button
 # Theme
 # -----------------------------------------------------------------------------
 
-# repo color theme
-repo_theme_light: default # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
-repo_theme_dark: dark # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
-repo_trophies:
-  enabled: true
-  theme_light: flat # https://github.com/ryo-ma/github-profile-trophy
-  theme_dark: gitdimmed # https://github.com/ryo-ma/github-profile-trophy
+# repo_theme_light / repo_theme_dark / repo_trophies REMOVED: they configured
+# _includes/repository/*, which was only ever rendered by the al-folio /repositories/ page.
+# That page was deleted, orphaning the includes and _data/repositories.yml (which listed
+# torvalds and alshedivat), so all of it is gone. Live config for a deleted feature reads
+# as a feature that exists.
 
 # -----------------------------------------------------------------------------
 # RSS Feed
@@ -183,7 +191,10 @@ kramdown:
 include: ["_pages", "_scripts"]
 exclude:
   - bin/
-  - CONTRIBUTING.md
+  # CONTRIBUTING.md is DELETED, not excluded: GitHub wires that filename into its own
+  # issue/PR UI regardless of Jekyll, so al-folio's "Contributing to al-folio" guide was
+  # being offered to anyone opening a PR on THIS repo. Excluding it from the build never
+  # touched that surface.
   - CUSTOMIZE.md
   - Dockerfile
   - docker-compose.yml
@@ -192,13 +203,15 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - INSTALL.md
+  # LICENSE stays: al-folio is MIT, and retaining its copyright notice is a condition of
+  # the licence, not leftover residue. Do not delete it.
   - LICENSE
-  - lighthouse_results/
   - package.json
   - package-lock.json
   - purgecss.config.js
   - README.md
-  - readme_preview/
+  # readme_preview/ DELETED: 14 screenshots (3.3 MB) of al-folio's own demo site, used
+  # only by the template's README, which this repo no longer carries.
   - vendor
   #Additions beyond template:
   # _bibliography/ and publications.md are NO LONGER excluded — the page now
@@ -212,9 +225,24 @@ exclude:
   - _news/announcement_*.md
   - _pages/news.md
   - _pages/blog.md
-  - _posts/
-  - assets/jupyter/blog.ipynb
+  # _posts/ (31 al-folio feature-demo posts) and assets/jupyter/blog.ipynb are DELETED,
+  # not excluded — same reasoning as the template pages above. Excluding them kept ~45 MB
+  # of demo images, video and audio in the repo that ONLY those posts referenced.
   - _news/
+  # _pages/cv.md stays excluded, and BOTH of its data sources are deleted. There were two,
+  # and both held al-folio's Albert Einstein demo CV:
+  #   assets/json/resume.json  - the primary. Because assets/ is copied verbatim this one
+  #                              was LIVE at /assets/json/resume.json (HTTP 200, complete
+  #                              with albert@einstein.de) even though /cv/ was never built.
+  #                              Excluding a page does not unpublish its assets.
+  #   _data/cv.yml             - the fallback (_layouts/cv.liquid:4 falls through to it when
+  #                              site.data.resume is empty). Not web-served, but it meant
+  #                              simply dropping this exclude line would have published an
+  #                              Einstein CV rather than an empty one.
+  # With both gone, un-excluding cv.md renders an empty CV — wrong-and-obvious beats
+  # wrong-and-plausible. To build a real one: add your own _data/cv.yml, or recreate
+  # assets/json/resume.json and restore the jekyll_get_json / jsonresume blocks near the
+  # bottom of this file.
   - _pages/cv.md
   #WIP Projects:
   - _projects/Agrigen.md
@@ -654,20 +682,34 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
-
-jsonresume:
-  - basics
-  - work
-  - education
-  - publications
-  - projects
-  - volunteer
-  - awards
-  - certificates
-  - skills
-  - languages
-  - interests
-  - references
+# DISABLED along with the deletion of assets/json/resume.json (al-folio's Einstein demo
+# CV, which was publicly served — see the _pages/cv.md note in the exclude list above).
+#
+# Why this block had to be touched at all, rather than left pointing at a deleted file:
+# jekyll-get-json is a Generator, so it resolves this path on EVERY build, not only when
+# /cv/ renders. It does NOT fail when the file is missing — v1.0.0 wraps the fetch in
+# `begin ... rescue; next` (read from the published gem), so Errno::ENOENT is swallowed and
+# the build stays green forever while site.data.resume is silently nil. A config line
+# pointing at a file that does not exist and never complains is worse than one that breaks,
+# which is why this is disabled rather than abandoned in place.
+#
+# Kept here, commented, because these two blocks plus the cv.md exclude line are the
+# complete set of changes needed to turn a real CV page back on.
+#
+# jekyll_get_json:
+#   - data: resume
+#     json: assets/json/resume.json # it can also be an url
+#
+# jsonresume:
+#   - basics
+#   - work
+#   - education
+#   - publications
+#   - projects
+#   - volunteer
+#   - awards
+#   - certificates
+#   - skills
+#   - languages
+#   - interests
+#   - references

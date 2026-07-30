@@ -17,15 +17,14 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
+      # Only files that still exist. Six of the previous negations named workflows,
+      # directories and docs that have since been deleted (deploy-docker-tag.yml,
+      # deploy-image.yml, docker-slim.yml, lighthouse-badger.yml, broken-links.yml,
+      # lighthouse_results/, CONTRIBUTING.md) — dead negations in a paths filter are
+      # silently ignored, so they read as coverage that is not there.
       - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
+      - "!.github/workflows/broken-links-site.yml"
       - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!CONTRIBUTING.md"
       - "!CUSTOMIZE.md"
       - "!FAQ.md"
       - "!INSTALL.md"
@@ -46,15 +45,14 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
+      # Only files that still exist. Six of the previous negations named workflows,
+      # directories and docs that have since been deleted (deploy-docker-tag.yml,
+      # deploy-image.yml, docker-slim.yml, lighthouse-badger.yml, broken-links.yml,
+      # lighthouse_results/, CONTRIBUTING.md) — dead negations in a paths filter are
+      # silently ignored, so they read as coverage that is not there.
       - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
+      - "!.github/workflows/broken-links-site.yml"
       - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!CONTRIBUTING.md"
       - "!CUSTOMIZE.md"
       - "!FAQ.md"
       - "!INSTALL.md"
