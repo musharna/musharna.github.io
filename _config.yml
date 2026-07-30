@@ -8,10 +8,14 @@ middle_name:
 last_name: Arnold
 contact_note: > #
 # Shipped in <meta name="description">, og:description, twitter:description AND the
-# JSON-LD blob (see _includes/metadata.liquid:42,60,69,238) on EVERY page. It was
-# empty until 2026-07-29, so search results and Slack/LinkedIn link previews had no
-# summary at all, and `keywords` below still advertised the al-folio THEME rather
-# than this site.
+# JSON-LD blob (see _includes/metadata.liquid:42,60,69,238) on EVERY page. It was empty
+# until 2026-07-29, and `keywords` below still advertised the al-folio THEME.
+#
+# CORRECTION to what this comment first said: the empty description was NOT why link
+# previews had no summary. og:/twitter: tags are gated on serve_og_meta, which was false —
+# they were not emitted at all, empty description or not. Verified by fetching the live
+# page after filling this in and finding og:description still absent. Both flags are now
+# on; see the Open Graph section below.
 #
 # metadata.liquid interpolates this raw into an HTML attribute and into JSON — so no
 # double quotes and no bare ampersands here, or the JSON-LD breaks. Hence "and".
@@ -70,9 +74,21 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+# Both ENABLED 2026-07-29. The whole OpenGraph + Twitter-card block in
+# _includes/metadata.liquid:54 is gated on serve_og_meta, so with it false the site emitted
+# no og:title, og:description, og:image or twitter:card at all — every link to this site
+# rendered as a bare URL on Slack, LinkedIn, Bluesky and Discord. Filling site.description
+# alone did NOT fix that; the flag is the actual cause.
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+# Emits a Person JSON-LD with sameAs links built from _data/socials.yml (GitHub, ORCID).
+# The 'email' case in that generator is deliberately commented out upstream, so the address
+# is NOT published in structured data. Depends on socials.yml only — nothing it needs was
+# removed with the demo data.
+serve_schema_org: true # Include Schema.org in the HTML head
+# Must be ABSOLUTE: metadata.liquid:62 interpolates this raw into og:image with no
+# absolute_url filter, and the OpenGraph spec requires a fully-qualified URL — a site-root
+# path silently yields a preview with no image.
+og_image: https://musharna.github.io/assets/img/prof_pic.jpg
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
