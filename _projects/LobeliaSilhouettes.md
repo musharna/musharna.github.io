@@ -3,6 +3,11 @@ layout: page
 title: Lobelia Silhouettes
 description: Automating leaf-trait extraction from digitized herbarium specimens of Lobelia sect. Lobelia.
 img: assets/img/lobelia/lobelia_silhouettes.jpg
+# Absolute by requirement: metadata.liquid interpolates this raw into og:image with no
+# URL filter, so a relative path would emit a broken social-preview URL. Without it the
+# page falls back to site.og_image (the profile photo), so every share of a page about
+# silhouettes previewed as a headshot.
+og_image: https://musharna.github.io/assets/img/lobelia/lobelia_silhouettes.jpg
 importance: 1
 category: herbarium vision
 related_publications: false
@@ -69,18 +74,28 @@ Splitting the retained images by species exposes something the project didn't se
 Specimen images retained per species, after de-duplication. Hover any point for the occurrence records screened and the share kept. Shown as points on a <strong>log</strong> axis rather than bars: the range spans three orders of magnitude, and bar length encodes value from a zero baseline that a log axis does not have. The same numbers are tabulated below.
 </div>
 
-| species         | images |     | species               | images |
-| --------------- | -----: | --- | --------------------- | -----: |
-| _L. cardinalis_ |    811 |     | _L. appendiculata_    |     44 |
-| _L. spicata_    |    468 |     | _L. elongata_         |     26 |
-| _L. kalmii_     |    315 |     | _L. floridana_        |     23 |
-| _L. glandulosa_ |    230 |     | _L. brevifolia_       |     23 |
-| _L. puberula_   |    206 |     | _L. georgiana_        |     20 |
-| _L. paludosa_   |    127 |     | _L. canbyi_           |     18 |
-| _L. feayana_    |    122 |     | _L. flaccidifolia_    |     11 |
-| _L. nuttallii_  |    115 |     | _L. rogersii_         |      9 |
-| _L. dortmanna_  |    111 |     | _L. gattingeri_       |      2 |
-| _L. homophylla_ |     51 |     | _L. apalachicolensis_ |      1 |
+| species               | screened | retained |
+| --------------------- | -------: | -------: |
+| _L. cardinalis_       |      899 |      811 |
+| _L. spicata_          |      484 |      468 |
+| _L. kalmii_           |      334 |      315 |
+| _L. glandulosa_       |      230 |      230 |
+| _L. puberula_         |      211 |      206 |
+| _L. paludosa_         |      129 |      127 |
+| _L. feayana_          |      123 |      122 |
+| _L. nuttallii_        |      116 |      115 |
+| _L. dortmanna_        |      151 |      111 |
+| _L. homophylla_       |       51 |       51 |
+| _L. appendiculata_    |       44 |       44 |
+| _L. elongata_         |       26 |       26 |
+| _L. floridana_        |       24 |       23 |
+| _L. brevifolia_       |       23 |       23 |
+| _L. georgiana_        |       20 |       20 |
+| _L. canbyi_           |       18 |       18 |
+| _L. flaccidifolia_    |       11 |       11 |
+| _L. rogersii_         |        9 |        9 |
+| _L. gattingeri_       |        2 |        2 |
+| _L. apalachicolensis_ |        1 |        1 |
 
 Three orders of magnitude separate the best- and worst-sampled species — 811 sheets for _L. cardinalis_, a single usable one for _L. apalachicolensis_. Showy, common, widely cultivated plants get collected; narrow endemics do not. Any model trained on this corpus inherits that skew, and any trait comparison across the clade has to carry it as a caveat rather than average it away.
 
