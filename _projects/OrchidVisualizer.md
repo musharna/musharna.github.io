@@ -23,7 +23,7 @@ like?"_ gets an answer before the four-year wait, not after.
 
 <div class="row justify-content-sm-center mt-4">
   <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/orchidvisualizer/card.jpg" title="C. Hardyana, predicted" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/orchidvisualizer/card.jpg" title="C. Hardyana, predicted" alt="A generated photograph of several large magenta Cattleya orchid flowers with broad ruffled petals and deep crimson frilled lips, set among strap-shaped green leaves." class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
 <div class="caption">

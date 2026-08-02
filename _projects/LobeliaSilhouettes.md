@@ -22,7 +22,7 @@ related_publications: false
   </div>
 </div>
 
-{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="Lobelia silhouettes extracted from herbarium specimens" caption="Whole-plant silhouettes recovered from digitized herbarium sheets of _Lobelia_ sect. _Lobelia_. Each outline is a single pressed specimen — flowering stem, leaves and roots — reduced to the shape that morphometrics can actually measure." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="Lobelia silhouettes extracted from herbarium specimens" alt="A row of dark plant silhouettes on a pale background, each a whole Lobelia specimen showing a slender flowering stem, scattered leaves and a root mass at the base." caption="Whole-plant silhouettes recovered from digitized herbarium sheets of _Lobelia_ sect. _Lobelia_. Each outline is a single pressed specimen — flowering stem, leaves and roots — reduced to the shape that morphometrics can actually measure." class="img-fluid rounded z-depth-1" %}
 
 This was my undergraduate research at **Kent State University**, advised by **Dr. Andrea Case** in the Department of Biological Sciences. The proposal is dated December 2021, and the work ran through 2022 with a final data pull in early 2024. It sat inside a larger NSF-funded programme — [**BEE: Ecological and evolutionary processes affecting the co-existence of close relatives**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606, Case at Kent State; collaborative with Lynda Delph at Indiana and Nico Cellinese at Florida) — which uses _Lobelia_ sect. _Lobelia_ as a model for why closely related species do or don't manage to live alongside each other. My piece of it was the phenotype side: getting trait data out of herbarium sheets without measuring every one by hand.
 
@@ -56,6 +56,19 @@ A later, narrower pull for _L. siphilitica_ alone is permanently citable, since 
 
 Splitting the retained images by species exposes something the project didn't set out to find. Herbarium coverage of this clade is _extremely_ uneven:
 
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/lobelia_species_counts.html' | relative_url }}"
+            title="Interactive chart: specimen images retained per Lobelia species, on a log scale"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:580px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+Specimen images retained per species, after de-duplication. Hover any point for the occurrence records screened and the share kept. Shown as points on a <strong>log</strong> axis rather than bars: the range spans three orders of magnitude, and bar length encodes value from a zero baseline that a log axis does not have. The same numbers are tabulated below.
+</div>
+
 | species         | images |     | species               | images |
 | --------------- | -----: | --- | --------------------- | -----: |
 | _L. cardinalis_ |    811 |     | _L. appendiculata_    |     44 |
@@ -70,6 +83,14 @@ Splitting the retained images by species exposes something the project didn't se
 | _L. homophylla_ |     51 |     | _L. apalachicolensis_ |      1 |
 
 Three orders of magnitude separate the best- and worst-sampled species — 811 sheets for _L. cardinalis_, a single usable one for _L. apalachicolensis_. Showy, common, widely cultivated plants get collected; narrow endemics do not. Any model trained on this corpus inherits that skew, and any trait comparison across the clade has to carry it as a caveat rather than average it away.
+
+## The diversity being measured
+
+All of the above is machinery. This is the thing it exists to capture — the same extraction run across the clade, one representative leaf per species:
+
+{% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, each taken from that species' own segmentation mask and **scaled to a common length**. It therefore compares _shape_, not size — absolute scale is deliberately not preserved. The range is the point: _L. glandulosa_ is nearly linear, _L. cardinalis_ falcate and tapering, _L. apalachicolensis_ and _L. spicata_ broad and blunt. Representative leaves were chosen by solidity rather than by size, because the largest connected component in a mask is frequently a stem fragment rather than a leaf." class="img-fluid rounded z-depth-1" %}
+
+Nine species, not ten. _L. canbyi_ is absent because its only mask cannot supply a leaf: the largest component in it is 3,257 px at 0.55 solidity — a stem sliver — against 0.93–0.97 for a clean blade. That is a segmentation failure, and dropping the species is more honest than showing debris under its name.
 
 ## The pipeline
 
@@ -88,11 +109,11 @@ Running alongside the digital pipeline was a physical one, used both to generate
 
 What comes out the far end is a binary mask per specimen — every leaf reduced to an outline, ordered down the stem. This is the measurable object, and the thing the whole pipeline exists to produce:
 
-{% include figure.liquid path="assets/img/lobelia/leaf_series_siphilitica.png" title="extracted leaf-series mask, Lobelia siphilitica" caption="Segmentation output for one _L. siphilitica_ specimen (voucher AC17142): the full leaf series, largest to smallest. The size gradient down a single stem is real biological signal — and it is also why a per-plant average is a poor summary of leaf shape. Every quantity the project cared about (blade length, width, area, margin) is computable directly from outlines like these." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/leaf_series_siphilitica.png" title="extracted leaf-series mask, Lobelia siphilitica" alt="Eight solid black leaf outlines from one Lobelia siphilitica specimen, arranged left to right from largest to smallest, each a smooth lance shape." caption="Segmentation output for one _L. siphilitica_ specimen (voucher AC17142): the full leaf series, largest to smallest. The size gradient down a single stem is real biological signal — and it is also why a per-plant average is a poor summary of leaf shape. Every quantity the project cared about (blade length, width, area, margin) is computable directly from outlines like these." class="img-fluid rounded z-depth-1" %}
 
 The masks also make plain why the workflow needed an explicit exclusion criterion rather than a trained eye:
 
-{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="leaf-series mask showing damaged laminae, Lobelia spicata" caption="The same output for _L. spicata_ (voucher AC17073), and a far less cooperative specimen. Several laminae are torn through or missing sections, and the leftmost carries a puncture straight through the blade. An area measured from any of these is wrong while looking perfectly valid in a spreadsheet — pressed material decades old is full of them, and no amount of segmentation accuracy fixes a leaf that is physically incomplete." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="leaf-series mask showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="The same output for _L. spicata_ (voucher AC17073), and a far less cooperative specimen. Several laminae are torn through or missing sections, and the leftmost carries a puncture straight through the blade. An area measured from any of these is wrong while looking perfectly valid in a spreadsheet — pressed material decades old is full of them, and no amount of segmentation accuracy fixes a leaf that is physically incomplete." class="img-fluid rounded z-depth-1" %}
 
 </div>
 
