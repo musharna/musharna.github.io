@@ -10,20 +10,22 @@ related_publications: true
 ---
 
 <div style="border:1px solid var(--global-divider-color); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, and almost every measurable trait on them is locked inside a photograph. This project asked whether that measurement could be automated for one clade — <em>Lobelia</em> sect. <em>Lobelia</em>, 23 eastern North American wildflowers — by pairing aggregator-scale specimen acquisition with instance segmentation. It reached a working two-stage detection-then-segmentation pipeline over a hand-audited corpus of <strong>2,733 specimen images</strong>, and ran headlong into the reason this problem is still open: <strong>a rosette does not decompose into leaves the way a model expects it to.</strong>
+  <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, and almost every measurable trait on them is locked inside a photograph. This project built a <strong>semi-automated pipeline for getting leaf traits out</strong> — collect vouchers, dismember and digitize them, crop leaves in ImageJ, and measure area and perimeter with the <code>LeafArea</code> package in R. It produced real measurements and a real result: <strong>species differ in how leaf perimeter scales with leaf area, and populations of one species differ too.</strong> The fully automatic version — computer vision that segments leaves straight off an undissected sheet — was scoped, started, and <strong>never finished</strong>.
   <div style="margin-top:0.7rem;">
     <a href="https://github.com/musharna/lobelia-leaf-morphometrics" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">💻 Code on GitHub</a>
     <a href="https://doi.org/10.15468/dl.5gavr9" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">🌿 GBIF download DOI</a>
   </div>
   <div style="margin-top:0.5rem; font-size:0.9em;">
     <strong>On this page:</strong>
+    <a href="#why-measure-leaf-traits-at-all">Why leaf traits</a> ·
     <a href="#the-data-is-already-collected">The data is already collected</a> ·
     <a href="#acquisition-was-the-first-real-problem">Acquisition</a> ·
     <a href="#the-record-is-long-tailed">The long tail</a> ·
     <a href="#the-diversity-being-measured">The diversity</a> ·
     <a href="#does-outline-alone-identify-a-species">Does outline identify a species?</a> ·
-    <a href="#the-pipeline">The pipeline</a> ·
-    <a href="#the-dismembered-sheet-track">Dismembered sheets</a> ·
+    <a href="#the-pipeline-that-actually-ran">The pipeline</a> ·
+    <a href="#what-the-measurements-showed">What it showed</a> ·
+    <a href="#the-part-that-was-never-finished">What was never finished</a> ·
     <a href="#what-didnt-work">What didn't work</a> ·
     <a href="#status">Status</a>
   </div>
@@ -32,6 +34,12 @@ related_publications: true
 This was my undergraduate research at **Kent State University**, advised by **Dr. Andrea Case** in the Department of Biological Sciences. The proposal is dated December 2021, and the work ran through 2022 with a final data pull in early 2024. It sat inside a larger NSF-funded programme — [**BEE: Ecological and evolutionary processes affecting the co-existence of close relatives**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606, Case at Kent State; collaborative with Lynda Delph at Indiana and Nico Cellinese at Florida) — which uses _Lobelia_ sect. _Lobelia_ as a model for why closely related species do or don't manage to live alongside each other. My piece of it was the phenotype side: getting trait data out of herbarium sheets without measuring every one by hand.
 
 It is the **later** of my two pieces of _Lobelia_ work. The [digital reconstruction of _Lobelia_ silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}) — whole-plant outlines restored from herbarium sheets — came first, finished in early 2019, before this grant existed. The two are easy to conflate, because both end in a plant reduced to an outline. They are not the same thing, and they make opposite choices about scale: that one is reconstruction for depiction and keeps true size, this one is segmentation for measurement and normalises size away.
+
+## Why measure leaf traits at all
+
+Leaf shape varies enormously, including between close relatives growing in the same place, and that variation is not decorative — it is tied to how a leaf works. The functional hypotheses are well rehearsed {% cite nicotra2011leafshape tsukaya2018leafshape %}: **light interception**, **thermoregulation**, **water-supply trade-offs**, and **phenotypic plasticity**. Testing any of them across a clade needs leaf shape as a _number_, for a lot of plants.
+
+Which is the bottleneck this project attacked.
 
 ## The data is already collected
 
@@ -105,13 +113,13 @@ Three orders of magnitude separate the best- and worst-sampled species — 811 s
 
 All of the above is machinery. This is the thing it exists to capture — the same extraction run across the clade, one representative leaf per species:
 
-{% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, each taken from that species' own segmentation mask and **scaled to a common length**. It therefore compares _shape_, not size — absolute scale is deliberately not preserved. The range is the point: _L. glandulosa_ is nearly linear, _L. cardinalis_ falcate and tapering, _L. apalachicolensis_ and _L. spicata_ broad and blunt. Representative leaves were chosen by solidity rather than by size, because the largest connected component in a mask is frequently a stem fragment rather than a leaf." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, each taken from that species' own thresholded leaf mask and **scaled to a common length**. It therefore compares _shape_, not size — absolute scale is deliberately not preserved. The range is the point: _L. glandulosa_ is nearly linear, _L. cardinalis_ falcate and tapering, _L. apalachicolensis_ and _L. spicata_ broad and blunt. Representative leaves were chosen by solidity rather than by size, because the largest connected component in a mask is frequently a stem fragment rather than a leaf." class="img-fluid rounded z-depth-1" %}
 
-Nine species, not ten. _L. canbyi_ is absent because its only mask cannot supply a leaf: the largest component in it is 3,257 px at 0.55 solidity — a stem sliver — against 0.93–0.97 for a clean blade. That is a segmentation failure, and dropping the species is more honest than showing debris under its name.
+Nine species, not ten. _L. canbyi_ is absent because its only mask cannot supply a leaf: the largest component in it is 3,257 px at 0.55 solidity — a stem sliver — against 0.93–0.97 for a clean blade. That is a thresholding failure, and dropping the species is more honest than showing debris under its name.
 
 ## Does outline alone identify a species?
 
-Showing that the shapes differ is not the same as showing they _separate_. Every one of the 104 masks yields multiple leaves, so the question can be asked quantitatively: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 equally spaced pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA. This follows the same family of method as the Procrustes pseudo-landmark approach the Case lab later published for leaf shape.
+Showing that the shapes differ is not the same as showing they _separate_. Every one of the 104 thresholded masks yields multiple leaves, so the question can be asked quantitatively: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 equally spaced pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA. This follows the same family of method as the Procrustes pseudo-landmark approach the Case lab later published for leaf shape.
 
 {% include figure.liquid path="assets/img/lobelia/shape_space.png" title="Leaf shape space, small multiples by species" alt="Eight small scatter panels, one per species, each plotting PC1 against PC2 with that species highlighted in green against all 486 leaves in grey. L. glandulosa sits far left; L. apalachicolensis and L. inflata sit right." caption="Small multiples rather than one eight-colour scatter — in a scatter any two points can fall adjacent, so eight categorical hues would be asking the reader to discriminate colours that cannot be made reliably distinct. Grey is all 486 leaves; green is the named species. _L. glandulosa_ occupies the narrow-leaf extreme; _L. apalachicolensis_ and _L. inflata_ sit at the broad end." class="img-fluid rounded z-depth-1" %}
 
@@ -141,32 +149,15 @@ So outline alone runs at roughly **twice chance** — a real signal, and a modes
 
 The honest reading is that leaf outline is a weak-but-genuine species character in this clade, and that the automation was never going to identify species from shape alone. That is a useful thing to have measured rather than assumed.
 
-## The pipeline
+## The pipeline that actually ran
 
-Specimen sheets are large and mostly empty, which makes naive whole-image segmentation wasteful and imprecise. The workflow was therefore two-stage, built on **GinJinn2** (a herbarium-oriented wrapper over Detectron2) with a Mask R-CNN R101-FPN backbone:
+Presented at Michigan State in February 2024 as _Semi-Automated Extraction of Leaf Traits from Herbarium Vouchers_. "Semi-automated" is the operative word, and the honest one — a human is in the loop at several steps:
 
-1. **Annotate.** Training masks were drawn in CVAT and exported as COCO. Sheets were rescaled from 5100 × 3500 to 1200 × 800, with model inputs normalized to 256 × 256. Target was 500+ annotated images, split 60 / 20 / 20 into train / validation / test.
-2. **Detect.** Sheets were cut into 2048 px sliding windows with 512 px overlap so that individual leaves occupied a usable fraction of the frame. Bounding boxes were predicted per window, then merged back across window seams to reconstruct whole-sheet predictions.
-3. **Crop.** Merged boxes were cropped with padding (`-p 25`), turning one sheet into many single-leaf images.
-4. **Segment.** A separate instance-segmentation model ran on the crops, producing the per-leaf masks the morphometrics depend on — and the leaf outlines shown above.
-
-Splitting detection from segmentation matters: it lets the detector work at sheet scale, where context disambiguates a leaf from a label or a scale bar, while the segmentation model sees a tightly framed leaf and can spend its resolution on the margin, which is where the shape information actually lives.
-
-## The dismembered-sheet track
-
-Running alongside the digital pipeline was a physical one, used both to generate clean training data and to provide ground truth. Specimens were dismembered, laid out and photographed, then processed under a fixed protocol: rotate every image in ImageJ so leaf tips face the same direction, record the 1 cm scale standard, and measure base-to-first-leaf, base-to-first-flower, and stem thickness at both the base and the first flower. Leaves too folded or damaged to read were excluded by explicit criterion rather than by eye.
-
-What comes out the far end is a binary mask per specimen — every leaf reduced to an outline, ordered down the stem. This is the measurable object, and the thing the whole pipeline exists to produce:
-
-{% include figure.liquid path="assets/img/lobelia/leaf_series_siphilitica.png" title="extracted leaf-series mask, Lobelia siphilitica" alt="Eight solid black leaf outlines from one Lobelia siphilitica specimen, arranged left to right from largest to smallest, each a smooth lance shape." caption="Segmentation output for one _L. siphilitica_ specimen (voucher AC17142): the full leaf series, largest to smallest. The size gradient down a single stem is real biological signal — and it is also why a per-plant average is a poor summary of leaf shape. Every quantity the project cared about (blade length, width, area, margin) is computable directly from outlines like these." class="img-fluid rounded z-depth-1" %}
-
-The masks also make plain why the workflow needed an explicit exclusion criterion rather than a trained eye:
-
-{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="leaf-series mask showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="The same output for _L. spicata_ (voucher AC17073), and a far less cooperative specimen. Several laminae are torn through or missing sections, and the leftmost carries a puncture straight through the blade. An area measured from any of these is wrong while looking perfectly valid in a spreadsheet — pressed material decades old is full of them, and no amount of segmentation accuracy fixes a leaf that is physically incomplete." class="img-fluid rounded z-depth-1" %}
-
-</div>
-
-Leaf area then came from the **`LeafArea`** R package driving ImageJ, calibrated at 85 px/cm:
+1. **Voucher collection.** _Lobelia_ collected from multiple sites, as vouchers.
+2. **Digitization and "dismemberment."** The specimen is taken apart and photographed, so leaves lie flat, separated and unobscured.
+3. **Whole-plant traits** measured in **ImageJ** against the 1 cm scale standard: base-to-first-leaf, base-to-first-flower, stem thickness at the base and at the first flower. Every image is rotated so leaf tips face the same way, because nearly every morphometrics tool assumes a common axis.
+4. **Semi-automated leaf cropping** (ImageJ) — one sheet becomes many single-leaf images. Leaves too folded or torn to read are excluded by explicit criterion rather than by eye.
+5. **Semi-automated area and perimeter** via the **`LeafArea`** R package driving ImageJ, calibrated at 85 px/cm:
 
 ```r
 library(LeafArea)
@@ -176,7 +167,35 @@ run.ij(set.directory = ".../leafcrops",
        trim.pixel     = 0)
 ```
 
-Orientation is the quiet constraint here. Nearly every leaf-morphometrics tool assumes leaves are aligned on a common axis, which is trivial for a dismembered specimen you photographed yourself and decidedly not trivial for an arbitrary herbarium sheet.
+6. **Analysis** in R / RStudio.
+
+Thresholding each cropped leaf gives a binary mask, and the mask is what area and perimeter are computed from:
+
+{% include figure.liquid path="assets/img/lobelia/leaf_series_siphilitica.png" title="thresholded leaf series, Lobelia siphilitica" alt="Eight solid black leaf outlines from one Lobelia siphilitica specimen, arranged left to right from largest to smallest, each a smooth lance shape." caption="Thresholded leaf series for one _L. siphilitica_ specimen (voucher AC17142), largest to smallest. The size gradient down a single stem is real biological signal — and it is why a per-plant average is a poor summary of leaf shape." class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="thresholded leaf series showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="The same for _L. spicata_ (voucher AC17073), and a far less cooperative specimen — several laminae torn through, one punctured. An area measured from these is wrong while looking perfectly valid in a spreadsheet. Pressed material decades old is full of them, which is why the exclusion criterion is explicit." class="img-fluid rounded z-depth-1" %}
+
+## What the measurements showed
+
+Perimeter scales with area differently in different species — which is a shape statement, not a size one. A leaf that gains perimeter quickly as it gains area is narrower, or more dissected, or more toothed:
+
+{% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_species.png" title="Leaf area versus perimeter across the four best-sampled species" alt="Scatter plot of leaf perimeter against leaf area for four Lobelia species, each with its own dashed regression line; glandulosa rises most steeply, elongata least." caption="Leaf area against perimeter for the four best-sampled species (n > 49 each). Each species carries its own slope: _L. glandulosa_ gains perimeter fastest per unit area, _L. elongata_ slowest — and _elongata_ also reaches far larger leaves than the rest. Original analysis, R / ggplot2." class="img-fluid rounded z-depth-1" %}
+
+And the same relationship separates **populations within a single species**:
+
+{% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_sites.png" title="Leaf area versus perimeter within Lobelia elongata, by collection site" alt="Scatter plot of leaf perimeter against leaf area for Lobelia elongata, coloured by four collection site codes, each with its own dashed regression line of differing slope." caption="_L. elongata_ alone, split by collection site. The four sites do not share a slope — plants from one site put on perimeter faster than plants from another. Whatever drives leaf shape here operates below the species level, which is the observation that makes a clade-wide automated measurement worth building. Original analysis, R / ggplot2." class="img-fluid rounded z-depth-1" %}
+
+That nesting is the substantive finding: **shape differs between species, and it differs between populations of the same species.** Any clade-scale story about leaf shape has to survive that second layer.
+
+## The part that was never finished
+
+The ambition beyond the dismembered-sheet workflow was to skip the dismembering entirely — segment measurable leaves directly off an intact herbarium sheet, and run the whole clade at aggregator scale rather than one voucher at a time. That is what the 2,733-image corpus above was assembled for.
+
+The design was worked out in detail. Sheets are large and mostly empty, so the plan was two-stage on **GinJinn2** (a herbarium-oriented wrapper over Detectron2) with a Mask R-CNN R101-FPN backbone: annotate in **CVAT**, cut sheets into 2048 px sliding windows with 512 px overlap, predict boxes per window and merge across seams, crop with padding, then run a separate instance-segmentation model on the crops. Sheets rescaled 5100 × 3500 → 1200 × 800, model inputs at 256 × 256, a 60 / 20 / 20 split, 500+ annotated images targeted.
+
+**None of it was completed on _Lobelia_.** The workflow was rehearsed end to end on GinJinn's own tutorial dataset — every command in the working notes names `leucanthemum`, not a _Lobelia_ species — and those notes stop at `## not working???`. The project's own to-do list still reads "annotate small sets / create model / decide best model". The February 2024 talk files the whole thing under **Future Research Interests**.
+
+So the honest boundary is this: the semi-automated measurement pipeline ran and produced the results above; the fully automatic one was scoped, prototyped against a tutorial, and left unfinished.
 
 ## What didn't work
 
@@ -195,7 +214,9 @@ Two things are worth saying plainly. First, the binding constraint on this kind 
 
 ## Status
 
-This is completed undergraduate work, presented here as a record rather than as a maintained project. The trait-extraction work was never written up in its own right, and the pipeline is not packaged for reuse.
+This is completed undergraduate work, presented here as a record rather than as a maintained project. It was presented at **Michigan State University on 9 February 2024** as _Semi-Automated Extraction of Leaf Traits from Herbarium Vouchers_, but was never written up for publication in its own right, and the pipeline is not packaged for reuse.
+
+Supported by the **Choose Ohio First Scholarship Program** and the **Kent State Biotechnology Program**, and by a **VT-REEL Undergraduate Research Fellowship**. Advised by **Dr. Andrea Case** with **Dr. Christopher Blackwood**, alongside Case lab members Tony Miller, Megan Brown, Princess Abu and Svea Hall.
 
 The code and the original workflow notes are now on GitHub at [**musharna/lobelia-leaf-morphometrics**](https://github.com/musharna/lobelia-leaf-morphometrics) — the GBIF acquisition and Hough line-removal notebooks, the GinJinn2 and annotation commands, the dismembered-sheet protocol, the morphometrics tool survey, and the per-species acquisition ledger the counts on this page come from. Notebook outputs are stripped, and **no specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record.
 
