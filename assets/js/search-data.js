@@ -23,7 +23,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "projects-mcp-servers",
+        },{id: "projects-lobelia-silhouettes",
+          title: 'Lobelia Silhouettes',
+          description: "Automating leaf-trait extraction from digitized herbarium specimens of Lobelia sect. Lobelia.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/LobeliaSilhouettes/";
+            },},{id: "projects-mcp-servers",
           title: 'MCP Servers',
           description: "Model Context Protocol servers that let an AI agent run the instrument, not just read about it — plant genomics, phenotyping, research-data acquisition, and the broker that schedules the GPU work.",
           section: "Projects",handler: () => {
