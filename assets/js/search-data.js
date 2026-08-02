@@ -23,9 +23,14 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "projects-lobelia-silhouettes",
+        },{id: "projects-automating-leaf-measurement",
+          title: 'Automating leaf measurement',
+          description: "Extracting leaf traits from digitized herbarium specimens of Lobelia sect. Lobelia at aggregator scale.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/LobeliaLeafMeasurement/";
+            },},{id: "projects-lobelia-silhouettes",
           title: 'Lobelia Silhouettes',
-          description: "Automating leaf-trait extraction from digitized herbarium specimens of Lobelia sect. Lobelia.",
+          description: "Digital reconstruction of North American Lobelia from restored herbarium specimens.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-mcp-servers",
