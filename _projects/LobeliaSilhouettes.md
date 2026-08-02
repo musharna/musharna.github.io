@@ -86,26 +86,14 @@ Splitting detection from segmentation matters: it lets the detector work at shee
 
 Running alongside the digital pipeline was a physical one, used both to generate clean training data and to provide ground truth. Specimens were dismembered, laid out and photographed, then processed under a fixed protocol: rotate every image in ImageJ so leaf tips face the same direction, record the 1 cm scale standard, and measure base-to-first-leaf, base-to-first-flower, and stem thickness at both the base and the first flower. Leaves too folded or damaged to read were excluded by explicit criterion rather than by eye.
 
-The unit that comes out the far end of all of this is a single leaf on a plain background — the only thing a morphometrics tool will reliably accept:
+What comes out the far end is a binary mask per specimen — every leaf reduced to an outline, ordered down the stem. This is the measurable object, and the thing the whole pipeline exists to produce:
 
-<div class="row justify-content-center">
-  <div class="col-4 col-md-3">
-    {% include figure.liquid path="assets/img/lobelia/leaf_crop_clean.jpg" title="extracted leaf, Lobelia apalachicolensis" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-<div class="caption">
-A usable crop: one leaf from a dismembered <em>L. apalachicolensis</em> specimen (voucher BS17133), margin and petiole intact and unambiguous against the background. This is what the measurement step wants — and what the segmentation model on the digital track was trying to produce without anyone having to take the plant apart.
-</div>
+{% include figure.liquid path="assets/img/lobelia/leaf_series_siphilitica.png" title="extracted leaf-series mask, Lobelia siphilitica" caption="Segmentation output for one _L. siphilitica_ specimen (voucher AC17142): the full leaf series, largest to smallest. The size gradient down a single stem is real biological signal — and it is also why a per-plant average is a poor summary of leaf shape. Every quantity the project cared about (blade length, width, area, margin) is computable directly from outlines like these." class="img-fluid rounded z-depth-1" %}
 
-The selection criterion is not cosmetic, and it is why the physical track needed a human in it at all:
+The masks also make plain why the workflow needed an explicit exclusion criterion rather than a trained eye:
 
-<div class="row justify-content-center">
-  <div class="col-4 col-md-3">
-    {% include figure.liquid path="assets/img/lobelia/leaf_crop_damaged.jpg" title="rejected leaf crop, torn lamina" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-<div class="caption">
-A crop that fails it (voucher BS17132). The lamina is torn through and part of the blade is missing, so any area or width measured from it would be wrong while looking perfectly valid in a spreadsheet. Century-old pressed material is full of these, and no amount of segmentation accuracy fixes a leaf that is physically incomplete.
+{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="leaf-series mask showing damaged laminae, Lobelia spicata" caption="The same output for _L. spicata_ (voucher AC17073), and a far less cooperative specimen. Several laminae are torn through or missing sections, and the leftmost carries a puncture straight through the blade. An area measured from any of these is wrong while looking perfectly valid in a spreadsheet — pressed material decades old is full of them, and no amount of segmentation accuracy fixes a leaf that is physically incomplete." class="img-fluid rounded z-depth-1" %}
+
 </div>
 
 Leaf area then came from the **`LeafArea`** R package driving ImageJ, calibrated at 85 px/cm:
