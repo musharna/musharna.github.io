@@ -58,20 +58,14 @@ All <strong>39</strong> specimens at one shared scale, ordered by height, with <
 
 ## How the set measures against real plants
 
-Because every silhouette is at true scale, the set can be measured. For each I took the share of plant area in the lowest fifth of its own height — high where leaves cluster at the base, low where they climb a stem.
+Everything here is scaled from a ruler, so the obvious check is whether these plants come out the size real ones do. Restored heights against published stature, for the two species I could find a reference for:
 
-{% include figure.liquid path="assets/img/lobelia/habit_architecture.png" title="Basal concentration against plant height for 39 restored Lobelia specimens" alt="Scatter plot of 39 green points, plant height in centimetres on the x axis from 13 to 134, basal concentration on the y axis from 0.05 to 0.65. The points show no trend; L. dortmanna sits high at 33 cm, L. brevifolia low at 134 cm, L. laxiflora and L. elongata low at moderate heights." caption="Each point is one restored specimen. The spread is wide and does not track plant height (r = −0.22). _L. dortmanna_, the aquatic rosette species of the group, sits near the top, which is at least the right direction." class="img-fluid rounded z-depth-1" %}
-
-**But do they match real plants?** Restored heights against published stature, for the two species I could find a reference for:
-
-| species | restored | published |
-| --- | --- | --- |
-| _L. siphilitica_ | 61 cm | 46–122 cm — inside |
+| species              | restored      | published                  |
+| -------------------- | ------------- | -------------------------- |
+| _L. siphilitica_     | 61 cm         | 46–122 cm — inside         |
 | _L. cardinalis_ (×3) | 24, 47, 52 cm | 122–152 cm — **far below** |
 
-The disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet** — for a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts that pressed specimen, not the species, and an outline of a fragment says nothing about how the whole plant was built.
-
-So read the gradient as a description of this set of images, not a result about _Lobelia_: the restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is horticultural and covers 2 of 27 species — indicative too.)
+The disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet** — for a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts the pressed specimen, not the species: read every height here as the height of what was mounted. The restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is horticultural and covers 2 of 27 species, so it is indicative too.)
 
 ## Where the specimens came from
 
@@ -96,10 +90,6 @@ The silhouettes are credited in the acknowledgements of the phylogenomic paper f
 
 Worth being precise about the sequence: this artwork **predates the grant it is usually associated with**. The silhouettes were finished by early 2019; NSF award DEB-2015606 began in September 2020.
 
-The same set has also been arranged for talks:
-
-{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="The silhouette set composed for a talk" alt="A row of dark indigo plant silhouettes on a warm tan background, each a whole Lobelia specimen with stem, leaves and roots, standing on a common ground line." caption="The same set recoloured and arranged for a slide. For a long stretch this was the only surviving piece of the project, before the originals were recovered." class="img-fluid rounded z-depth-1" %}
-
 ## Archived, and free to use
 
 > **Arnold, J. (2026).** _Lobelia silhouettes: digitally restored whole-plant outlines from herbarium specimens (2018–2019)._ Zenodo. [10.5281/zenodo.21764522](https://doi.org/10.5281/zenodo.21764522)
@@ -112,4 +102,4 @@ Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLea
 
 ## Status
 
-Completed undergraduate work, recorded here rather than maintained. The originals — silhouettes, layered restoration files, references and source sheets — survived on the one machine that was never backed up, and were recovered in August 2026. The silhouettes are my own work; the specimen images they were restored from belong to their holding institutions and are not reproduced here.
+Completed undergraduate work, recorded here rather than maintained. The originals — silhouettes, layered restoration files, references and source sheets — survived on the one machine that was never backed up, and were recovered in August 2026; for a long stretch before that, the only surviving trace was a recoloured arrangement of the set made for a talk. The silhouettes are my own work; the specimen images they were restored from belong to their holding institutions and are not reproduced here.
