@@ -199,10 +199,14 @@ Two things are worth saying plainly. First, the binding constraint on this kind 
 
 ## Status
 
-This is completed undergraduate work, presented here as a record rather than as a maintained project. It was never written up for publication, and the pipeline is not packaged for reuse.
+This is completed undergraduate work, presented here as a record rather than as a maintained project. The trait-extraction work was never written up in its own right, and the pipeline is not packaged for reuse.
 
 The code and the original workflow notes are now on GitHub at [**musharna/lobelia-silhouettes**](https://github.com/musharna/lobelia-silhouettes) — the GBIF acquisition and Hough line-removal notebooks, the GinJinn2 and annotation commands, the dismembered-sheet protocol, the morphometrics tool survey, and the per-species acquisition ledger the counts on this page come from. Notebook outputs are stripped, and **no specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record.
 
-The wider programme it belonged to has since published its phylogenomic arm, under the same NSF awards {% cite godden2025lobelia %}.
+The wider programme it belonged to has since published its phylogenomic arm, under the same NSF awards {% cite godden2025lobelia %} — and the silhouettes made it into print. Its acknowledgements read:
+
+> We thank Jaret Arnold for his artistic contributions to the plant silhouettes shown in Fig. …
+
+Which is a reasonable place for this to have ended up: the measurement pipeline stalled on the rosette problem, but the drawings it was built to produce are doing the job drawings do.
 
 **Provenance.** Specimen images are the property of their holding institutions and are used here under their respective terms; the GBIF download above is CC BY-NC 4.0. Counts on this page come from the project's own acquisition ledger, and the two incomplete species tabs are flagged rather than silently dropped.
