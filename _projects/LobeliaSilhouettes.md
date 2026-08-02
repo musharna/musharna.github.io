@@ -24,6 +24,8 @@ related_publications: true
     <a href="#the-data-is-already-collected">The data is already collected</a> ·
     <a href="#acquisition-was-the-first-real-problem">Acquisition</a> ·
     <a href="#the-record-is-long-tailed">The long tail</a> ·
+    <a href="#the-diversity-being-measured">The diversity</a> ·
+    <a href="#does-outline-alone-identify-a-species">Does outline identify a species?</a> ·
     <a href="#the-pipeline">The pipeline</a> ·
     <a href="#the-dismembered-sheet-track">Dismembered sheets</a> ·
     <a href="#what-didnt-work">What didn't work</a> ·
@@ -110,6 +112,38 @@ All of the above is machinery. This is the thing it exists to capture — the sa
 {% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, each taken from that species' own segmentation mask and **scaled to a common length**. It therefore compares _shape_, not size — absolute scale is deliberately not preserved. The range is the point: _L. glandulosa_ is nearly linear, _L. cardinalis_ falcate and tapering, _L. apalachicolensis_ and _L. spicata_ broad and blunt. Representative leaves were chosen by solidity rather than by size, because the largest connected component in a mask is frequently a stem fragment rather than a leaf." class="img-fluid rounded z-depth-1" %}
 
 Nine species, not ten. _L. canbyi_ is absent because its only mask cannot supply a leaf: the largest component in it is 3,257 px at 0.55 solidity — a stem sliver — against 0.93–0.97 for a clean blade. That is a segmentation failure, and dropping the species is more honest than showing debris under its name.
+
+## Does outline alone identify a species?
+
+Showing that the shapes differ is not the same as showing they _separate_. Every one of the 104 masks yields multiple leaves, so the question can be asked quantitatively: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 equally spaced pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA. This follows the same family of method as the Procrustes pseudo-landmark approach the Case lab later published for leaf shape.
+
+{% include figure.liquid path="assets/img/lobelia/shape_space.png" title="Leaf shape space, small multiples by species" alt="Eight small scatter panels, one per species, each plotting PC1 against PC2 with that species highlighted in green against all 486 leaves in grey. L. glandulosa sits far left; L. apalachicolensis and L. inflata sit right." caption="Small multiples rather than one eight-colour scatter — in a scatter any two points can fall adjacent, so eight categorical hues would be asking the reader to discriminate colours that cannot be made reliably distinct. Grey is all 486 leaves; green is the named species. _L. glandulosa_ occupies the narrow-leaf extreme; _L. apalachicolensis_ and _L. inflata_ sit at the broad end." class="img-fluid rounded z-depth-1" %}
+
+**PC1 carries 48% of shape variance and is almost exactly leaf breadth** — its correlation with directly measured width-to-length is **r = 0.978**, so the axis is a checked quantity rather than a label I assigned by eye. Species order along it monotonically, from _L. glandulosa_ at a width:length of 0.109 to _L. apalachicolensis_ at 0.439.
+
+That axis is also where the species signal lives, and essentially nowhere else:
+
+|                                         |       PC1 |   PC2 |
+| --------------------------------------- | --------: | ----: |
+| share of shape variance                 |       48% |   26% |
+| between-species share of that axis (η²) | **0.493** | 0.006 |
+
+PC2 is real variation — it is just variation _within_ plants, not between species.
+
+Classifying species from outline alone, with **cross-validation grouped by specimen** so no leaf from a test plant is ever seen in training:
+
+|                                                              |  accuracy |
+| ------------------------------------------------------------ | --------: |
+| LDA, grouped by specimen                                     | **0.372** |
+| permuted-label null                                          |     0.166 |
+| majority-class baseline                                      |     0.191 |
+| _LDA, naive split (leaves of one plant span train and test)_ |   _0.430_ |
+
+So outline alone runs at roughly **twice chance** — a real signal, and a modest one. The naive split scores 6 points higher, which is the size of the pseudo-replication illusion you get for free if you forget that ten leaves off one plant are not ten independent observations.
+
+**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_) and specimen counts more so (21 for _glandulosa_, 3 for _apalachicolensis_), so the per-species positions are not equally trustworthy. Absolute size is discarded by construction, and size is a real diagnostic character. Venation, margin dentition and pubescence — all of which a botanist uses — are not in an outline at all. _L. cardinalis_ (3 leaves) and _L. canbyi_ (no usable leaf) are excluded entirely.
+
+The honest reading is that leaf outline is a weak-but-genuine species character in this clade, and that the automation was never going to identify species from shape alone. That is a useful thing to have measured rather than assumed.
 
 ## The pipeline
 
