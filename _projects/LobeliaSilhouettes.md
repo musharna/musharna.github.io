@@ -44,6 +44,38 @@ Which is why the plate above can exist at all. The individual files are not stor
 
 **The measurements corroborate the method.** A standard herbarium sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant taller than the sheet it is mounted on is exactly what unfolding recovers — the specimen was folded to fit, and the restoration puts it back.
 
+## Explore the set
+
+Every restored specimen, on one centimetre axis. Hover any plant for its species and measured size.
+
+<div style="overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--global-divider-color); border-radius:8px;">
+  <iframe src="{{ '/assets/plotly/lobelia_silhouette_explorer.html' | relative_url }}"
+          title="Interactive true-scale explorer: 39 restored Lobelia specimens on a shared centimetre axis"
+          loading="lazy" frameborder="0" scrolling="no"
+          style="width:1960px; height:640px; border:0; display:block;">
+  </iframe>
+</div>
+<div class="caption">
+All <strong>39</strong> restored specimens, ordered by height, drawn at a single shared scale — <strong>the axes are locked to equal aspect</strong>, so nothing is stretched to fit and the plot is as wide as the plants genuinely are. Scroll sideways to reach <em>L. brevifolia</em>. Species with several restored specimens appear more than once, which is where the within-species spread shows: the three <em>L. cardinalis</em> stand at 24, 47 and 52 cm.
+</div>
+
+## Where the specimens came from
+
+The source sheets were kept alongside the artwork, filed by herbarium accession and state — so the collection localities survive even though the specimen photographs themselves are not mine to publish.
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/lobelia_specimen_origins.html' | relative_url }}"
+            title="Map of US states the restored Lobelia specimens were collected in"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:450px; border:1px solid var(--global-divider-color); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+Collection localities for the <strong>60 source sheets</strong> retained, across <strong>18 states</strong>. Hover a state for its sheets and species. The distribution is the clade's: overwhelmingly eastern, densest in Florida, the Carolinas and the mid-Atlantic, thinning west of the Mississippi. Note the scope — sheets were kept for six species (<em>cardinalis, canbyi, elongata, dortmanna, brevifolia, feayana</em>), so this maps where <em>those</em> specimens were collected, not the whole set.
+</div>
+
 ## What the set contains
 
 **39 finished silhouettes across 27 species**, made between April 2018 and February 2019, with the working files, a reference image per species, and the source sheets kept alongside them.
