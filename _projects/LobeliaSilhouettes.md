@@ -20,7 +20,7 @@ related_publications: true
 
 {% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="Lobelia silhouettes reconstructed from herbarium specimens" alt="A row of dark plant silhouettes on a pale background, each a whole Lobelia specimen showing a slender flowering stem, scattered leaves and a root mass at the base." caption="Whole-plant silhouettes of North American _Lobelia_, restored from digitized herbarium sheets. Each outline is one physical specimen — root mass, stem, cauline leaves and inflorescence — unfolded and rejoined, then reduced to its shape. **Sizes are true to each other**: each plant was scaled from the ruler photographed on its own sheet, so the height differences here are the plants, not the layout." class="img-fluid rounded z-depth-1" %}
 
-Undergraduate work at **Kent State University** with **Dr. Andrea Case**, within the NSF programme [**BEE: Ecological and evolutionary processes affecting the co-existence of close relatives**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606).
+Undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earlier of my two pieces of this project — the [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came afterwards. Within the NSF programme [**BEE: Ecological and evolutionary processes affecting the co-existence of close relatives**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606).
 
 A herbarium sheet is not a picture of a plant. It is a plant that has been pressed flat, dried, folded to fit a sheet, mounted with tape and glue, annotated, and then photographed decades later — often with parts overlapping, broken or missing. Reading the **habit** of the species off one takes work. Reconstructing it digitally and rendering the result as a silhouette turns that work into something a reader can take in at a glance, and makes a set of species directly comparable in a way photographs of sheets never are.
 
@@ -50,6 +50,10 @@ The silhouettes are credited in the phylogenomic paper from the same programme {
 
 > We thank Jaret Arnold for his artistic contributions to the plant silhouettes shown in Fig. …
 
+In that figure the set stands **above the tips of the phylogeny**, each species' plant aligned over its clade, on a shared ground line. Which is the arrangement the true-scale rule was for: at the tips of a tree, a species reading as knee-high next to one reading as waist-high is not styling, it is the comparison the figure is making. The silhouettes carry habit and stature across the clade in a single band, above the topology that explains them.
+
+The version on this page is a **separate composition** — the same set, laid out and coloured for a talk rather than for the journal.
+
 ## A related but separate project
 
 This sits alongside — and is easy to confuse with — the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) from the same lab project: acquiring herbarium sheets at aggregator scale, segmenting individual leaves, and extracting morphometric traits.
@@ -60,6 +64,6 @@ Both end in a plant reduced to an outline, which is exactly why they blur togeth
 
 Completed undergraduate work, recorded here rather than maintained.
 
-**On the surviving files.** The Photoshop working files did not survive: the laptop backup that preserved the measurement pipeline contains none of this project's source material, and the render above is what remains of the set. The method described here is the author's own account rather than a reconstruction from recovered files.
+**On the surviving files.** The Photoshop working files are not in either laptop backup — searched by name, by `.psd`, and by surveying every directory holding images. They exist somewhere; they are not there. The render above is what is presently to hand, and the method described here is my own account rather than something reconstructed from recovered files. If the originals turn up, the full 23-species set belongs on this page at true scale.
 
 **Provenance.** The silhouettes are original work. Specimen images they were drawn from are the property of their holding institutions; none are reproduced here.
