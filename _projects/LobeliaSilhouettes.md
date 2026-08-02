@@ -12,7 +12,7 @@ related_publications: true
 ---
 
 <div style="border:1px solid var(--global-divider-color); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> A pressed herbarium specimen is a plant that has been folded, broken and taped flat to fit a sheet — and what a reader usually needs from it is its <em>habit</em>, the shape of the whole plant. This project digitally restored one specimen per species for all <strong>23 species</strong> of <em>Lobelia</em> sect. <em>Lobelia</em> — unfolding leaves, rejoining stems, stripping the sheet furniture — and reduced each restored plant to a silhouette. Two rules make them restorations rather than illustrations: <strong>nothing is added that was not on the sheet</strong>, and <strong>scale is preserved from the sheet's own ruler</strong>, so the set is comparable in true size. They appear in print — <strong>Godden et al. 2025</strong> credits them in its acknowledgements.
+  <strong>TL;DR.</strong> A pressed herbarium specimen is a plant that has been folded, broken and taped flat to fit a sheet — and what a reader usually needs from it is its <em>habit</em>, the shape of the whole plant. This project digitally restored one specimen per species across <em>Lobelia</em> sect. <em>Lobelia</em> — unfolding leaves, rejoining stems, stripping the sheet furniture — and reduced each restored plant to a silhouette. Two rules make them restorations rather than illustrations: <strong>nothing is added that was not on the sheet</strong>, and <strong>scale is preserved from the sheet's own ruler</strong>, so the set is comparable in true size. They appear in print — <strong>Godden et al. 2025</strong> credits them in its acknowledgements.
   <div style="margin-top:0.7rem;">
     <a href="https://doi.org/10.1016/j.ympev.2025.108410" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">📄 The paper they appear in</a>
   </div>
@@ -42,7 +42,7 @@ Two constraints do most of the work, and they are what separate this from illust
 
 That second point is worth holding next to the [leaf-measurement project]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}), which does the exact opposite: it scales every leaf to a common length so that only _shape_ is compared, and throws absolute size away by construction. Same clade, same herbarium sheets, opposite decision about what to keep — because one is trying to depict a plant and the other is trying to measure a trait.
 
-The set covers **one specimen per species, for all 23 species** of _Lobelia_ sect. _Lobelia_.
+The set covers **one specimen per species** across _Lobelia_ sect. _Lobelia_. A hard count is deliberately absent: the section's circumscription has moved — the 2020 grant proposal describes 23 species, the 2025 paper says the section comprises 26 and samples 24 — and the working files that would settle how many silhouettes were actually delivered have not turned up yet.
 
 ## Where they ended up
 
@@ -50,7 +50,9 @@ The silhouettes are credited in the phylogenomic paper from the same programme {
 
 > We thank Jaret Arnold for his artistic contributions to the plant silhouettes shown in Fig. …
 
-In that figure the set stands **above the tips of the phylogeny**, each species' plant aligned over its clade, on a shared ground line. Which is the arrangement the true-scale rule was for: at the tips of a tree, a species reading as knee-high next to one reading as waist-high is not styling, it is the comparison the figure is making. The silhouettes carry habit and stature across the clade in a single band, above the topology that explains them.
+They form the **morphology panel of the phylogeny figure** — a band of plants standing on a shared ground line, each aligned over its own clade, between the phylogram above and the collapsed-clade cladogram below. The paper's own description is that the silhouettes illustrate general plant morphological patterns in a phylogenetic context.
+
+Which is the arrangement the true-scale rule was for. At the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison the figure is making, not styling — habit and stature carried across the whole clade in a single band, above the topology that explains them.
 
 The version on this page is a **separate composition** — the same set, laid out and coloured for a talk rather than for the journal.
 
