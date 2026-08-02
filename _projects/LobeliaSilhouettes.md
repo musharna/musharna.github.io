@@ -19,29 +19,27 @@ related_publications: true
   </div>
 </div>
 
-{% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale.** One silhouette per species, ordered by height. Each plant was resampled to a single common pixels-per-centimetre using the **10 cm bar drawn into its own file**, so these heights are measured, not styled — from _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. Where a species has several restored specimens, the tallest is shown. A composed plate: the plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale.** One silhouette per species, ordered by height, each resampled to a common pixels-per-centimetre using the **10 cm bar drawn into its own file** — so these heights are measured, not styled, from _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. The plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
 
 This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest piece of my involvement in the lab's _Lobelia_ project — the [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
 
 ## How they were made
 
-Each silhouette starts as one digitized herbarium sheet and is restored in **Photoshop** before it is ever reduced to an outline. Restoration means putting the plant back into the shape it had before it was pressed:
+Each silhouette starts as one digitized sheet, restored in **Photoshop** before it is reduced to an outline — putting the plant back into the shape it had before pressing:
 
 - **Unfolding.** Leaves pressed back over themselves, or folded to make the plant fit the sheet, are digitally unfolded.
 - **Reattaching.** Stems snapped in pressing or handling are rejoined.
 - **Removing the furniture.** Labels, tape, mounting strips, annotations and colour cards come out, so what remains is only the plant.
 
-The whole restored plant — not a traced approximation of it — is then converted to a mask, and that mask is the silhouette. The working files keep both stages: a `Raw` document per specimen holding the restoration, and a second holding the silhouette it became.
+The whole restored plant — not a traced approximation of it — is then converted to a mask, and that mask is the silhouette. Two constraints separate this from illustration:
 
-Two constraints do most of the work, and they are what separate this from illustration:
+> **Nothing is added that was not already on the sheet.** No compositing across specimens, no organ borrowed from a better example, no idealised representative. If a part was missing from that sheet, it is missing from its silhouette — each is a restoration of a particular plant, not a drawing of a species.
 
-> **Nothing is added that was not already on the sheet.** No compositing across specimens, no reconstructing an organ from a better example elsewhere, no idealised representative of the species. If a part was missing from that physical sheet, it is missing from its silhouette. Each one is a restoration of a particular plant, not a drawing of a species.
+> **Scale comes from the sheet's own ruler.** Each silhouette carries a **10 cm bar drawn into the file**, so true size is checkable from the images rather than taken on trust.
 
-> **Scale comes from the sheet's own ruler.** Every specimen was photographed with a scale bar, and each silhouette carries a **10 cm bar drawn into the file itself**. The set is therefore comparable in true size, and that claim is checkable from the images rather than taken on trust.
+Which is why the plate above can exist: the files run from 30 to 85 pixels per centimetre, so it is built by reading each bar and resampling to one shared scale.
 
-Which is why the plate above can exist at all. The individual files are not stored at a common resolution — they run from 30 to 85 pixels per centimetre — so the plate is built by reading each file's own bar and resampling every plant to one shared scale.
-
-**One internal check.** A standard herbarium sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant longer than the sheet it is mounted on had to have been folded to fit, which is what the unfolding step undoes. That says the restoration is doing what it claims; it says nothing about whether the mounted plant was complete.
+**One internal check.** A standard sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant longer than its sheet had to be folded to fit, which is what unfolding undoes — evidence the restoration does what it claims, and none at all that the mounted plant was complete.
 
 ## Explore the set
 
@@ -55,25 +53,25 @@ Every restored specimen, on one centimetre axis. Hover any plant for its species
   </iframe>
 </div>
 <div class="caption">
-All <strong>39</strong> restored specimens, ordered by height, drawn at a single shared scale — <strong>the axes are locked to equal aspect</strong>, so nothing is stretched to fit and the plot is as wide as the plants genuinely are. Scroll sideways to reach <em>L. brevifolia</em>. Species with several restored specimens appear more than once, and they need not agree: the three <em>L. cardinalis</em> sheets stand at 24, 47 and 52 cm — a spread between <em>specimens</em>, not a claim about how tall the species grows.
+All <strong>39</strong> specimens at one shared scale, ordered by height, with <strong>axes locked to equal aspect</strong> so nothing is stretched to fit. Scroll sideways to reach <em>L. brevifolia</em>. Species restored from several sheets appear more than once and need not agree: the three <em>L. cardinalis</em> stand at 24, 47 and 52 cm — a spread between <em>specimens</em>, not a claim about the species.
 </div>
 
 ## How the set measures against real plants
 
-Because every silhouette is at true scale, the set can be measured. For each of the 39 I took the share of plant area sitting in the lowest fifth of its own height — high where the leaves cluster at the base, low where they climb a stem.
+Because every silhouette is at true scale, the set can be measured. For each I took the share of plant area in the lowest fifth of its own height — high where leaves cluster at the base, low where they climb a stem.
 
 {% include figure.liquid path="assets/img/lobelia/habit_architecture.png" title="Basal concentration against plant height for 39 restored Lobelia specimens" alt="Scatter plot of 39 green points, plant height in centimetres on the x axis from 13 to 134, basal concentration on the y axis from 0.05 to 0.65. The points show no trend; L. dortmanna sits high at 33 cm, L. brevifolia low at 134 cm, L. laxiflora and L. elongata low at moderate heights." caption="Each point is one restored specimen. The spread is wide and does not track plant height (r = −0.22). _L. dortmanna_, the aquatic rosette species of the group, sits near the top, which is at least the right direction." class="img-fluid rounded z-depth-1" %}
 
-**Then the check that matters: do these plants match real ones?** Comparing restored heights against published stature, for the two species I could find a reference for:
+**But do they match real plants?** Restored heights against published stature, for the two species I could find a reference for:
 
 | species | restored | published |
 | --- | --- | --- |
 | _L. siphilitica_ | 61 cm | 46–122 cm — inside |
 | _L. cardinalis_ (×3) | 24, 47, 52 cm | 122–152 cm — **far below** |
 
-One agrees and one does not, and the disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual — so what a silhouette faithfully depicts is that pressed specimen, not the species' stature. An outline of a fragment says nothing about how the whole plant was built.
+The disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet** — for a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts that pressed specimen, not the species, and an outline of a fragment says nothing about how the whole plant was built.
 
-Which is why the gradient above is best read as a description of this set of images, not as a result about _Lobelia_. The restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is a horticultural database describing cultivated plants, so treat it as indicative too.)
+So read the gradient as a description of this set of images, not a result about _Lobelia_: the restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is horticultural and covers 2 of 27 species — indicative too.)
 
 ## Where the specimens came from
 
@@ -89,20 +87,18 @@ The source sheets were kept alongside the artwork, filed by **herbarium accessio
   </div>
 </div>
 <div class="caption">
-Collection localities for the <strong>60 source sheets</strong> retained, across <strong>18 states</strong>. Hover a state for its sheets and species. The distribution is the clade's: overwhelmingly eastern, densest in Florida, the Carolinas and the mid-Atlantic, thinning west of the Mississippi. Note the scope — sheets were kept for six species (<em>cardinalis, canbyi, elongata, dortmanna, brevifolia, feayana</em>), so this maps where <em>those</em> specimens were collected, not the whole set.
+Collection localities for the <strong>60 source sheets</strong> retained, across <strong>18 states</strong>. Hover a state for its sheets and species. The distribution is the clade's — overwhelmingly eastern, densest in Florida, the Carolinas and the mid-Atlantic. Sheets were kept for six species only (<em>cardinalis, canbyi, elongata, dortmanna, brevifolia, feayana</em>), so this maps where <em>those</em> were collected, not the whole set.
 </div>
 
 ## Where they ended up
 
-The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}, where they form the **morphology panel of the phylogeny figure** — a band of plants standing on a shared ground line, each aligned over its own clade, between the phylogram above and the collapsed-clade cladogram below. The paper describes them as illustrating general plant morphological patterns in a phylogenetic context.
+The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}, where they form the **morphology panel of the phylogeny figure** — a band of plants on a shared ground line, each aligned over its own clade. Which is the arrangement the true-scale rule was for: at the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison being made, not styling.
 
-Which is the arrangement the true-scale rule was for. At the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison the figure is making, not styling.
-
-Worth being precise about the sequence: this artwork **predates the grant it is usually associated with**. The silhouettes were finished by early 2019; NSF award DEB-2015606 began in September 2020. They were made first and drawn on later.
+Worth being precise about the sequence: this artwork **predates the grant it is usually associated with**. The silhouettes were finished by early 2019; NSF award DEB-2015606 began in September 2020.
 
 The same set has also been arranged for talks:
 
-{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="The silhouette set composed for a talk" alt="A row of dark indigo plant silhouettes on a warm tan background, each a whole Lobelia specimen with stem, leaves and roots, standing on a common ground line." caption="A presentation composition of the same set — recoloured, and arranged on a shared ground line for a slide rather than for a journal page. For a long stretch this was the only surviving piece of the project, before the originals were recovered." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="The silhouette set composed for a talk" alt="A row of dark indigo plant silhouettes on a warm tan background, each a whole Lobelia specimen with stem, leaves and roots, standing on a common ground line." caption="The same set recoloured and arranged for a slide. For a long stretch this was the only surviving piece of the project, before the originals were recovered." class="img-fluid rounded z-depth-1" %}
 
 ## Archived, and free to use
 
@@ -112,10 +108,8 @@ The 39 originals, the plate, and a manifest of every measured height — **CC BY
 
 ## A related but separate project
 
-Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is exactly why they blur together — but they make opposite decisions about scale. **This project is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away** so that only shape is compared.
+Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is why they blur together — but **this one is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away**.
 
 ## Status
 
-Completed undergraduate work, recorded here rather than maintained. The originals — silhouettes, layered restoration files, per-species references and source sheets — survive on the one machine that was never backed up, and were recovered in August 2026.
-
-**Provenance.** The silhouettes are original work. The specimen images they were restored from are the property of their holding institutions and are not reproduced here.
+Completed undergraduate work, recorded here rather than maintained. The originals — silhouettes, layered restoration files, references and source sheets — survived on the one machine that was never backed up, and were recovered in August 2026. The silhouettes are my own work; the specimen images they were restored from belong to their holding institutions and are not reproduced here.
