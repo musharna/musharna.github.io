@@ -41,7 +41,7 @@ Two constraints do most of the work, and they are what separate this from illust
 
 Which is why the plate above can exist at all. The individual files are not stored at a common resolution — they run from 30 to 85 pixels per centimetre — so the plate is built by reading each file's own bar and resampling every plant to one shared scale.
 
-**The measurements corroborate the method.** A standard herbarium sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant taller than the sheet it is mounted on is exactly what unfolding recovers — the specimen was folded to fit, and the restoration puts it back.
+**One internal check.** A standard herbarium sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant longer than the sheet it is mounted on had to have been folded to fit, which is what the unfolding step undoes. That says the restoration is doing what it claims; it says nothing about whether the mounted plant was complete.
 
 ## Explore the set
 
@@ -55,20 +55,25 @@ Every restored specimen, on one centimetre axis. Hover any plant for its species
   </iframe>
 </div>
 <div class="caption">
-All <strong>39</strong> restored specimens, ordered by height, drawn at a single shared scale — <strong>the axes are locked to equal aspect</strong>, so nothing is stretched to fit and the plot is as wide as the plants genuinely are. Scroll sideways to reach <em>L. brevifolia</em>. Species with several restored specimens appear more than once, which is where the within-species spread shows: the three <em>L. cardinalis</em> stand at 24, 47 and 52 cm.
+All <strong>39</strong> restored specimens, ordered by height, drawn at a single shared scale — <strong>the axes are locked to equal aspect</strong>, so nothing is stretched to fit and the plot is as wide as the plants genuinely are. Scroll sideways to reach <em>L. brevifolia</em>. Species with several restored specimens appear more than once, and they need not agree: the three <em>L. cardinalis</em> sheets stand at 24, 47 and 52 cm — a spread between <em>specimens</em>, not a claim about how tall the species grows.
 </div>
 
-## What the outlines measure
+## How the set measures against real plants
 
-Because each silhouette is a whole plant at true scale, the set supports a measurement the individual images don't obviously offer: **where a plant carries its bulk**. For each of the 39 I measured the share of its area sitting in the lowest fifth of its own height — high for a basal rosette, low for a plant that spreads its leaves up a tall stem.
+Because every silhouette is at true scale, the set can be measured. For each of the 39 I took the share of plant area sitting in the lowest fifth of its own height — high where the leaves cluster at the base, low where they climb a stem.
 
-{% include figure.liquid path="assets/img/lobelia/habit_architecture.png" title="Basal concentration against plant height for 39 restored Lobelia specimens" alt="Scatter plot of 39 green points, plant height in centimetres on the x axis from 13 to 134, basal concentration on the y axis from 0.05 to 0.65. The points show no trend; L. dortmanna sits high at 33 cm, L. brevifolia low at 134 cm, L. laxiflora and L. elongata low at moderate heights." caption="**Architecture is independent of size.** Each point is one restored specimen. Tall plants are not systematically top-heavy and short plants are not systematically rosettes — the correlation with height is −0.22. _L. dortmanna_, the classic aquatic basal-rosette species of the group, lands where it should, near the top." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/habit_architecture.png" title="Basal concentration against plant height for 39 restored Lobelia specimens" alt="Scatter plot of 39 green points, plant height in centimetres on the x axis from 13 to 134, basal concentration on the y axis from 0.05 to 0.65. The points show no trend; L. dortmanna sits high at 33 cm, L. brevifolia low at 134 cm, L. laxiflora and L. elongata low at moderate heights." caption="Each point is one restored specimen. The spread is wide and does not track plant height (r = −0.22). _L. dortmanna_, the aquatic rosette species of the group, sits near the top, which is at least the right direction." class="img-fluid rounded z-depth-1" %}
 
-The spread is **14-fold**, from 0.05 to 0.65, and it is chiefly a property of the species rather than the specimen: across the seven species restored from more than one sheet, **89% of the variance falls between species rather than within them**. The two _L. amoena_ specimens agree to three decimal places.
+**Then the check that matters: do these plants match real ones?** Comparing restored heights against published stature, for the two species I could find a reference for:
 
-Two limits worth stating. The gradient is **continuous, not two discrete architectures** — the largest gap in the sorted values splits it 30/9 at seven times the median gap, which is suggestive and no more. And an outline cannot separate basal leaves from roots, so this conflates the two wherever roots were mounted with the plant. One species argues with itself: the three _L. nuttallii_ specimens span half the entire range, against a median within-species spread of 12%.
+| species | restored | published |
+| --- | --- | --- |
+| _L. siphilitica_ | 61 cm | 46–122 cm — inside |
+| _L. cardinalis_ (×3) | 24, 47, 52 cm | 122–152 cm — **far below** |
 
-Worth noting against the [leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}), where leaf outline placed only 49% of its variance between species: whole-plant architecture looks the more species-diagnostic of the two. That is a loose comparison rather than a like-for-like test — different traits, different samples, different analyses — but it points the same way as the older intuition that habit is what a botanist reads first.
+One agrees and one does not, and the disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual — so what a silhouette faithfully depicts is that pressed specimen, not the species' stature. An outline of a fragment says nothing about how the whole plant was built.
+
+Which is why the gradient above is best read as a description of this set of images, not as a result about _Lobelia_. The restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is a horticultural database describing cultivated plants, so treat it as indicative too.)
 
 ## Where the specimens came from
 
