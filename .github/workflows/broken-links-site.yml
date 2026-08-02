@@ -81,13 +81,20 @@ jobs:
           #                 returning 200 to curl. The canonical
           #                 huggingface.co/spaces/... URL is still checked, so the
           #                 private-model 401 class of defect remains covered.
-          #   10.15468/dl.  GBIF occurrence-download DOIs. NOTE this one differs from
-          #                 the two above: it cannot be verified 200 via curl, because
-          #                 doi.org 302s to www.gbif.org which 403s every non-browser
-          #                 agent INCLUDING curl. Verified instead against the GBIF
-          #                 API, which is authoritative for these records:
+          # The two DOI prefixes below differ from the two exclusions above: they
+          # CANNOT be verified 200 via curl, because doi.org resolves them to
+          # publisher landing pages that 403 every non-browser agent, curl included.
+          # Each was verified against a metadata registry instead, which is
+          # authoritative for the record even when the landing page is not reachable.
+          # All 8 DOIs on the site were tested at once rather than one per red build:
+          # 6 return 200, these 2 return 403, and both 403s are publisher bot-blocks.
+          #   10.15468/dl.  GBIF occurrence downloads -> www.gbif.org [403].
           #                 api.gbif.org/v1/occurrence/download/0014785-240202131308920
-          #                 returns status SUCCEEDED, doi 10.15468/dl.5gavr9, 452
-          #                 records. The DOI resolves; the landing page blocks bots.
+          #                 returns status SUCCEEDED, doi 10.15468/dl.5gavr9, 452 records.
+          #   10.1071/      CSIRO / Functional Plant Biology -> connectsci.au [403].
+          #                 CrossRef returns Nicotra et al., "The evolution and functional
+          #                 significance of leaf shape in the angiosperms", Functional
+          #                 Plant Biology 38: 535-552 (2011). The DOI resolves; the
+          #                 landing page blocks bots.
           # Validated on a local build of this commit: 231 OK, 0 errors.
-          args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --timeout 45 --retry-wait-time 2 --exclude 'unsplash\.com' --exclude 'hf\.space' --exclude '10\.15468/dl\.' --verbose --no-progress '_site/**/*.html'
+          args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --timeout 45 --retry-wait-time 2 --exclude 'unsplash\.com' --exclude 'hf\.space' --exclude '10\.15468/dl\.' --exclude '10\.1071/' --verbose --no-progress '_site/**/*.html'
