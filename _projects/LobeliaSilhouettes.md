@@ -22,6 +22,8 @@ related_publications: false
   </div>
 </div>
 
+{% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="Lobelia silhouettes extracted from herbarium specimens" caption="Whole-plant silhouettes recovered from digitized herbarium sheets of _Lobelia_ sect. _Lobelia_. Each outline is a single pressed specimen — flowering stem, leaves and roots — reduced to the shape that morphometrics can actually measure." class="img-fluid rounded z-depth-1" %}
+
 This was my undergraduate research at **Kent State University**, advised by **Dr. Andrea Case** in the Department of Biological Sciences. The proposal is dated December 2021, and the work ran through 2022 with a final data pull in early 2024. It sat inside a larger NSF-funded programme — [**BEE: Ecological and evolutionary processes affecting the co-existence of close relatives**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606, Case at Kent State; collaborative with Lynda Delph at Indiana and Nico Cellinese at Florida) — which uses _Lobelia_ sect. _Lobelia_ as a model for why closely related species do or don't manage to live alongside each other. My piece of it was the phenotype side: getting trait data out of herbarium sheets without measuring every one by hand.
 
 ## The data is already collected
