@@ -30,7 +30,7 @@ ninja.data = [{
               window.location.href = "/projects/LobeliaLeafMeasurement/";
             },},{id: "projects-lobelia-silhouettes",
           title: 'Lobelia Silhouettes',
-          description: "Digital reconstruction of North American Lobelia from restored herbarium specimens.",
+          description: "Digitally restored herbarium specimens of Lobelia, reduced to true-scale silhouettes.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-mcp-servers",
