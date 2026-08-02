@@ -89,11 +89,7 @@ Collection localities for the <strong>60 source sheets</strong> retained, across
 
 ## Where they ended up
 
-The silhouettes are credited in the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}. Its acknowledgements read:
-
-> We thank Jaret Arnold for his artistic contributions to the plant silhouettes shown in Fig. …
-
-They form the **morphology panel of the phylogeny figure** — a band of plants standing on a shared ground line, each aligned over its own clade, between the phylogram above and the collapsed-clade cladogram below. The paper describes them as illustrating general plant morphological patterns in a phylogenetic context.
+The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}, where they form the **morphology panel of the phylogeny figure** — a band of plants standing on a shared ground line, each aligned over its own clade, between the phylogram above and the collapsed-clade cladogram below. The paper describes them as illustrating general plant morphological patterns in a phylogenetic context.
 
 Which is the arrangement the true-scale rule was for. At the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison the figure is making, not styling.
 
