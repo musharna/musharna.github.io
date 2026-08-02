@@ -10,7 +10,7 @@ category: orchid deep dive
 related_publications: false
 ---
 
-<div style="border:1px solid rgba(0,0,0,0.1); border-left:4px solid #2c5282; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
+<div style="border:1px solid var(--global-divider-color); border-left:4px solid #2c5282; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
   <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model — top-1 <strong>0.911</strong> across 5,124 species, gains concentrated on the rarest genera. Its sharper lesson is a wall: across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. So rather than guess a binomial, the live demo serves a <em>calibrated genus</em> — naming a species only when the top-1/top-2 margin earns it.
   <div style="margin-top:0.7rem;">
     <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id" style="display:inline-block; background:#cc4e0b; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🌿 Try the live demo</a>
@@ -50,7 +50,7 @@ The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.99
     <iframe src="{{ '/assets/plotly/orchidclip_per_genus.html' | relative_url }}"
             title="Interactive per-genus top-1 accuracy, orchid-clip-v8 vs BioCLIP 2"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:580px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:580px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -79,7 +79,7 @@ The training pool is 1.14M images covering 5,124 species after WCVP synonym dedu
     <iframe src="{{ '/assets/plotly/orchidclip_class_freq.html' | relative_url }}"
             title="Interactive log-log species-frequency distribution of the v8 training pool"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:470px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:470px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -144,7 +144,7 @@ That taxonomy-shaped error structure is something you can _see_. Below is the sa
     <iframe src="{{ '/assets/plotly/orchidclip_umap_subfamily.html' | relative_url }}"
             title="Interactive UMAP of 18,601 orchid-clip-v8 species prototypes colored by WCVP subfamily"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:620px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:620px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -188,7 +188,7 @@ That trade-off is the whole story, and you can ride it: every point below is one
     <iframe src="{{ '/assets/plotly/orchidclip_risk_coverage.html' | relative_url }}"
             title="Shown-species precision vs coverage — the abstain trade-off"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:480px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:480px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -203,7 +203,7 @@ That trade-off is the whole story, and you can ride it: every point below is one
     <iframe src="https://mjarnold-orchid-genus-id.hf.space"
             title="Live orchid genus-ID demo (HuggingFace Space)"
             loading="lazy" frameborder="0"
-            style="width:100%; height:900px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:900px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -223,7 +223,7 @@ That trade-off is the whole story, and you can ride it: every point below is one
     <iframe src="{{ '/assets/plotly/orchidclip_tail_coverage.html' | relative_url }}"
             title="Starved-tail photo coverage before vs after the source-expansion"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:440px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:440px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
@@ -236,7 +236,7 @@ That trade-off is the whole story, and you can ride it: every point below is one
     <iframe src="{{ '/assets/plotly/orchidclip_tail_sources.html' | relative_url }}"
             title="Net-new tail images by source"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:520px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:520px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>

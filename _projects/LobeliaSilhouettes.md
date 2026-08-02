@@ -13,7 +13,7 @@ category: herbarium vision
 related_publications: true
 ---
 
-<div style="border:1px solid rgba(0,0,0,0.1); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
+<div style="border:1px solid var(--global-divider-color); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
   <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, and almost every measurable trait on them is locked inside a photograph. This project asked whether that measurement could be automated for one clade — <em>Lobelia</em> sect. <em>Lobelia</em>, 23 eastern North American wildflowers — by pairing aggregator-scale specimen acquisition with instance segmentation. It reached a working two-stage detection-then-segmentation pipeline over a hand-audited corpus of <strong>2,733 specimen images</strong>, and ran headlong into the reason this problem is still open: <strong>a rosette does not decompose into leaves the way a model expects it to.</strong>
   <div style="margin-top:0.7rem;">
     <a href="https://github.com/musharna/lobelia-silhouettes" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">💻 Code on GitHub</a>
@@ -72,7 +72,7 @@ Splitting the retained images by species exposes something the project didn't se
     <iframe src="{{ '/assets/plotly/lobelia_species_counts.html' | relative_url }}"
             title="Interactive chart: specimen images retained per Lobelia species, on a log scale"
             loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:580px; border:1px solid rgba(0,0,0,0.08); border-radius:8px;">
+            style="width:100%; height:580px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
