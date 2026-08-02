@@ -25,6 +25,7 @@ related_publications: true
     <a href="#does-outline-alone-identify-a-species">Does outline identify a species?</a> ·
     <a href="#the-pipeline-that-actually-ran">The pipeline</a> ·
     <a href="#what-the-measurements-showed">What it showed</a> ·
+    <a href="#do-the-two-analyses-agree">Do they agree?</a> ·
     <a href="#the-part-that-was-never-finished">What was never finished</a> ·
     <a href="#what-didnt-work">What didn't work</a> ·
     <a href="#status">Status</a>
@@ -186,6 +187,18 @@ And the same relationship separates **populations within a single species**:
 {% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_sites.png" title="Leaf area versus perimeter within Lobelia elongata, by collection site" alt="Scatter plot of leaf perimeter against leaf area for Lobelia elongata, coloured by four collection site codes, each with its own dashed regression line of differing slope." caption="_L. elongata_ alone, split by collection site. The four sites do not share a slope — plants from one site put on perimeter faster than plants from another. Whatever drives leaf shape here operates below the species level, which is the observation that makes a clade-wide automated measurement worth building. Original analysis, R / ggplot2." class="img-fluid rounded z-depth-1" %}
 
 That nesting is the substantive finding: **shape differs between species, and it differs between populations of the same species.** Any clade-scale story about leaf shape has to survive that second layer.
+
+## Do the two analyses agree?
+
+The 2024 measurements above and the [outline ordination](#does-outline-alone-identify-a-species) I ran on the recovered masks in 2026 are after the same thing by different routes — one measures area and perimeter off a thresholded leaf, the other places 128 landmarks around it and does PCA. They should agree. Mostly they do.
+
+{% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="Every leaf measured both ways. **PC1 of the outline against perimeter/√area** — a dimensionless shape index, so no calibration is needed and leaf size cancels out. The two agree strongly (**r = −0.82**): narrow leaves carry more perimeter per unit area, exactly as they should. Species means are marked; the four from the 2024 figure are emphasised." class="img-fluid rounded z-depth-1" %}
+
+**Where they agree:** _L. glandulosa_ is the outlier on both, by a wide margin — the narrowest outline and by far the most perimeter per unit area. That is the same species the 2024 plot picks out with the steepest slope, found six years apart by two methods that share no code and barely share a concept.
+
+**Where they don't, and why it matters.** The 2024 figure fits a _straight_ line to perimeter against area. But for a fixed shape, perimeter grows with the **square root** of area, not linearly — so the slope of a straight-line fit depends on the range of leaf sizes a species happens to span. _L. elongata_ reaches leaves of ~30 cm² while the others stop near 5–10, and a line fitted across that wider range is necessarily shallower. Its gentle slope in the 2024 plot is therefore partly a size effect rather than a shape one, and on the dimensionless index it sits mid-pack rather than at the bottom.
+
+None of which undoes the original result — the species really do differ, and _glandulosa_ really is the extreme. It sharpens it: **perimeter/√area separates shape from size, where a raw area-versus-perimeter slope confounds them.**
 
 ## The part that was never finished
 
