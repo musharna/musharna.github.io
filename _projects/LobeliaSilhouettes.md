@@ -15,6 +15,7 @@ related_publications: true
   <strong>TL;DR.</strong> A pressed herbarium specimen is a plant that has been folded, broken and taped flat to fit a sheet — and what a reader usually needs from it is its <em>habit</em>, the shape of the whole plant. Over 2018–19 I digitally restored <em>Lobelia</em> specimens in Photoshop — unfolding leaves, rejoining stems, stripping the sheet furniture — and reduced each restored plant to a silhouette: <strong>39 finished silhouettes across 27 species</strong>. Two rules make them restorations rather than illustrations: <strong>nothing is added that was not on the sheet</strong>, and <strong>every plant is scaled from the ruler photographed on its own sheet</strong>. They were later used in print — <strong>Godden et al. 2025</strong> credits them in its acknowledgements.
   <div style="margin-top:0.7rem;">
     <a href="https://doi.org/10.1016/j.ympev.2025.108410" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">📄 The paper they appear in</a>
+    <a href="https://doi.org/10.5281/zenodo.21764522" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem; margin-left:0.4rem;">⬇️ Download the set (CC BY 4.0)</a>
   </div>
 </div>
 
@@ -101,6 +102,16 @@ Worth being precise about the sequence: this artwork **predates the grant it is 
 The same set has also been arranged for talks:
 
 {% include figure.liquid path="assets/img/lobelia/lobelia_silhouettes.jpg" title="The silhouette set composed for a talk" alt="A row of dark indigo plant silhouettes on a warm tan background, each a whole Lobelia specimen with stem, leaves and roots, standing on a common ground line." caption="A presentation composition of the same set — recoloured, and arranged on a shared ground line for a slide rather than for a journal page. For a long stretch this was the only surviving piece of the project, before the originals were recovered." class="img-fluid rounded z-depth-1" %}
+
+## Archived, and free to use
+
+The full set is deposited on Zenodo under **CC BY 4.0** — the 39 silhouettes at their original resolution, the true-scale plate, a per-file manifest of species and measured dimensions, and a species-level record of the source sheets:
+
+> **Arnold, J. (2026).** _Lobelia silhouettes: digitally restored whole-plant outlines from herbarium specimens (2018–2019)._ Zenodo. [10.5281/zenodo.21764522](https://doi.org/10.5281/zenodo.21764522)
+
+Use them in a figure, a talk or a key; attribution is the only condition. Each file carries its own 10 cm bar, so they can be placed on a shared scale without guessing — the manifest lists every measured height.
+
+The deposit contains **no specimen photographs and no layered working files**, both of which embed imagery belonging to the holding institutions. What is released is the outline and the restoration work, which are mine.
 
 ## A related but separate project
 
