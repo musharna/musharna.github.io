@@ -336,8 +336,11 @@ display_categories: ["external-services"] # these categories will be displayed o
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  # Template residue: this was still [Einstein] / [Albert, A.]. jekyll-scholar uses these
+  # to bold the site owner's own name in rendered bibliographies, so with al-folio's
+  # defaults left in place no entry authored by Arnold was ever emphasised.
+  last_name: [Arnold]
+  first_name: [Jaret, J.]
 
   style: apa
   locale: en
