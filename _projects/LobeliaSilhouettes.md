@@ -12,7 +12,7 @@ related_publications: true
 ---
 
 <div style="border:1px solid var(--global-divider-color); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> A pressed herbarium specimen is a plant that has been folded, broken and taped flat to fit a sheet — and what a reader usually needs from it is its <em>habit</em>, the shape of the whole plant. Over 2018–19 I digitally restored <em>Lobelia</em> specimens in Photoshop — unfolding leaves, rejoining stems, stripping the sheet furniture — and reduced each restored plant to a silhouette: <strong>39 finished silhouettes across 27 species</strong>. Two rules make them restorations rather than illustrations: <strong>nothing is added that was not on the sheet</strong>, and <strong>every plant is scaled from the ruler photographed on its own sheet</strong>. They were later used in print — <strong>Godden et al. 2025</strong> credits them in its acknowledgements.
+  <strong>TL;DR.</strong> A pressed herbarium specimen is a plant folded, broken and taped flat to fit a sheet — and what a reader usually needs from it is its <em>habit</em>, the shape of the whole plant. Over 2018–19 I digitally restored <em>Lobelia</em> specimens in Photoshop and reduced each restored plant to a silhouette: <strong>39 silhouettes across 27 species</strong>, every one scaled from the ruler photographed on its own sheet. <strong>Godden et al. 2025</strong> credits them in its acknowledgements.
   <div style="margin-top:0.7rem;">
     <a href="https://doi.org/10.1016/j.ympev.2025.108410" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">📄 The paper they appear in</a>
     <a href="https://doi.org/10.5281/zenodo.21764522" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem; margin-left:0.4rem;">⬇️ Download the set (CC BY 4.0)</a>
@@ -22,8 +22,6 @@ related_publications: true
 {% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale.** One silhouette per species, ordered by height. Each plant was resampled to a single common pixels-per-centimetre using the **10 cm bar drawn into its own file**, so these heights are measured, not styled — from _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. Where a species has several restored specimens, the tallest is shown. A composed plate: the plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
 
 This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest piece of my involvement in the lab's _Lobelia_ project — the [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
-
-A herbarium sheet is not a picture of a plant. It is a plant that has been pressed flat, dried, folded to fit a sheet, mounted with tape and glue, annotated, and then photographed decades later — often with parts overlapping, broken or missing. Reading the **habit** of a species off one takes work. Restoring it digitally and reducing the result to a silhouette turns that work into something a reader takes in at a glance, and makes a set of species directly comparable in a way photographs of sheets never are.
 
 ## How they were made
 
@@ -47,7 +45,7 @@ Which is why the plate above can exist at all. The individual files are not stor
 
 ## Explore the set
 
-Every restored specimen, on one centimetre axis. Hover any plant for its species and measured size.
+Every restored specimen, on one centimetre axis. Hover any plant for its species and measured size. The set reaches past _Lobelia_ sect. _Lobelia_ itself, taking in _L. amoena_, _L. berlandieri_, _L. boykinii_ and _L. fenestralis_.
 
 <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--global-divider-color); border-radius:8px;">
   <iframe src="{{ '/assets/plotly/lobelia_silhouette_explorer.html' | relative_url }}"
@@ -60,9 +58,21 @@ Every restored specimen, on one centimetre axis. Hover any plant for its species
 All <strong>39</strong> restored specimens, ordered by height, drawn at a single shared scale — <strong>the axes are locked to equal aspect</strong>, so nothing is stretched to fit and the plot is as wide as the plants genuinely are. Scroll sideways to reach <em>L. brevifolia</em>. Species with several restored specimens appear more than once, which is where the within-species spread shows: the three <em>L. cardinalis</em> stand at 24, 47 and 52 cm.
 </div>
 
+## What the outlines measure
+
+Because each silhouette is a whole plant at true scale, the set supports a measurement the individual images don't obviously offer: **where a plant carries its bulk**. For each of the 39 I measured the share of its area sitting in the lowest fifth of its own height — high for a basal rosette, low for a plant that spreads its leaves up a tall stem.
+
+{% include figure.liquid path="assets/img/lobelia/habit_architecture.png" title="Basal concentration against plant height for 39 restored Lobelia specimens" alt="Scatter plot of 39 green points, plant height in centimetres on the x axis from 13 to 134, basal concentration on the y axis from 0.05 to 0.65. The points show no trend; L. dortmanna sits high at 33 cm, L. brevifolia low at 134 cm, L. laxiflora and L. elongata low at moderate heights." caption="**Architecture is independent of size.** Each point is one restored specimen. Tall plants are not systematically top-heavy and short plants are not systematically rosettes — the correlation with height is −0.22. _L. dortmanna_, the classic aquatic basal-rosette species of the group, lands where it should, near the top." class="img-fluid rounded z-depth-1" %}
+
+The spread is **14-fold**, from 0.05 to 0.65, and it is chiefly a property of the species rather than the specimen: across the seven species restored from more than one sheet, **89% of the variance falls between species rather than within them**. The two _L. amoena_ specimens agree to three decimal places.
+
+Two limits worth stating. The gradient is **continuous, not two discrete architectures** — the largest gap in the sorted values splits it 30/9 at seven times the median gap, which is suggestive and no more. And an outline cannot separate basal leaves from roots, so this conflates the two wherever roots were mounted with the plant. One species argues with itself: the three _L. nuttallii_ specimens span half the entire range, against a median within-species spread of 12%.
+
+Worth noting against the [leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}), where leaf outline placed only 49% of its variance between species: whole-plant architecture looks the more species-diagnostic of the two. That is a loose comparison rather than a like-for-like test — different traits, different samples, different analyses — but it points the same way as the older intuition that habit is what a botanist reads first.
+
 ## Where the specimens came from
 
-The source sheets were kept alongside the artwork, filed by herbarium accession and state — so the collection localities survive even though the specimen photographs themselves are not mine to publish.
+The source sheets were kept alongside the artwork, filed by **herbarium accession and state** — `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi` — so every silhouette traces back to a physical specimen, and the collection localities survive even though the photographs themselves are not mine to publish.
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -76,16 +86,6 @@ The source sheets were kept alongside the artwork, filed by herbarium accession 
 <div class="caption">
 Collection localities for the <strong>60 source sheets</strong> retained, across <strong>18 states</strong>. Hover a state for its sheets and species. The distribution is the clade's: overwhelmingly eastern, densest in Florida, the Carolinas and the mid-Atlantic, thinning west of the Mississippi. Note the scope — sheets were kept for six species (<em>cardinalis, canbyi, elongata, dortmanna, brevifolia, feayana</em>), so this maps where <em>those</em> specimens were collected, not the whole set.
 </div>
-
-## What the set contains
-
-**39 finished silhouettes across 27 species**, made between April 2018 and February 2019, with the working files, a reference image per species, and the source sheets kept alongside them.
-
-Several species are represented by more than one restored specimen — four of _L. anatina_, three each of _L. appendiculata_, _L. cardinalis_ and _L. nuttallii_ — which is what makes the within-species spread visible: the three _L. cardinalis_ specimens restore to 24, 47 and 52 cm.
-
-The set also reaches past _Lobelia_ sect. _Lobelia_ itself, including _L. amoena_, _L. berlandieri_, _L. boykinii_ and _L. fenestralis_.
-
-Provenance is kept with the artwork: the source sheets are filed by **herbarium accession and state** — `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi` — so each silhouette can be traced back to the physical specimen it restores.
 
 ## Where they ended up
 
@@ -105,19 +105,13 @@ The same set has also been arranged for talks:
 
 ## Archived, and free to use
 
-The full set is deposited on Zenodo under **CC BY 4.0** — the 39 silhouettes at their original resolution, the true-scale plate, a per-file manifest of species and measured dimensions, and a species-level record of the source sheets:
-
 > **Arnold, J. (2026).** _Lobelia silhouettes: digitally restored whole-plant outlines from herbarium specimens (2018–2019)._ Zenodo. [10.5281/zenodo.21764522](https://doi.org/10.5281/zenodo.21764522)
 
-Use them in a figure, a talk or a key; attribution is the only condition. Each file carries its own 10 cm bar, so they can be placed on a shared scale without guessing — the manifest lists every measured height.
-
-The deposit contains **no specimen photographs and no layered working files**, both of which embed imagery belonging to the holding institutions. What is released is the outline and the restoration work, which are mine.
+The 39 originals, the plate, and a manifest of every measured height — **CC BY 4.0**, so use them in a figure, a talk or a key and attribution is the only condition. The deposit holds **no specimen photographs and no layered working files**, both of which embed institutional imagery; what is released is the outline and the restoration work.
 
 ## A related but separate project
 
-This sits alongside — and is easy to confuse with — the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}): acquiring herbarium sheets at aggregator scale, segmenting individual leaves, and extracting morphometric traits.
-
-Both end in a plant reduced to an outline, which is exactly why they blur together. They differ in intent, and the difference shows up as opposite decisions about scale. **This project is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away** so that only shape is compared.
+Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is exactly why they blur together — but they make opposite decisions about scale. **This project is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away** so that only shape is compared.
 
 ## Status
 
