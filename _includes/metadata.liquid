@@ -64,7 +64,15 @@
   <meta property="og:locale" content="{{ site.lang }}">
 
   <!-- Twitter card -->
-  <meta name="twitter:card" content="summary">
+  <!--
+    Large card ONLY when a page supplies its own og_image. This is deliberate, not an
+    oversight: site.og_image is prof_pic.jpg, a 492x577 PORTRAIT headshot (aspect 0.85).
+    summary_large_image crops to roughly 2:1, so making it unconditional would slice the
+    top and bottom off the default portrait on every page that doesn't set its own image.
+    A page-level og_image is a deliberate choice of a landscape image -- e.g. the Lobelia
+    hero is 960x540 (1.78) -- and those are the ones that earn the big card.
+  -->
+  <meta name="twitter:card" content="{% if page.og_image %}summary_large_image{% else %}summary{% endif %}">
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
   <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   {% if page.og_image or site.og_image %}
