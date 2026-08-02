@@ -4,11 +4,24 @@ on:
   workflow_run:
     workflows: [Deploy site]
     types: [completed]
+  # A change to THIS file cannot trigger this workflow. deploy.yml's paths filter
+  # negates '.github/workflows/broken-links-site.yml', and this job only runs on
+  # Deploy site completing — so a commit touching only the link checker deploys
+  # nothing and therefore checks nothing. Two fixes to the exclusion list below
+  # (PR #57, PR #58) merged green without the check ever re-running; the second
+  # was only discovered to be needed because an UNRELATED content push happened
+  # to redeploy. Manual dispatch makes a fix to this workflow verifiable on its
+  # own, instead of waiting for someone to edit a page.
+  workflow_dispatch:
 
 jobs:
   check-links-on-site:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # The workflow_run guard must not swallow manual runs: on a workflow_dispatch
+    # event github.event.workflow_run is null, so the bare conclusion check is
+    # false and the job would silently SKIP — reporting success without checking
+    # a single link.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
@@ -96,5 +109,12 @@ jobs:
           #                 significance of leaf shape in the angiosperms", Functional
           #                 Plant Biology 38: 535-552 (2011). The DOI resolves; the
           #                 landing page blocks bots.
-          # Validated on a local build of this commit: 231 OK, 0 errors.
+          # Re-measured 2026-08-02 against a local production build of this commit
+          # (al-folio image to build, lycheeverse/lychee image to check, args as below):
+          #   388 links, 168 unique, 358 OK, 0 ERRORS, 19 excluded.
+          # An earlier revision of this line claimed "231 OK, 0 errors". That figure is
+          # NOT reproducible and predates the current page set — replaced with measured.
+          # Control, same build: injecting '/definitely-not-real-9f3a/' into a built page
+          # gives 1 ERROR and exit 2, while the 25 real links on that page still pass.
+          # So the 0 above means the check RAN and found nothing, not that it is inert.
           args: --root-dir "$GITHUB_WORKSPACE/_site" --user-agent 'curl/7.54' --max-concurrency 4 --max-retries 3 --timeout 45 --retry-wait-time 2 --exclude 'unsplash\.com' --exclude 'hf\.space' --exclude '10\.15468/dl\.' --exclude '10\.1071/' --verbose --no-progress '_site/**/*.html'
