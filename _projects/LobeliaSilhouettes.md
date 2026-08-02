@@ -26,7 +26,7 @@ This was my undergraduate research at **Kent State University**, advised by **Dr
 
 ## The data is already collected
 
-The argument for this work is that the specimens already exist. Roughly four centuries of botanists have pressed, mounted and labelled plants, and digitization programmes have since photographed a large fraction of them and put the images behind public APIs. What has _not_ happened is the measurement. A sheet photographed at 5100 × 3500 px contains leaf areas, blade widths, petiole dimensions, stem thickness and phenology — all of it visible, essentially none of it in a database.
+The argument for this work is that the specimens already exist. Centuries of botanists have pressed, mounted and labelled plants, and digitization programmes have since photographed a large fraction of them and put the images behind public APIs. What has _not_ happened is the measurement. A sheet photographed at 5100 × 3500 px contains leaf areas, blade widths, petiole dimensions, stem thickness and phenology — all of it visible, essentially none of it in a database.
 
 _Lobelia_ sect. _Lobelia_ is a good test case precisely because it is awkward. The clade spans 23 species with real morphological range, from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_, and several of them grow as **basal rosettes**. Most published herbarium-vision work targets plants with clearly separated, planar leaves on a stem. A rosette pressed flat is a pile of overlapping blades radiating from one point, and the whole difficulty of the project is downstream of that fact.
 
@@ -75,7 +75,7 @@ Specimen sheets are large and mostly empty, which makes naive whole-image segmen
 
 1. **Annotate.** Training masks were drawn in CVAT and exported as COCO. Sheets were rescaled from 5100 × 3500 to 1200 × 800, with model inputs normalized to 256 × 256. Target was 500+ annotated images, split 60 / 20 / 20 into train / validation / test.
 2. **Detect.** Sheets were cut into 2048 px sliding windows with 512 px overlap so that individual leaves occupied a usable fraction of the frame. Bounding boxes were predicted per window, then merged back across window seams to reconstruct whole-sheet predictions.
-3. **Crop.** Merged boxes were cropped with 25% padding, turning one sheet into many single-leaf images.
+3. **Crop.** Merged boxes were cropped with padding (`-p 25`), turning one sheet into many single-leaf images.
 4. **Segment.** A separate instance-segmentation model ran on the crops, producing the per-leaf masks that the morphometrics depend on — and the silhouettes at the top of this page.
 
 Splitting detection from segmentation matters: it lets the detector work at sheet scale, where context disambiguates a leaf from a label or a scale bar, while the segmentation model sees a tightly framed leaf and can spend its resolution on the margin, which is where the shape information actually lives.
