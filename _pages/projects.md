@@ -9,12 +9,20 @@ nav_order: 3
 # list was empty and every project had an empty `category:`, so all cards rendered
 # as one ungrouped pile — four of five of them orchid.
 #
+# The three groups separate work by WHERE IT COMES FROM, not by subject:
+#   academic research    — lab / grant-funded work (Case lab Lobelia; Wright & Haak lab
+#                          work such as auxin and Phelipanche belongs here as it lands)
+#   independent research — self-directed research not attached to a lab (the orchid programme)
+#   research tooling     — software built to support the above
+# "independent" rather than "personal": the orchid work is real research, it just isn't
+# lab work, and the label should not read as demoting it.
+#
 # Only categories LISTED HERE render as cards. That is deliberate: the orchid
 # deep-dive pages (OrchidCLIP / OrchidGAN / OrchidVisualizer) carry
 # `category: orchid deep dive`, which is absent here, so they keep their pages and
 # URLs but come off the grid. Orchid Vision is the hub and already links all three,
 # so the grid was duplicating it.
-display_categories: [orchid vision, herbarium vision, research tooling]
+display_categories: [academic research, independent research, research tooling]
 horizontal: false
 ---
 

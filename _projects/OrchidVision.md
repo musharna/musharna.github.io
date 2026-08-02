@@ -4,7 +4,7 @@ title: Orchid Vision
 description: A computer-vision program built on orchids - generation, recognition, and guided hybridization - because the long tail is where fine-grained models actually break.
 img: assets/img/orchidgan/orchidgan_card.webp
 importance: 1
-category: orchid vision
+category: independent research
 related_publications: false
 ---
 
