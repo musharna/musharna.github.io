@@ -15,6 +15,10 @@ related_publications: false
 
 <div style="border:1px solid rgba(0,0,0,0.1); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
   <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, and almost every measurable trait on them is locked inside a photograph. This project asked whether that measurement could be automated for one clade — <em>Lobelia</em> sect. <em>Lobelia</em>, 23 eastern North American wildflowers — by pairing aggregator-scale specimen acquisition with instance segmentation. It reached a working two-stage detection-then-segmentation pipeline over a hand-audited corpus of <strong>2,733 specimen images</strong>, and ran headlong into the reason this problem is still open: <strong>a rosette does not decompose into leaves the way a model expects it to.</strong>
+  <div style="margin-top:0.7rem;">
+    <a href="https://github.com/musharna/lobelia-silhouettes" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">💻 Code on GitHub</a>
+    <a href="https://doi.org/10.15468/dl.5gavr9" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">🌿 GBIF download DOI</a>
+  </div>
   <div style="margin-top:0.5rem; font-size:0.9em;">
     <strong>On this page:</strong>
     <a href="#the-data-is-already-collected">The data is already collected</a> ·
@@ -161,7 +165,9 @@ Two things are worth saying plainly. First, the binding constraint on this kind 
 
 ## Status
 
-This is completed undergraduate work, presented here as a record rather than as a maintained project. It has not been published, and the pipeline is not packaged for reuse.
+This is completed undergraduate work, presented here as a record rather than as a maintained project. It was never written up for publication, and the pipeline is not packaged for reuse.
+
+The code and the original workflow notes are now on GitHub at [**musharna/lobelia-silhouettes**](https://github.com/musharna/lobelia-silhouettes) — the GBIF acquisition and Hough line-removal notebooks, the GinJinn2 and annotation commands, the dismembered-sheet protocol, the morphometrics tool survey, and the per-species acquisition ledger the counts on this page come from. Notebook outputs are stripped, and **no specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record.
 
 The wider programme it belonged to has since published its phylogenomic arm — Godden et al. (2025), _Population-level phylogenomic analysis yields insights into species cohesion and population substructure of_ Lobelia _section_ Lobelia _(Campanulaceae)_, **Molecular Phylogenetics and Evolution** 212:108410 ([doi:10.1016/j.ympev.2025.108410](https://doi.org/10.1016/j.ympev.2025.108410)) — under the same NSF awards.
 
