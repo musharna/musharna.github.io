@@ -262,7 +262,6 @@ exclude:
   - _pages/cv.md
   #WIP Projects:
   - _projects/Agrigen.md
-  - _projects/LobeliaSilhouettes.md
   - _projects/PhelipancheTranscriptomics.md
 
 keep_files:
