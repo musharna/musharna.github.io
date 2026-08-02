@@ -10,7 +10,7 @@ img: assets/img/lobelia/lobelia_silhouettes.jpg
 og_image: https://musharna.github.io/assets/img/lobelia/lobelia_silhouettes.jpg
 importance: 1
 category: herbarium vision
-related_publications: false
+related_publications: true
 ---
 
 <div style="border:1px solid rgba(0,0,0,0.1); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
@@ -59,7 +59,7 @@ That ledger survives, and it is the most honest description of the dataset:
 Totals are over the <strong>20 of 23</strong> species tabs whose ledger entries are complete on both ends. Three tabs are unfinished — <em>batsonii</em> was never tallied, and <em>inflata</em> and <em>siphilitica</em> record their intake but not a final figure — so the true corpus is larger than 2,733, not smaller. Records were retrieved 2022-01-14.
 </div>
 
-A later, narrower pull for _L. siphilitica_ alone is permanently citable, since GBIF mints a DOI for every download: **[10.15468/dl.5gavr9](https://doi.org/10.15468/dl.5gavr9)** — 452 preserved-specimen records across 19 institutional datasets, retrieved 2024-02-16.
+A later, narrower pull for _L. siphilitica_ alone is permanently citable, since GBIF mints a DOI for every download {% cite gbif2024lobeliasiphilitica %} — **[10.15468/dl.5gavr9](https://doi.org/10.15468/dl.5gavr9)**, 452 preserved-specimen records across 19 institutional datasets, retrieved 2024-02-16.
 
 ## The record is long-tailed
 
@@ -169,6 +169,6 @@ This is completed undergraduate work, presented here as a record rather than as 
 
 The code and the original workflow notes are now on GitHub at [**musharna/lobelia-silhouettes**](https://github.com/musharna/lobelia-silhouettes) — the GBIF acquisition and Hough line-removal notebooks, the GinJinn2 and annotation commands, the dismembered-sheet protocol, the morphometrics tool survey, and the per-species acquisition ledger the counts on this page come from. Notebook outputs are stripped, and **no specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record.
 
-The wider programme it belonged to has since published its phylogenomic arm — Godden et al. (2025), _Population-level phylogenomic analysis yields insights into species cohesion and population substructure of_ Lobelia _section_ Lobelia _(Campanulaceae)_, **Molecular Phylogenetics and Evolution** 212:108410 ([doi:10.1016/j.ympev.2025.108410](https://doi.org/10.1016/j.ympev.2025.108410)) — under the same NSF awards.
+The wider programme it belonged to has since published its phylogenomic arm, under the same NSF awards {% cite godden2025lobelia %}.
 
 **Provenance.** Specimen images are the property of their holding institutions and are used here under their respective terms; the GBIF download above is CC BY-NC 4.0. Counts on this page come from the project's own acquisition ledger, and the two incomplete species tabs are flagged rather than silently dropped.
