@@ -81,6 +81,14 @@
   </picture>
 
   {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
+    {%- comment -%}
+      markdownify is required, not cosmetic: captions across this site are written in
+      markdown, and without it `**bold**` and `_italic_` render as literal asterisks and
+      underscores on the page. Nine captions across three project pages were shipping
+      that way. markdownify wraps its output in <p>, which is invalid inside a
+      <figcaption> that is already styled as a block, so the wrapper is stripped.
+      Captions written as raw HTML still pass through markdownify untouched.
+    {%- endcomment -%}
+    <figcaption class="caption">{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' }}</figcaption>
   {% endif %}
 </figure>
