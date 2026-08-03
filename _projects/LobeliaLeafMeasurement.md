@@ -24,8 +24,7 @@ related_publications: true
     <a href="#the-pipeline">The pipeline</a> ·
     <a href="#what-the-measurements-showed">What it showed</a> ·
     <a href="#the-diversity-being-measured">The diversity</a> ·
-    <a href="#does-outline-alone-identify-a-species">Does outline identify a species?</a> ·
-    <a href="#do-the-two-analyses-agree">Do they agree?</a> ·
+    <a href="#a-second-method-two-years-later">A second method</a> ·
     <a href="#why-existing-tools-didnt-fit">Why existing tools didn't fit</a> ·
     <a href="#status">Status</a>
   </div>
@@ -126,20 +125,13 @@ The same extraction run across the clade, one representative leaf per species:
 
 Nine species, not ten. _L. canbyi_ is absent because its only mask cannot supply a leaf: the largest component in it is a stem sliver, 3,257 px at 0.55 solidity, against 0.93–0.97 for a clean blade. That is a thresholding failure, and dropping the species is more precise than showing debris under its name.
 
-## Does outline alone identify a species?
+## A second method, two years later
 
-Showing that the shapes differ is not the same as showing they _separate_. Each of the 104 thresholded masks yields multiple leaves, so the question can be asked quantitatively: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 equally spaced pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA.
+Showing that the shapes differ is not the same as showing they _separate_, and the 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 equally spaced pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA. No area, no perimeter, no shared code.
 
 {% include figure.liquid path="assets/img/lobelia/shape_space.png" title="Leaf shape space, small multiples by species" alt="Eight small scatter panels, one per species, each plotting PC1 against PC2 with that species highlighted in green against all 486 leaves in grey. L. glandulosa sits far left; L. apalachicolensis and L. inflata sit right." caption="Small multiples rather than one eight-colour scatter, because points fall adjacent and eight categorical hues cannot be made reliably distinct. Grey is all 486 leaves; green the named species. _L. glandulosa_ holds the narrow extreme, _L. apalachicolensis_ and _L. inflata_ the broad end." class="img-fluid rounded z-depth-1" %}
 
-**PC1 carries 48% of shape variance and is almost exactly leaf breadth.** Its correlation with directly measured width-to-length is **r = 0.978**, so the axis is a checked quantity, not a label I assigned by eye. Species order along it monotonically, from _L. glandulosa_ at a width:length of 0.109 to _L. apalachicolensis_ at 0.439. That axis is also where the species signal lives, and essentially nowhere else:
-
-|                                         |       PC1 |   PC2 |
-| --------------------------------------- | --------: | ----: |
-| share of shape variance                 |       48% |   26% |
-| between-species share of that axis (η²) | **0.493** | 0.006 |
-
-PC2 is real variation. It is just variation _within_ plants, not between species.
+**PC1 carries 48% of shape variance and is almost exactly leaf breadth.** Its correlation with directly measured width-to-length is **r = 0.978**, so the axis is a checked quantity, not a label I assigned by eye. Species order along it monotonically, from _L. glandulosa_ at a width:length of 0.109 to _L. apalachicolensis_ at 0.439. It is also where the species signal lives and essentially nowhere else: the between-species share (η²) is **0.493** on PC1 against **0.006** on PC2. PC2 holds a further 26% of shape variance, but that is variation _within_ plants, not between species.
 
 Classifying species from outline alone, with **cross-validation grouped by specimen** so no leaf from a test plant is ever seen in training:
 
@@ -150,23 +142,17 @@ Classifying species from outline alone, with **cross-validation grouped by speci
 | majority-class baseline                                      |     0.191 |
 | _LDA, naive split (leaves of one plant span train and test)_ |   _0.430_ |
 
-So outline alone runs at roughly **twice chance**. The naive split scores 6 points higher, which is the size of the pseudo-replication illusion you get free if you forget that ten leaves off one plant are not ten independent observations.
+So outline alone runs at roughly **twice chance**: a genuine species character, if a weak one. The naive split scores 6 points higher, which is the size of the pseudo-replication illusion you get free if you forget that ten leaves off one plant are not ten independent observations.
 
-**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_), so per-species positions are not equally trustworthy. Absolute size is discarded by construction, and size is a real diagnostic character. Venation, margin dentition and pubescence are not in an outline at all. The whole thing is also **calibrated against itself**: PC1 is checked against my own width-to-length measurement of the same masks, not against any outside description of these plants. I tried the external version, ranking the eight species by the leaf-shape terms an independent published treatment gives them, and it was too underpowered to settle anything.
-
-So outline is a genuine species character here, if a weak one, and worth measuring rather than assuming.
-
-## Do the two analyses agree?
-
-The 2024 measurements and the [outline ordination](#does-outline-alone-identify-a-species) I ran on the recovered masks in 2026 chase the same thing by different routes: area and perimeter off a thresholded leaf, versus 128 landmarks and PCA. They should agree. Mostly they do.
+**Does it agree with 2024?** Mostly.
 
 {% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="Every leaf measured both ways. **PC1 of the outline against perimeter/√area**, a dimensionless index, so leaf size cancels out and no calibration is needed. The two agree strongly (**r = −0.82**): narrow leaves carry more perimeter per unit area, exactly as they should." class="img-fluid rounded z-depth-1" %}
 
-**Where they agree:** _L. glandulosa_ is the outlier on both, by a wide margin. Narrowest outline, and by far the most perimeter per unit area. The same species the 2024 plot picks out with the steepest slope, found two years apart by two methods that share no code and barely share a concept.
+_L. glandulosa_ is the outlier on both, by a wide margin: narrowest outline, and by far the most perimeter per unit area. The same species the 2024 plot picks out with the steepest slope, found two years apart by two methods that share no code and barely share a concept.
 
-**Where they differ.** The 2024 figure fits a _straight_ line to perimeter against area, but for a fixed shape perimeter grows with the **square root** of area, so a straight-line slope depends on the range of leaf sizes a species happens to span. _L. elongata_ reaches ~30 cm² while the others stop near 5–10, and a line fitted across that wider range is necessarily shallower. Its gentle slope is therefore partly a size effect, and on the dimensionless index it sits mid-pack.
+Where they part company is _L. elongata_. The 2024 figure fits a _straight_ line to perimeter against area, but for a fixed shape perimeter grows with the **square root** of area, so a straight-line slope depends on the range of leaf sizes a species happens to span. _L. elongata_ reaches ~30 cm² while the others stop near 5–10, and a line fitted across that wider range is necessarily shallower. Its gentle slope is therefore partly a size effect, and on the dimensionless index it sits mid-pack. That doesn't undo the original result. It sharpens it: **perimeter/√area separates shape from size, where a raw area-versus-perimeter slope confounds them.**
 
-That doesn't undo the original result. It sharpens it: **perimeter/√area separates shape from size, where a raw area-versus-perimeter slope confounds them.**
+**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_), so per-species positions are not equally trustworthy. Absolute size is discarded by construction, and size is a real diagnostic character. Venation, margin dentition and pubescence are not in an outline at all. The ordination is also **calibrated against itself**: PC1 is checked against my own width-to-length measurement of the same masks, not any outside description of these plants. I tried the external version, ranking the eight species by the leaf-shape terms an independent published treatment gives them, and it was too underpowered to settle anything.
 
 ## Why existing tools didn't fit
 
