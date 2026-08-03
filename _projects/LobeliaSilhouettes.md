@@ -21,7 +21,7 @@ related_publications: true
 
 {% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale.** One silhouette per species, ordered by height, each resampled to a common pixels-per-centimetre using the **10 cm bar drawn into its own file**. These heights are measured, not styled, and run from _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. The plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
 
-This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest piece of my involvement in the lab's _Lobelia_ project. The [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
+This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest published piece of my involvement in the lab's _Lobelia_ project. The [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
 
 ## How they were made
 
@@ -38,8 +38,6 @@ The whole restored plant, not a traced approximation of it, is then converted to
 > **Scale comes from the sheet's own ruler.** Each silhouette carries a **10 cm bar drawn into the file**, so true size is checkable from the images instead of taken on trust.
 
 That is what makes the plate above possible. The files run from 30 to 85 pixels per centimetre, so it is built by reading each bar and resampling everything to one shared scale.
-
-**One internal check.** A standard sheet is about 42 cm tall, yet _L. brevifolia_ restores to 134 cm and _L. apalachicolensis_ to 98 cm. A plant longer than its sheet had to be folded to fit, which is what unfolding undoes. That is evidence the restoration does what it claims, and none at all that the mounted plant was complete.
 
 ## Explore the set
 
@@ -69,7 +67,7 @@ The disagreement is the more informative. **A herbarium sheet holds what fits on
 
 ## Where the specimens came from
 
-The source sheets were kept alongside the artwork, filed by **herbarium accession and state**: `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi`. So every silhouette traces back to a physical specimen, and the collection localities survive even though the photographs themselves are not mine to publish.
+The source sheets were kept alongside the artwork, filed by **herbarium accession and state**: `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi`. So every silhouette traces back to a physical specimen, and the collection localities survive even though the photographs themselves can't be reproduced here.
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -88,8 +86,6 @@ Collection localities for the <strong>60 source sheets</strong> retained, across
 
 The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}, where they form the **morphology panel of the phylogeny figure**: a band of plants on a shared ground line, each aligned over its own clade. That arrangement is what the true-scale rule was for. At the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison being made, not styling.
 
-One point about sequence. This artwork **predates the grant it is usually associated with**. The silhouettes were finished by early 2019; NSF award DEB-2015606 began in September 2020.
-
 ## Archived, and free to use
 
 > **Arnold, J. (2026).** _Lobelia silhouettes: digitally restored whole-plant outlines from herbarium specimens (2018–2019)._ Zenodo. [10.5281/zenodo.21764522](https://doi.org/10.5281/zenodo.21764522)
@@ -102,4 +98,4 @@ Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLea
 
 ## Status
 
-Completed undergraduate work, recorded here rather than maintained. The originals (silhouettes, layered restoration files, references and source sheets) survived on the one machine that was never backed up, and were recovered in August 2026. For a long stretch before that, the only surviving trace was a recoloured arrangement of the set made for a talk. The silhouettes are my own work; the specimen images they were restored from belong to their holding institutions and are not reproduced here.
+Completed undergraduate work, recorded here rather than maintained. The silhouettes are my own work; the specimen images they were restored from belong to their holding institutions and are not reproduced here.
