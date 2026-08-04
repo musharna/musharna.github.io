@@ -33,9 +33,9 @@ ninja.data = [{
           description: "Digitally restored herbarium specimens of Lobelia, reduced to true-scale silhouettes.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
-            },},{id: "projects-mcp-servers",
-          title: 'MCP Servers',
-          description: "Model Context Protocol servers that let an AI agent run the instrument, not just read about it — plant genomics, phenotyping, research-data acquisition, and the broker that schedules the GPU work.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MCPServers/";
             },},{id: "projects-orchidclip",
