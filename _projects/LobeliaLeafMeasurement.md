@@ -25,7 +25,7 @@ Leaf shape varies between close relatives in the same place, and that variation 
 
 The plants are already collected. Centuries of botanists pressed and mounted them, digitization photographed them, and the images sit behind public APIs. The measurement never happened: a sheet at 5100 × 3500 px holds leaf areas, blade widths, petiole dimensions, stem thickness and phenology, all visible, almost none of it in a database.
 
-_Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species as scoped in 2021 (the 2025 phylogenomic paper puts it at 26), from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_. Several grow as **basal rosettes**, where herbarium-vision work generally assumes separated, planar leaves on a stem. A rosette pressed flat is a pile of overlapping blades radiating from one point.
+_Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species as scoped in 2021, 26 in the 2025 phylogenomic revision {% cite godden2025lobelia %}, from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_. Several grow as **basal rosettes**, where herbarium-vision work generally assumes separated, planar leaves on a stem. A rosette pressed flat is a pile of overlapping blades radiating from one point.
 
 ## The corpus
 
@@ -140,10 +140,6 @@ They part company on _L. elongata_. Perimeter grows with the **square root** of 
 
 ## Status
 
-Completed undergraduate work, recorded here rather than maintained. Presented at **Michigan State University on 9 February 2024** as _Semi-Automated Extraction of Leaf Traits from Herbarium Vouchers_; never written up.
-
-The 2,733-image corpus was assembled for a step never reached: segmenting leaves off an intact sheet, to run the clade at aggregator scale. That design got as far as **GinJinn2** (Mask R-CNN via Detectron2) with **CVAT** annotation, rehearsed on the tool's tutorial data.
-
-Supported by the **Choose Ohio First Scholarship Program**, the **Kent State Biotechnology Program**, and a **VT-REEL Undergraduate Research Fellowship**. Advised by **Dr. Andrea Case** with **Dr. Christopher Blackwood**, alongside Tony Miller, Megan Brown, Princess Abu and Svea Hall. The programme has since published its phylogenomic arm {% cite godden2025lobelia %}.
+Completed undergraduate work, recorded here rather than maintained.
 
 Code, protocol, notebooks and ledger: [**musharna/lobelia-leaf-morphometrics**](https://github.com/musharna/lobelia-leaf-morphometrics). **No specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record. Images belong to their holding institutions; the GBIF download is CC BY-NC 4.0.
