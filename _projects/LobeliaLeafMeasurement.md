@@ -3,7 +3,7 @@ layout: page
 title: Automating leaf measurement
 description: Extracting leaf traits from digitized herbarium specimens of Lobelia sect. Lobelia at aggregator scale.
 img: assets/img/lobelia/clade_leaf_shapes.png
-og_image: https://musharna.github.io/assets/img/lobelia/shape_space.png
+og_image: https://musharna.github.io/assets/img/lobelia/shape_synthesis.png
 importance: 2
 category: academic research
 related_publications: true
@@ -113,11 +113,9 @@ Nine species, not ten. _L. canbyi_'s only mask cannot supply a leaf: its largest
 
 ## A second method, two years later
 
-The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size, and ordinated by PCA. No area, no perimeter, no shared code.
+The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. No area, no perimeter, no shared code.
 
-{% include figure.liquid path="assets/img/lobelia/shape_space.png" title="Leaf shape space, small multiples by species" alt="Eight small scatter panels, one per species, each plotting PC1 against PC2 with that species highlighted in green against all 486 leaves in grey. L. glandulosa sits far left; L. apalachicolensis and L. inflata sit right." caption="Small multiples rather than one eight-colour scatter, since eight categorical hues cannot be made reliably distinct where points fall adjacent. Grey is all 486 leaves, green the named species." class="img-fluid rounded z-depth-1" %}
-
-**PC1 carries 48% of shape variance and is almost exactly leaf breadth**, correlating with directly measured width-to-length at **r = 0.978**, so the axis is a checked quantity rather than a label I assigned by eye. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439. It is also where the species signal lives and essentially nowhere else: between-species share (η²) is **0.493** on PC1 against **0.006** on PC2, whose further 26% of variance is variation _within_ plants.
+**PC1 carries 48% of shape variance and is almost exactly leaf breadth**, correlating with measured width-to-length at **r = 0.978**, so the axis is checked rather than assigned by eye. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) **0.493** on PC1 against **0.006** on PC2.
 
 Classifying from outline alone, **cross-validated grouped by specimen** so no leaf from a test plant is seen in training:
 
@@ -130,13 +128,15 @@ Classifying from outline alone, **cross-validated grouped by specimen** so no le
 
 Roughly **twice chance**: a genuine species character, if a weak one. The naive split scores 6 points higher, which is the size of the pseudo-replication illusion you get free by forgetting that ten leaves off one plant are not ten independent observations.
 
+Does it agree with 2024?
+
 {% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="Every leaf measured both ways. **PC1 against perimeter/√area**, dimensionless, so size cancels and no calibration is needed. They agree at **r = −0.82**." class="img-fluid rounded z-depth-1" %}
 
-_L. glandulosa_ is the outlier on both by a wide margin, and it is the same species the 2024 plot picks out with the steepest slope: two methods, two years apart, sharing no code and barely a concept.
+_L. glandulosa_ is the outlier on both by a wide margin, the same species the 2024 plot picks out with the steepest slope: two methods, two years apart, sharing no code and barely a concept.
 
-They part company on _L. elongata_. The 2024 figure fits a _straight_ line to perimeter against area, but for a fixed shape perimeter grows with the **square root** of area, so a straight-line slope depends on the range of leaf sizes a species spans. _L. elongata_ reaches ~30 cm² where the others stop near 5–10, and a line fitted across that range is necessarily shallower, so its gentle slope is partly a size effect. On the dimensionless index it sits mid-pack. That sharpens the original result rather than undoing it: **perimeter/√area separates shape from size, where a raw slope confounds them.**
+They part company on _L. elongata_. Perimeter grows with the **square root** of area for a fixed shape, so the 2024 straight-line slope depends on the range of leaf sizes a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect, and on the dimensionless index it sits mid-pack. That sharpens the original result rather than undoing it.
 
-**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_), so per-species positions are not equally trustworthy. Absolute size is discarded by construction, and size is a real diagnostic character. Venation, dentition and pubescence are not in an outline at all. The ordination is also **calibrated against itself**: PC1 is checked against my own width-to-length measurement of the same masks, not any outside description of these plants. I tried the external version, ranking the species by the shape terms an independent published treatment gives them, and it was too underpowered to settle anything.
+**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction, and size is a real diagnostic character. Venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, checked against my own width-to-length measurement of the same masks rather than any outside description of these plants; the external version I tried was too underpowered to settle anything.
 
 ## Status
 
