@@ -17,13 +17,11 @@ related_publications: true
   </div>
 </div>
 
-Undergraduate research at **Kent State University**, advised by **Dr. Andrea Case**: proposed December 2021, run through 2022, last data pull early 2024. It sat inside the NSF programme [**BEE**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606), which uses _Lobelia_ sect. _Lobelia_ as a model for why close relatives do or don't live alongside each other; my piece was the phenotype side. The [_Lobelia_ silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}) came earlier, in 2019: **that one is reconstruction for depiction and keeps true size, this one is segmentation for measurement and normalises size away.**
+Undergraduate research at **Kent State University**, advised by **Dr. Andrea Case**. It sat inside the NSF programme [**BEE**](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606), which uses _Lobelia_ sect. _Lobelia_ as a model for why close relatives do or don't live alongside each other; my piece was the phenotype side. The [_Lobelia_ silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}) came earlier, in 2019: **that one is reconstruction for depiction and keeps true size, this one is segmentation for measurement and normalises size away.**
 
 ## Why bother
 
 Leaf shape varies between close relatives in the same place, and that variation is tied to how a leaf works: light interception, thermoregulation, water-supply trade-offs, plasticity {% cite nicotra2011leafshape tsukaya2018leafshape %}. Testing any of it across a clade needs shape as a _number_, for a lot of plants.
-
-The plants are already collected. Centuries of botanists pressed and mounted them, digitization photographed them, and the images sit behind public APIs. The measurement never happened: a sheet at 5100 × 3500 px holds leaf areas, blade widths, petiole dimensions, stem thickness and phenology, all visible, almost none of it in a database.
 
 _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species as scoped in 2021, 26 in the 2025 phylogenomic revision {% cite godden2025lobelia %}, from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_. Several grow as **basal rosettes**, where herbarium-vision work generally assumes separated, planar leaves on a stem. A rosette pressed flat is a pile of overlapping blades radiating from one point.
 
