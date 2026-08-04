@@ -113,28 +113,17 @@ Nine species, not ten. The largest component in a mask is often a stem fragment,
 
 The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: **486 leaves from 88 specimens across 8 species**, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. No area, no perimeter, no shared code.
 
-**PC1 carries 48% of shape variance and is almost exactly leaf breadth**, correlating with measured width-to-length at **r = 0.978**, so the axis is checked rather than assigned by eye. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) **0.493** on PC1 against **0.006** on PC2.
+**PC1 carries 48% of shape variance and is almost exactly leaf breadth**, correlating with measured width-to-length at **r = 0.978**. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) **0.493** on PC1 against **0.006** on PC2.
 
-Classifying from outline alone, **cross-validated grouped by specimen** so no leaf from a test plant is seen in training:
-
-|                                                              |  accuracy |
-| ------------------------------------------------------------ | --------: |
-| LDA, grouped by specimen                                     | **0.372** |
-| permuted-label null                                          |     0.166 |
-| majority-class baseline                                      |     0.191 |
-| _LDA, naive split (leaves of one plant span train and test)_ |   _0.430_ |
-
-Roughly **twice chance**: a genuine species character, if a weak one. The naive split scores 6 points higher, which is the size of the pseudo-replication illusion you get free by forgetting that ten leaves off one plant are not ten independent observations.
+Classifying from outline alone, **cross-validated grouped by specimen** so no test plant's leaves appear in training, gives **0.372** against a 0.166 permuted-label null and a 0.191 majority-class baseline. Roughly **twice chance**: a genuine species character, if a weak one. A naive split letting one plant's leaves span train and test scores 0.430, a 6-point gap that is the pseudo-replication illusion you get free by treating ten leaves off one plant as ten observations.
 
 Does it agree with 2024?
 
 {% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="Every leaf measured both ways. **PC1 against perimeter/√area**, dimensionless, so size cancels and no calibration is needed. They agree at **r = −0.82**." class="img-fluid rounded z-depth-1" %}
 
-_L. glandulosa_ is the outlier on both by a wide margin, the same species the 2024 plot picks out with the steepest slope.
+_L. glandulosa_ is the outlier on both, the same species the 2024 plot picks out with the steepest slope. They part company on _L. elongata_: perimeter grows with the **square root** of area for a fixed shape, so a straight-line slope depends on the size range a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect; on the dimensionless index it sits mid-pack, which sharpens the original result rather than undoing it.
 
-They part company on _L. elongata_. Perimeter grows with the **square root** of area for a fixed shape, so the 2024 straight-line slope depends on the range of leaf sizes a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect, and on the dimensionless index it sits mid-pack. That sharpens the original result rather than undoing it.
-
-**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction, and size is a real diagnostic character. Venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, checked against my own width-to-length measurement of the same masks rather than any outside description of these plants; the external version I tried was too underpowered to settle anything.
+**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
 
 ## Status
 
