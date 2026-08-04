@@ -18,8 +18,8 @@ watching parents and their offspring.
 
 The **Cattleya Hybrid Visualizer** is an attempt to make that intuition explicit and
 queryable. Given two parent species, it composes a botanically-grounded description of the
-expected phenotype and renders it — so the question _"what would this cross plausibly look
-like?"_ gets an answer before the four-year wait, not after.
+expected phenotype and renders it, so _"what would this cross plausibly look like?"_ gets
+an answer before the four-year wait.
 
 <div class="row justify-content-sm-center mt-4">
   <div class="col-sm-8 mt-3 mt-md-0">
@@ -31,21 +31,21 @@ like?"_ gets an answer before the four-year wait, not after.
   27 registered crosses in the pre-rendered gallery.
 </div>
 
-## The honest problem
+## The problem
 
 SDXL will produce a beautiful orchid for any prompt you give it. It will not, on its own,
 produce an orchid that reflects the _genetics_ of the two parents you named. Left alone, the
 model draws a generic pretty flower and the output tells you nothing.
 
-So the interesting part of this project is not the generation. It is the layer that decides
-what to ask for.
+Most of the work here therefore sits in the layer that decides what to ask for, rather than
+in the generation itself.
 
 ## The phenotype engine
 
 Parent traits are blended as **pigment chemistry, not colour names**. Anthocyanin,
-carotenoid and co-pigment are modelled as independent biochemical channels — which matters,
+carotenoid and co-pigment are modelled as independent biochemical channels. This matters
 because a magenta _Cattleya_ crossed with a yellow one does not give you an orange
-_Cattleya_. The pigment pathways are independent, so you get a magenta-and-yellow flower,
+_Cattleya_: the pigment pathways are independent, so you get a magenta-and-yellow flower,
 often mottled or patterned. A naive RGB blend gets this exactly wrong.
 
 On top of the channel merge:
@@ -63,24 +63,25 @@ actually reaches the model.
 ## Generation
 
 - **Base model:** [`stabilityai/stable-diffusion-xl-base-1.0`](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
-- **LoRA:** `mjarnold/orchid-ancestry-lora-v2` (not yet public) — one ancestry-aware LoRA, applied at an ancestry-weighted scale
+- **LoRA:** `mjarnold/orchid-ancestry-lora-v2` (not yet public), one ancestry-aware LoRA, applied at an ancestry-weighted scale
 - **Hue tokens:** small textual-inversion embeddings trained per pigment channel
   (anthocyanin-red, carotenoid-yellow), so colour can be steered independently of the prose
   prompt
 
 The published gallery is pre-rendered at seed 42, F1 depth, under the diffusers regime the
-LoRA was validated against. A live interactive generator — arbitrary parent pairs, warm-colour
-control, multiple seeds — also exists, but needs ZeroGPU hardware to run in-Space.
+LoRA was validated against. A live interactive generator (arbitrary parent pairs,
+warm-colour control, multiple seeds) also exists, but needs ZeroGPU hardware to run
+in-Space.
 
 ## The latent map
 
 Each cross is also placed in [orchid-clip-v8]({{ '/projects/OrchidCLIP/' | relative_url }})
 embedding space. The two parents sit at the ends of a chord and the predicted F1 at its
 midpoint. Where a _real_ example of the hybrid exists, it is plotted **perpendicular** to
-that chord — and its off-chord distance is the interesting number.
+that chord, and its off-chord distance is what the plot is for.
 
-That offset is the **transgressive residual**: the part of the real hybrid that is not a
-blend of its parents at all, but novel beyond both. It survives permutation testing and
+That offset is the **transgressive residual**: the part of the real hybrid that is novel
+beyond both parents rather than a blend of them. It survives permutation testing and
 reproduces under a DINOv2 backbone, so it is not an artifact of the embedding.
 
 ## Honest limits
