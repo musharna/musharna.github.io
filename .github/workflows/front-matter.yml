@@ -1,6 +1,10 @@
-name: Front matter
+name: Content guards
 
-# Guards a failure mode the existing checks cannot see.
+# Guards failure modes the existing checks cannot see. Both share one runner:
+# each is a few seconds of stdlib Ruby, and a second workflow would spend more
+# Actions time on checkout than on checking.
+#
+# 1. FRONT MATTER
 #
 # Jekyll does not error on unparseable YAML front matter -- it discards the
 # front matter and builds the file anyway. The page then deploys with no
@@ -10,6 +14,21 @@ name: Front matter
 # That is not hypothetical: `_projects/MCPServers.md` shipped that way from an
 # unquoted colon in its description, which left the "research tooling" heading
 # on /projects/ rendering over an empty card row.
+#
+# 2. BIBLIOGRAPHY COVERAGE
+#
+# /publications/ filters its {% bibliography %} by author, so it renders only
+# the entry TYPES it explicitly names. Adding a peer-reviewed @article without
+# adding a query for it means the paper never appears -- green build, no error,
+# and a skipped section looks exactly like an absent one.
+#
+# 3. LIQUID IN HTML COMMENTS
+#
+# Liquid runs before the HTML is parsed, so `<!-- ... -->` does not make a tag
+# inert. A tag quoted inside a comment as documentation is EXECUTED and its
+# output lands in the page, while the comment markers keep the explanation
+# invisible. That is how a comment on publications.md describing the new author
+# filter silently re-rendered the whole unfiltered bibliography beneath it.
 #
 # Deliberately NOT path-filtered. deploy.yml filters paths, which is fine for a
 # build, but a filtered guard cannot fire on the pull request that introduces
@@ -25,13 +44,21 @@ permissions:
   contents: read
 
 jobs:
-  front-matter:
-    name: YAML front matter parses
+  content-guards:
+    name: Content guards
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # No setup-ruby: the runner image ships Ruby, and this needs only the
-      # stdlib YAML (Psych) -- the same parser Jekyll uses, so the check agrees
-      # with the build by construction rather than by approximation.
+      # No setup-ruby: the runner image ships Ruby, and these need only the
+      # stdlib -- YAML (Psych) is the same parser Jekyll uses, so the check
+      # agrees with the build by construction rather than by approximation.
       - name: Check every content file's front matter
         run: ruby bin/check-front-matter.rb
+      # Runs even if the front-matter check fails, so one PR reports both
+      # problems instead of revealing the second only after fixing the first.
+      - name: Check every authored entry is rendered on /publications/
+        if: always()
+        run: ruby bin/check-bibliography.rb
+      - name: Check no HTML comment hides a live Liquid tag
+        if: always()
+        run: ruby bin/check-liquid-in-comments.rb
