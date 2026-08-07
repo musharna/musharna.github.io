@@ -45,7 +45,7 @@ ninja.data = [{
               window.location.href = "/projects/OrchidCLIP/";
             },},{id: "projects-orchid-gan",
           title: 'Orchid GAN',
-          description: "",
+          description: "StyleGAN2-ADA fine-tuned on Cattleya, giving a navigable latent morphospace for orchid floral form. The starting point of the orchid programme.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
             },},{id: "projects-orchid-vision",
