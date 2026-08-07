@@ -1,0 +1,37 @@
+name: Front matter
+
+# Guards a failure mode the existing checks cannot see.
+#
+# Jekyll does not error on unparseable YAML front matter -- it discards the
+# front matter and builds the file anyway. The page then deploys with no
+# layout AND disappears from its collection, while still returning HTTP 200.
+# So the link checker passes, the a11y sweep passes, and the deploy is green.
+#
+# That is not hypothetical: `_projects/MCPServers.md` shipped that way from an
+# unquoted colon in its description, which left the "research tooling" heading
+# on /projects/ rendering over an empty card row.
+#
+# Deliberately NOT path-filtered. deploy.yml filters paths, which is fine for a
+# build, but a filtered guard cannot fire on the pull request that introduces
+# it -- the check would merge having never run once.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  front-matter:
+    name: YAML front matter parses
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # No setup-ruby: the runner image ships Ruby, and this needs only the
+      # stdlib YAML (Psych) -- the same parser Jekyll uses, so the check agrees
+      # with the build by construction rather than by approximation.
+      - name: Check every content file's front matter
+        run: ruby bin/check-front-matter.rb
