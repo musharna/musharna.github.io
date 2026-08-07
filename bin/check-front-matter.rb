@@ -25,6 +25,12 @@
 # approximation.
 
 require "yaml"
+# `date` is stdlib but NOT loaded by default, and `permitted_classes: [Date, ...]`
+# below references the constant eagerly. The al-folio container happened to have
+# it already loaded, so this script ran clean locally and then died on the bare
+# GitHub runner with `uninitialized constant Date (NameError)`. Requiring it
+# explicitly is what makes the two environments agree.
+require "date"
 
 ROOT = File.expand_path("..", __dir__)
 GLOBS = %w[_projects _pages _posts _news _books].map { |d| File.join(ROOT, d, "*.md") }
