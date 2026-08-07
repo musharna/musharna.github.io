@@ -95,7 +95,7 @@ Existing tools were surveyed first. Most assume material digitized herbarium she
 | **TraitEx**        | Would not import our images.                                                  |
 | **Morphidas**      | Too little documentation to evaluate.                                         |
 
-The binding constraint is rarely the model. It is that measurement tools assume idealized input and pressed specimens are the opposite, the flattened rosette most of all.
+The binding constraint was rarely the model. These tools assume idealized input, which pressed specimens, and flattened rosettes especially, do not provide.
 
 ## What it showed
 
@@ -105,15 +105,15 @@ Perimeter scales with area differently in different species. That is a shape sta
 
 {% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_sites.png" title="Leaf area versus perimeter within Lobelia elongata, by collection site" alt="Scatter plot of leaf perimeter against leaf area for Lobelia elongata, coloured by four collection site codes, each with its own dashed regression line of differing slope." caption="_L. elongata_ alone, split by collection site. The four sites do not share a slope, so whatever drives leaf shape here operates **below the species level**." class="img-fluid rounded z-depth-1" %}
 
-That nesting is the finding: **shape differs between species, and between populations of the same species.** Any clade-scale story has to survive the second layer.
+**Shape differs between species, and between populations of the same species.** A clade-scale story has to hold at both levels.
 
 {% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, from that species' own mask, **scaled to a common length** so it compares _shape_, not size. Leaves were chosen by solidity, not size." class="img-fluid rounded z-depth-1" %}
 
-Nine species, not ten. The largest component in a mask is often a stem fragment, and _L. canbyi_'s only mask is nothing else: 3,257 px at 0.55 solidity against 0.93–0.97 for a clean blade. Dropping it is more precise than showing debris under its name.
+Nine species, not ten. The largest component in a mask is often a stem fragment, and _L. canbyi_'s only mask is nothing else: 3,257 px at 0.55 solidity against 0.93–0.97 for a clean blade. Including it would have put debris under the species name.
 
 ## A second method, two years later
 
-The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: 486 leaves from 88 specimens across 8 species, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. No area, no perimeter, no shared code.
+The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: 486 leaves from 88 specimens across 8 species, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. It uses neither area nor perimeter, and shares no code with the 2024 pipeline.
 
 PC1 carries 48% of shape variance and is almost exactly leaf breadth, correlating with measured width-to-length at r = 0.978. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) 0.493 on PC1 against 0.006 on PC2. PC2 carries another 26% of shape variance but splits by _plant_ rather than species, η² 0.211 by specimen: leaf-to-leaf variation within one individual.
 
@@ -125,7 +125,7 @@ How does this line up with 2024? Not by direct comparison: the 2024 `LeafArea` m
 
 Against 2024 the comparison is therefore by eye, species by species. _L. glandulosa_ is the outlier here and is also the species the 2024 plot picks out with the steepest slope. They part company on _L. elongata_: perimeter grows with the **square root** of area for a fixed shape, so a straight-line slope depends on the size range a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect; on the dimensionless index it sits mid-pack, which sharpens the original result rather than undoing it.
 
-**Damage moves the measurement, but does not make it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
+**Damage shifts PC1 without accounting for it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
 
 **What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
 
