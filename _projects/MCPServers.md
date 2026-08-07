@@ -103,8 +103,10 @@ Each ships an MCP client config example in its README.
 <strong>Archived and citable</strong> — concept DOIs resolve to the latest release:<br>
 <a href="https://doi.org/10.5281/zenodo.21636352">plant-genomics-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21636332">data-aggregator-mcp</a> ·
+<a href="https://doi.org/10.5281/zenodo.21713516">plantcv-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21713870">phylokit-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21713210">breedsim-mcp</a> ·
+<a href="https://doi.org/10.5281/zenodo.21713452">ldraw-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21636369">jobd</a><br>
 See the <a href="{{ '/publications/' | relative_url }}">publications</a> page for full citations.
 </div>
