@@ -39,7 +39,7 @@ related_publications: false
 | BioCLIP 2          | 0.873     | 0.978     | 0.992       |
 | **orchid-clip-v8** | **0.911** | **0.986** | **0.991**   |
 
-The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992, within noise). The gains are therefore real species discrimination within genera rather than a coarsening of the decision boundary.
+The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992, within noise). The gains are therefore real species discrimination within genera: the decision boundary did not simply coarsen.
 
 > **† Which number is the product?** This is a **closed-set** benchmark: each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on the open set too. (The live demo now ranks each photo against per-species **image centroids** rather than the text table. The open-set rates are essentially unchanged, but a source-expansion pass has since lifted the _starved tail_ well above them; see below.) [How the two compare →](#building-around-the-boundary)
 
@@ -95,7 +95,7 @@ The recipe that worked:
 
 {% include figure.liquid path="assets/img/orchidclip/synonym_collapse.png" title="WCVP synonym collapse" alt="A horizontal bar chart of the most frequent v7 intra-genus confusion pairs. The top bar, Ophrys fuciflora versus holosericea, is highlighted dark red at 149 errors and dwarfs every other pair, the next largest being 20." caption="The dominant v7 confusion pairs on the 4,000-row holdout. _Ophrys fuciflora_ → _holosericea_ (149 errors) is a WCVP synonym — the same accepted species — so it collapses entirely under the 2026 dedup; resolving synonyms removes the single largest error source before a single training step." class="img-fluid rounded z-depth-1" %}
 
-The dedup holds up both ways. Re-running the holdout in WCVP-_accepted_ label space scores top-1 **0.9145**, essentially identical to the raw-label **0.911**, because collapsing _fuciflora_ → _holosericea_ just surfaces the next cryptic pair (_Ophrys argolica_ → _sphegodes_) beneath it. The residual within-genus confusion is real morphology rather than a labeling artifact.
+The dedup holds up both ways. Re-running the holdout in WCVP-_accepted_ label space scores top-1 **0.9145**, essentially identical to the raw-label **0.911**, because collapsing _fuciflora_ → _holosericea_ just surfaces the next cryptic pair (_Ophrys argolica_ → _sphegodes_) beneath it. The residual within-genus confusion therefore reflects real morphology.
 
 Three substantial ablations against this recipe each underperformed:
 
@@ -171,7 +171,7 @@ That "this genus, probably this species" framing raises the obvious question: ca
 
 Two are worth spelling out. **A second modality** is the most direct lever: give the model a dried herbarium specimen or a written description per species. It recovers genus cheaply, but within-genus species climbs only from 0.005 to 0.686 as the alignment improves, and there it sticks; neither more capacity nor more data moves it. Each modality separates species _from itself_ (herbarium→herbarium 0.88, photo→photo 0.99), but those axes don't line up across the gap between them.
 
-The **model-free control** is the cleanest. We threw out v8 entirely and measured fourteen classical computer-vision features (color clusters, texture, symmetry, aspect ratio) straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. That puts the wall in the data rather than in v8's learned features.
+The **model-free control** is the cleanest. We threw out v8 entirely and measured fourteen classical computer-vision features (color clusters, texture, symmetry, aspect ratio) straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. That locates the wall in the data itself.
 
 {% include figure.liquid path="assets/img/orchidclip/crossmodal_climb.png" title="the cross-modal climb" alt="A line chart across three training stages with two series. Genus top-1 stays roughly flat near 0.81 to 0.93, while species top-1 climbs from 0.005 through 0.077 to 0.686 and then stops short of 0.69." caption="The most direct lever, spelled out. Across three alignment stages the genus signal stays flat near the top while within-genus species top-1 climbs two orders of magnitude — 0.005 → 0.077 → 0.686 — and then stalls below 0.69. The mechanism keeps improving; the species ceiling holds." class="img-fluid rounded z-depth-1" %}
 

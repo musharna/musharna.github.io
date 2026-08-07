@@ -24,7 +24,7 @@ curation rather than architecture.
   <h3><a href="{{ '/projects/OrchidGAN/' | relative_url }}">OrchidGAN</a> — generative</h3>
   <p>StyleGAN2-ADA fine-tuned on a curated set of <em>Cattleya</em>. Established that orchid
   floral morphology is learnable and produced a navigable latent "morphospace" supporting
-  seed sampling, interpolation and style mixing. Where the program started.</p>
+  seed sampling, interpolation and style mixing. This is where the program started.</p>
 </div>
 <div class="col-md-6">
   <h3><a href="{{ '/projects/OrchidCLIP/' | relative_url }}">orchid-clip-v8</a> — recognition</h3>
@@ -58,16 +58,13 @@ Each piece exists because the previous one exposed a limit.
 
 OrchidGAN showed the morphology was learnable but had no notion of _which_ orchid it had
 drawn. That demanded recognition, so orchid-clip-v8 was trained, and it found a ceiling:
-genus transfers, species does not. The live demo abstains rather than commit to a
-confidently wrong binomial, serving a calibrated genus and naming a species only when the
-top-1/top-2 margin earns it.
+genus transfers, species does not. The live demo serves a calibrated genus and names a
+species only when the top-1/top-2 margin earns it, so it abstains instead of committing to
+a confidently wrong binomial.
 
 The visualizer inherits both results. It can generate, but the recognition model cannot
 fully referee the output yet, so the phenotype engine carries the botanical constraints
 instead of trusting the diffusion model to infer them.
-
-What exists today is a strong recognizer, a strong generator, and an unclosed gap between
-them.
 
 ## Data
 
