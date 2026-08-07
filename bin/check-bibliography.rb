@@ -33,16 +33,41 @@ AUTHOR = "Arnold"
 bib = File.read(BIB, encoding: "utf-8")
 page = File.read(PAGE, encoding: "utf-8")
 
-# Strip HTML comments first: the page documents the @article query it does NOT
-# yet run, and counting that as coverage would make this guard pass on exactly
-# the state it exists to catch.
-page_live = page.gsub(/<!--.*?-->/m, "")
+# The page documents the @article query it does NOT yet run, so a tag that only
+# appears inside a comment must not count as coverage -- otherwise this guard
+# passes on exactly the state it exists to catch.
+#
+# Asked positionally rather than by deleting the comments. Stripping paired
+# delimiters with gsub is the wrong tool twice over: CodeQL flags it as
+# rb/incomplete-multi-character-sanitization, and a fixed-point loop -- the
+# usual answer to that -- would be WRONG here. An HTML comment ends at the FIRST
+# `-->`, so in `<!-- a <!-- b --> {% tag %} -->` the tag really is live and
+# really does render. Deleting harder would silently disagree with Jekyll.
+#
+# So: a position is inside a comment iff the nearest `<!--` before it comes
+# after the nearest `-->` before it. That is the actual rule, stated once.
+def inside_comment?(text, index)
+  open = text.rindex("<!--", index)
+  return false if open.nil?
 
-# Entry types selected by a {% bibliography %} tag on the page. `@*` covers all.
-queried = page_live.scan(/\{%\s*bibliography[^%]*?--query\s+@(\*|\w+)/).flatten.uniq
+  close = text.rindex("-->", index)
+  close.nil? || close < open
+end
+
+# Entry types selected by a live {% bibliography %} tag. `@*` covers all types.
+queried = []
+page.to_enum(:scan, /\{%\s*bibliography\b[^%]*?--query\s+@(\*|\w+)/).each do
+  m = Regexp.last_match
+  queried << m[1] unless inside_comment?(page, m.begin(0))
+end
 
 # A bare {% bibliography %} inherits _config.yml's query, which is "@*".
-queried << "*" if page_live.match?(/\{%\s*bibliography\s*%\}/)
+page.to_enum(:scan, /\{%\s*bibliography\s*%\}/).each do
+  m = Regexp.last_match
+  queried << "*" unless inside_comment?(page, m.begin(0))
+end
+
+queried.uniq!
 
 # Entries: @type{key, ... } up to the next entry or EOF. Good enough to read the
 # type and the author line; this is not a bibtex parser and does not need to be.
