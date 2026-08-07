@@ -63,7 +63,7 @@ Everything here is scaled from a ruler, so the obvious check is whether these pl
 | _L. siphilitica_     | 61 cm         | 46–122 cm, inside         |
 | _L. cardinalis_ (×3) | 24, 47, 52 cm | 122–152 cm, **far below** |
 
-The disagreement is the more informative. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts the pressed specimen, not the species: read every height here as the height of what was mounted. The restorations are faithful to the sheets; the sheets are not always faithful to the plant. (The reference is horticultural and covers 2 of 27 species, so it is indicative too.)
+The disagreement is the informative half. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts the pressed specimen, not the species: read every height here as the height of what was mounted. (The reference is horticultural and covers 2 of 27 species, so it is indicative at best.)
 
 ## Where the specimens came from
 
@@ -94,7 +94,7 @@ The 39 originals, the plate, and a manifest of every measured height, all **CC B
 
 ## A related but separate project
 
-Both this and the [**automated leaf-measurement work**]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is why they blur together. But **this one is reconstruction for depiction and keeps true size, while that one is segmentation for measurement and normalises size away**.
+Both this and the [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is why they blur together. This one is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away.
 
 ## Status
 
