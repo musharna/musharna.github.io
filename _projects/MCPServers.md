@@ -1,7 +1,7 @@
 ---
 layout: page
 title: MCP Servers
-description: "Model Context Protocol servers that let an AI agent run the instrument: plant genomics, phenotyping, research-data acquisition, and the broker that schedules the GPU work."
+description: "Model Context Protocol servers that let an AI agent run the instrument: plant genomics, phenotyping, phylogenetics, breeding simulation, research-data acquisition, and the broker that schedules the GPU work."
 img: assets/img/mcpservers/card.svg
 importance: 1
 category: research tooling
@@ -43,6 +43,25 @@ Claude Code or any MCP client with a single config entry.
   call because a wrong segmentation still produces a perfectly plausible trait value.</p>
 </div>
 <div class="col-md-6">
+  <h3><a href="https://github.com/musharna/phylokit-mcp">phylokit-mcp</a></h3>
+  <p>Phylogenetic inference driving <strong>IQ-TREE 2</strong> through piqtree.
+  <code>infer_tree</code> always runs a bootstrap and returns per-clade support, and there is
+  no flag to skip it. On an alignment simulated from a known 7-taxon tree and cut to 60
+  sites, the returned topology contains a clade that does not exist. The support values are
+  the only part of the output that says so.</p>
+</div>
+</div>
+
+<div class="row mt-3">
+<div class="col-md-6">
+  <h3><a href="https://github.com/musharna/breedsim-mcp">breedsim-mcp</a></h3>
+  <p>Breeding-scheme simulation over <strong>AlphaSimR</strong>, genomic selection included.
+  <code>run_program</code> enforces a replicate floor and returns per-cycle mean, standard
+  deviation and confidence interval. Five seeds of one identical three-cycle programme gave
+  genetic gains with <strong>sd 0.247</strong>, so a single run quoted to three decimals
+  reports noise at the precision of a measurement.</p>
+</div>
+<div class="col-md-6">
   <h3><a href="https://github.com/musharna/ldraw-mcp">ldraw-mcp</a></h3>
   <p>Renders LDraw / LEGO models to images with <strong>real part geometry</strong> (studs,
   glass, tires) via headless Blender and ImportLDraw. It gives a vision-capable model eyes
@@ -66,11 +85,15 @@ Claude Code or any MCP client with a single config entry.
 
 ## Install
 
-All five are on PyPI:
+All seven are on PyPI, and six of them install straight from it:
 
 ```bash
-pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp ldraw-mcp jobd
+pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp phylokit-mcp ldraw-mcp jobd
 ```
+
+`breedsim-mcp` is the exception worth knowing about before you start it: it needs R 4.3 or
+newer with a shared library, and installing it compiles AlphaSimR, which takes minutes
+rather than seconds. Its README covers the prerequisites.
 
 Each ships an MCP client config example in its README.
 
@@ -80,6 +103,8 @@ Each ships an MCP client config example in its README.
 <strong>Archived and citable</strong> — concept DOIs resolve to the latest release:<br>
 <a href="https://doi.org/10.5281/zenodo.21636352">plant-genomics-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21636332">data-aggregator-mcp</a> ·
+<a href="https://doi.org/10.5281/zenodo.21713870">phylokit-mcp</a> ·
+<a href="https://doi.org/10.5281/zenodo.21713210">breedsim-mcp</a> ·
 <a href="https://doi.org/10.5281/zenodo.21636369">jobd</a><br>
 See the <a href="{{ '/publications/' | relative_url }}">publications</a> page for full citations.
 </div>
