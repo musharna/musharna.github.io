@@ -10,8 +10,8 @@ related_publications: false
 
 **Orchid Vision** is the umbrella for the orchid-focused computer-vision work on this site.
 
-Orchids are an unusually hard test for fine-grained botanical vision. There are roughly
-**28,000 accepted species**, more than any other plant family, the distribution is heavily
+Orchids are an unusually hard test for fine-grained botanical vision. WCVP accepts
+**over 30,000 species**, more than any other plant family, the distribution is heavily
 long-tailed, and a large share of online image labels are wrong in subtle, load-bearing
 ways: right genus with the wrong species, obsolete synonyms treated as distinct taxa,
 cultivar names standing in for species. Most of the work in this program has gone into
