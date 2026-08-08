@@ -59,7 +59,7 @@ Nine species are represented, plus one leaf whose label was lost:
 Counted from the recovered outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unlabelled leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
 </div>
 
-**Sampling is uneven in both directions, and they are different problems.** Twenty-one *glandulosa* plants contribute 48 leaves; three *apalachicolensis* plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
+**Sampling is uneven in both directions, and they are different problems.** Twenty-one _glandulosa_ plants contribute 48 leaves; three _apalachicolensis_ plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
 
 ## The pipeline
 
