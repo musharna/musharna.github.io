@@ -8,7 +8,7 @@ category: independent research
 related_publications: false
 ---
 
-**Orchid Vision** is the umbrella for the orchid-focused computer-vision work in this group.
+**Orchid Vision** is the umbrella for the orchid-focused computer-vision work on this site.
 
 Orchids are an unusually hard test for fine-grained botanical vision. There are roughly
 **28,000 accepted species**, more than any other plant family, the distribution is heavily
@@ -28,10 +28,10 @@ curation rather than architecture.
 </div>
 <div class="col-md-6">
   <h3><a href="{{ '/projects/OrchidCLIP/' | relative_url }}">orchid-clip-v8</a> — recognition</h3>
-  <p>A long-tail-aware CLIP for fine-grained orchid ID: <strong>top-1 0.911 across 5,124
-  species</strong>, <strong>+3.8 pp</strong> over the BioCLIP 2 baseline overall and up to
-  <strong>+28 pp</strong> on the rarest genera. Across six independent attempts, genus
-  structure transfers while within-genus species identity stays locked.</p>
+  <p>A long-tail-aware CLIP for fine-grained orchid ID: <strong>+7.6 pp top-1 averaged per
+  genus</strong> over the BioCLIP 2 baseline (0.844 vs 0.768), and up to <strong>+28 pp</strong>
+  on the rarest. Across six independent attempts, genus structure transfers while
+  within-genus species identity stays locked.</p>
 </div>
 </div>
 
