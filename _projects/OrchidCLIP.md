@@ -11,7 +11,7 @@ related_publications: false
 ---
 
 <div style="border:1px solid var(--global-divider-color); border-left:4px solid #2c5282; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model: top-1 <strong>0.911</strong> across 5,124 species, with gains concentrated on the rarest genera. It also ran into a wall. Across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. The live demo therefore serves a <em>calibrated genus</em>, naming a species only when the top-1/top-2 margin earns it.
+  <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model: <strong>+7.6 pp top-1 averaged per genus</strong> (0.844 vs BioCLIP 2's 0.768), with gains concentrated on the rarest. Averaged per <em>image</em> it reads 0.911, but that holdout is 70% <em>Ophrys</em> — a genus both models already handle — so the per-image figure understates the lift. It also ran into a wall. Across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. The live demo therefore serves a <em>calibrated genus</em>, naming a species only when the top-1/top-2 margin earns it.
   <div style="margin-top:0.7rem;">
     <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id" style="display:inline-block; background:#cc4e0b; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🌿 Try the live demo</a>
     <a href="https://huggingface.co/mjarnold/orchid-clip-v8" style="display:inline-block; background:#2c5282; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🤗 Model on HF</a>
@@ -30,16 +30,22 @@ related_publications: false
   </div>
 </div>
 
-**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 for fine-grained orchid identification. Orchidaceae is one of the largest plant families and one of the most heavily long-tailed domains in biological vision: a handful of cultivated genera dominate every public image source, while thousands of tropical-epiphyte species have fewer than 30 labeled images on the entire internet. v8 lifts top-1 accuracy from 0.873 (BioCLIP 2 baseline) to **0.911** on a stratified 4,000-image holdout. The gains fall where the training was aimed, on long-tail Pleurothallidinae genera, which gain +14 to +28 pp.
+**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 for fine-grained orchid identification. Orchidaceae is one of the largest plant families and one of the most heavily long-tailed domains in biological vision: a handful of cultivated genera dominate every public image source, while thousands of tropical-epiphyte species have fewer than 30 labeled images on the entire internet. v8 lifts top-1 accuracy from 0.873 (BioCLIP 2 baseline) to **0.911** on a 4,000-image holdout. The gains fall where the training was aimed, on long-tail Pleurothallidinae genera, which gain +14 to +28 pp.
 
 ## Headline
 
-| model              | top-1     | top-5     | genus-top-1 |
-| ------------------ | --------- | --------- | ----------- |
-| BioCLIP 2          | 0.873     | 0.978     | 0.992       |
-| **orchid-clip-v8** | **0.911** | **0.986** | **0.991**   |
+| model              | top-1 per image | top-1 per genus | top-5     | genus-top-1 |
+| ------------------ | --------------- | --------------- | --------- | ----------- |
+| BioCLIP 2          | 0.873           | 0.768           | 0.978     | 0.992       |
+| **orchid-clip-v8** | **0.911**       | **0.844**       | **0.986** | **0.991**   |
 
-The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992, within noise). The gains are therefore real species discrimination within genera: the decision boundary did not simply coarsen.
+**Read the per-genus column.** The holdout is a hash-partitioned random 2% of the corpus, so it inherits the corpus's skew: _Ophrys_ alone is **2,754 of the 4,000 images**, and it is a genus both models already do well on (0.933 vs 0.905). Averaging per image therefore weights the result 70% toward the case with the least to gain, and the lift reads **+3.8 pp**. Averaging per genus, it is **+7.6 pp** — double. On a page about the long tail, the per-genus figure is the one that answers the question being asked; the per-image figure answers a different one, how often the model is right on a random photo from this distribution.
+
+Either way the lift is real species discrimination, not a coarsened boundary: genus-top-1 is unchanged (0.991 vs 0.992, within noise).
+
+<div class="caption">
+Per-genus figures average the 14 genera with ≥20 holdout images, which is 3,937 of the 4,000. The genera below that cutoff are the rarest, so the per-genus number is if anything the optimistic one.
+</div>
 
 > **† Which number is the product?** This is a **closed-set** benchmark: each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on the open set too. (The live demo now ranks each photo against per-species **image centroids** rather than the text table. The open-set rates are essentially unchanged, but a source-expansion pass has since lifted the _starved tail_ well above them; see below.) [How the two compare →](#building-around-the-boundary)
 
@@ -283,4 +289,4 @@ That 768-d feature is the foundation embedding. Cosine-rank it against per-speci
 
 ---
 
-<p style="font-size:0.85em; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a stratified, iNaturalist-dominated holdout; closed-set unless noted.</p>
+<p style="font-size:0.85em; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a hash-partitioned random 2% holdout, iNaturalist-dominated; closed-set unless noted.</p>
