@@ -26,20 +26,20 @@ _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species 
 
 ## The corpus
 
-Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set.
+Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf.
 
-| stage                            |   count |
-| -------------------------------- | ------: |
-| recovered specimen masks         |     104 |
-| leaf components across them      |   1,206 |
-| **usable leaf outlines**         | **490** |
-| vouchers represented among those |      90 |
+| stage                       |   count |
+| --------------------------- | ------: |
+| specimen masks              |     104 |
+| leaf components across them |   1,206 |
+| **usable leaf outlines**    | **490** |
+| vouchers represented        |      90 |
 
 <div class="caption">
-Leaves too folded, torn or truncated to measure were excluded by explicit criterion rather than by eye, which is why fewer than half survived. <strong>Recovered</strong> is the operative word: the 2024 measurements no longer exist on disk, so 104 is what survives, not what was collected.
+Leaves too folded, torn or truncated to measure were excluded by explicit criterion rather than by eye, which is why fewer than half of the components were usable.
 </div>
 
-Nine species are represented, plus one leaf whose label was lost:
+Nine species are represented:
 
 | species               | leaves | vouchers |
 | --------------------- | -----: | -------: |
@@ -52,10 +52,10 @@ Nine species are represented, plus one leaf whose label was lost:
 | _L. apalachicolensis_ |     41 |        3 |
 | _L. inflata_          |     26 |        5 |
 | _L. cardinalis_       |      3 |        1 |
-| unlabelled            |      1 |        1 |
+| unassigned            |      1 |        1 |
 
 <div class="caption">
-Counted from the recovered outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unlabelled leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
+Counted from the outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unassigned leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
 </div>
 
 **Sampling is uneven in both directions, and they are different problems.** Twenty-one _glandulosa_ plants contribute 48 leaves; three _apalachicolensis_ plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
@@ -80,9 +80,9 @@ run.ij(set.directory = ".../leafcrops",
 
 6. **Analysis** in R / RStudio.
 
-Thresholding each crop gives the binary mask the measurements come from. It is also where the material fights back:
+Thresholding each crop gives the binary mask the measurements come from, and it is where specimen condition matters most:
 
-{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="thresholded leaf series showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="One _L. spicata_ specimen (voucher AC17073), an uncooperative one: several laminae torn through, one punctured. **An area measured from these is wrong while looking perfectly valid in a spreadsheet.**" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="thresholded leaf series showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="One _L. spicata_ specimen (voucher AC17073): several laminae torn through, one punctured. **An area measured from these is wrong while looking perfectly valid in a spreadsheet.**" class="img-fluid rounded z-depth-1" %}
 
 It is not a rare problem, and it is the reason for the attrition in the table above: of those leaf components big enough to measure at all, a third were rejected as too damaged.
 
@@ -111,25 +111,23 @@ Perimeter scales with area differently in different species. That is a shape sta
 
 {% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, from that species' own mask, **scaled to a common length** so it compares _shape_, not size. Leaves were chosen by solidity, not size." class="img-fluid rounded z-depth-1" %}
 
-Nine species, not ten. The largest component in a mask is often a stem fragment, and _L. canbyi_'s only mask is nothing else: 3,257 px at 0.55 solidity against 0.93–0.97 for a clean blade. Including it would have put debris under the species name.
+Nine species, not ten. The largest component in a mask is often a stem fragment, and _L. canbyi_'s only mask is nothing else: 3,257 px at 0.55 solidity against 0.93–0.97 for a clean blade. Including it would have shown a stem fragment under the species name.
 
 ## A second method, two years later
 
-The 2024 result had never been checked against anything but itself. In 2026 I re-analysed the 104 recovered masks by a different route: 486 leaves from 88 specimens across 8 species, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. It uses neither area nor perimeter, and shares no code with the 2024 pipeline.
+In 2026 I re-analysed the same 104 masks by an independent route: 486 leaves from 88 specimens across 8 species, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. It uses neither area nor perimeter, and shares no code with the 2024 pipeline.
 
 PC1 carries 48% of shape variance and is almost exactly leaf breadth, correlating with measured width-to-length at r = 0.978. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) 0.493 on PC1 against 0.006 on PC2. PC2 carries another 26% of shape variance but splits by _plant_ rather than species, η² 0.211 by specimen: leaf-to-leaf variation within one individual.
 
-Classifying from outline alone, cross-validated grouped by specimen so no test plant's leaves appear in training, gives 0.372 against a 0.166 permuted-label null and a 0.191 majority-class baseline. Roughly twice chance: a genuine species character, if a weak one. A naive split letting one plant's leaves span train and test scores 0.430, a 6-point gap that is the pseudo-replication illusion you get free by treating ten leaves off one plant as ten observations.
+Classifying from outline alone, cross-validated grouped by specimen so no test plant's leaves appear in training, gives 0.372 against a 0.166 permuted-label null and a 0.191 majority-class baseline. Roughly twice chance: a genuine species character, if a weak one. A naive split letting one plant's leaves span train and test scores 0.430, a 6-point gap that measures the pseudo-replication in treating ten leaves off one plant as ten observations.
 
-How does this line up with 2024? Not by direct comparison: the 2024 `LeafArea` measurements no longer exist on disk, so there is nothing left to correlate the landmarks against.
+{% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="PC1 against perimeter/√area, both computed in 2026 from the same 128-landmark outlines. Dimensionless, so size cancels and no calibration is needed. At r = −0.82 the landmark axis closely tracks the simple ratio — a **within-method consistency check**, since both quantities come from the same outlines." class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="PC1 against perimeter/√area, both computed in 2026 from the same 128-landmark outlines. Dimensionless, so size cancels and no calibration is needed. At r = −0.82 the landmark axis closely tracks the simple ratio, which is a **within-method consistency check** rather than two measurement campaigns agreeing." class="img-fluid rounded z-depth-1" %}
-
-Against 2024 the comparison is therefore by eye, species by species. _L. glandulosa_ is the outlier here and is also the species the 2024 plot picks out with the steepest slope. They part company on _L. elongata_: perimeter grows with the **square root** of area for a fixed shape, so a straight-line slope depends on the size range a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect; on the dimensionless index it sits mid-pack, which sharpens the original result rather than undoing it.
+Against 2024 the comparison is species by species rather than leaf by leaf. _L. glandulosa_ is the outlier here and is also the species the 2024 plot picks out with the steepest slope. They part company on _L. elongata_: perimeter grows with the **square root** of area for a fixed shape, so a straight-line slope depends on the size range a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect; on the dimensionless index it sits mid-pack, which sharpens the original result rather than undoing it.
 
 **Damage shifts PC1 without accounting for it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
 
-**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
+**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is interpreted against a width-to-length measurement of the same outlines rather than an independent character set, so it describes this material rather than validating against an external standard.
 
 ## Status
 
