@@ -25,7 +25,7 @@ ninja.data = [{
           },
         },{id: "projects-automating-leaf-measurement",
           title: 'Automating leaf measurement',
-          description: "Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, and what became of the attempt to do it at aggregator scale.",
+          description: "Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, by two independent methods two years apart.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaLeafMeasurement/";
             },},{id: "projects-lobelia-silhouettes",
