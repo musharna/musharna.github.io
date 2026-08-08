@@ -36,7 +36,7 @@ Every measurement on this page comes from **plants collected in the field and ta
 | vouchers represented        |      90 |
 
 <div class="caption">
-Leaves too folded, torn or truncated to measure were excluded by explicit criterion rather than by eye, which is why fewer than half of the components were usable.
+Folded, torn and truncated leaves were excluded by explicit criterion, not by eye.
 </div>
 
 Nine species are represented:
@@ -55,7 +55,7 @@ Nine species are represented:
 | unassigned            |      1 |        1 |
 
 <div class="caption">
-Counted from the outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unassigned leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
+The 2026 analysis below drops <em>cardinalis</em> and the unassigned leaf, leaving <strong>486 leaves from 88 specimens across 8 species</strong>.
 </div>
 
 **Sampling is uneven in both directions, and they are different problems.** Twenty-one _glandulosa_ plants contribute 48 leaves; three _apalachicolensis_ plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
