@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Automating leaf measurement
-description: Extracting leaf traits from digitized herbarium specimens of Lobelia sect. Lobelia at aggregator scale.
+description: Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, and what became of the attempt to do it at aggregator scale.
 img: assets/img/lobelia/clade_leaf_shapes.png
 og_image: https://musharna.github.io/assets/img/lobelia/shape_synthesis.png
 importance: 2
@@ -27,36 +27,39 @@ _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species 
 
 ## The corpus
 
-Records came from GBIF, SERNEC, iDigBio and the Kent State herbarium, filtered to preserved specimens with coordinates, no flagged geospatial issues, and an image. Aggregators return duplicates: the same physical sheet surfaces repeatedly under one `gbifID`. Each species was reconciled by hand, every deletion logged in a per-species ledger.
+Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set. Not one measurement comes from a downloaded herbarium photograph, which is worth stating plainly because the downloaded set is the one a project like this is assumed to have run on; it has [its own section](#the-scale-up-that-never-ran) below.
 
-| stage                       |     count |
-| --------------------------- | --------: |
-| species accounted for       |        23 |
-| occurrence records screened |     2,906 |
-| specimen images retained    | **2,733** |
+| stage                             |   count |
+| --------------------------------- | ------: |
+| recovered specimen masks           |     104 |
+| leaf components across them        |   1,206 |
+| **usable leaf outlines**           | **490** |
+| vouchers represented among those   |      90 |
 
 <div class="caption">
-Totals cover the <strong>20 of 23</strong> species tabs complete on both ends. <em>batsonii</em> was never tallied; <em>inflata</em> and <em>siphilitica</em> record intake but no final figure. The true corpus is larger than 2,733, not smaller. Retrieved 2022-01-14.
+Leaves too folded, torn or truncated to measure were excluded by explicit criterion rather than by eye, which is why fewer than half survived. <strong>Recovered</strong> is the operative word: the 2024 measurements no longer exist on disk, so 104 is what survives, not what was collected.
 </div>
 
-A later, narrower pull for _L. siphilitica_ is permanently citable, since GBIF mints a DOI per download {% cite gbif2024lobeliasiphilitica %}: **[10.15468/dl.5gavr9](https://doi.org/10.15468/dl.5gavr9)**, 452 preserved-specimen records across 19 institutional datasets, retrieved 2024-02-16.
+Nine species are represented, plus one leaf whose label was lost:
 
-Splitting by species exposed something the project didn't set out to find:
+| species                | leaves | vouchers |
+| ---------------------- | -----: | -------: |
+| _L. puberula_          |     93 |       10 |
+| _L. elongata_          |     88 |       10 |
+| _L. appendiculata_     |     83 |       17 |
+| _L. siphilitica_       |     57 |       10 |
+| _L. spicata_           |     50 |       12 |
+| _L. glandulosa_        |     48 |       21 |
+| _L. apalachicolensis_  |     41 |        3 |
+| _L. inflata_           |     26 |        5 |
+| _L. cardinalis_        |      3 |        1 |
+| unlabelled             |      1 |        1 |
 
-<div class="row justify-content-center mt-3 mb-2">
-  <div class="col-12 p-0">
-    <iframe src="{{ '/assets/plotly/lobelia_species_counts.html' | relative_url }}"
-            title="Interactive chart: specimen images retained per Lobelia species, on a log scale"
-            loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:580px; border:1px solid var(--global-divider-color); border-radius:8px;">
-    </iframe>
-  </div>
-</div>
 <div class="caption">
-Images retained per species after de-duplication. Hover for records screened and share kept. On a <strong>log</strong> axis rather than bars: bar length encodes value from a zero baseline a log axis does not have.
+Counted from the recovered outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unlabelled leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
 </div>
 
-**811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here inherits that skew, and any clade-wide comparison has to carry it as a caveat rather than average it away.
+**Sampling is uneven in both directions, and they are different problems.** Twenty-one *glandulosa* plants contribute 48 leaves; three *apalachicolensis* plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
 
 ## The pipeline
 
@@ -82,7 +85,7 @@ Thresholding each crop gives the binary mask the measurements come from. It is a
 
 {% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="thresholded leaf series showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="One _L. spicata_ specimen (voucher AC17073), an uncooperative one: several laminae torn through, one punctured. **An area measured from these is wrong while looking perfectly valid in a spreadsheet.**" class="img-fluid rounded z-depth-1" %}
 
-It is not a rare problem. Of 1,206 leaf components across the recovered masks only 490 were usable, and of those big enough to measure at all, a third were rejected as too damaged.
+It is not a rare problem, and it is the reason for the attrition in the table above: of those leaf components big enough to measure at all, a third were rejected as too damaged.
 
 Existing tools were surveyed first. Most assume material digitized herbarium sheets never supply:
 
@@ -128,6 +131,45 @@ Against 2024 the comparison is therefore by eye, species by species. _L. glandul
 **Damage shifts PC1 without accounting for it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
 
 **What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
+
+## The scale-up that never ran
+
+Everything above rests on ninety plants that had to be collected, dried, taken apart and photographed one at a time. The obvious next move was to skip all of that: segment measurable leaves straight off intact sheets that herbaria had already photographed, and run the whole clade at once.
+
+The acquisition for it happened. In January 2022 I pulled records from GBIF, SERNEC, iDigBio and the Kent State herbarium, filtered to preserved specimens with coordinates, no flagged geospatial issues and an image, then reconciled every species by hand — aggregators return the same physical sheet repeatedly under one `gbifID` — logging each deletion in a per-species ledger.
+
+| stage                       |     count |
+| --------------------------- | --------: |
+| species with a tally        | 22 of 23  |
+| occurrence records screened |     3,645 |
+| specimen images retained    | **4,085** |
+
+<div class="caption">
+From the per-species ledger, retrieved 2022-01-14. <em>batsonii</em> was never tallied at all, and the screened figure covers only the 21 species that record intake, so the two rows do not span the same set of species.
+</div>
+
+A narrower pull for _L. siphilitica_ two years later is permanently citable, since GBIF mints a DOI per download {% cite gbif2024lobeliasiphilitica %}: **[10.15468/dl.5gavr9](https://doi.org/10.15468/dl.5gavr9)**, 452 preserved-specimen records across 19 institutional datasets, retrieved 2024-02-16.
+
+**The segmentation stage was never completed on _Lobelia_.** The detection workflow was rehearsed against GinJinn's own tutorial dataset — every command in the notes names _leucanthemum_, not a _Lobelia_ — and the notes stop at `## not working???`. So **not one of these 4,085 images produced a measurement**, and nothing on this page rests on them. They are an acquisition, not a result.
+
+What the acquisition did produce is an honest picture of what herbarium data looks like at clade scale:
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/lobelia_species_counts.html' | relative_url }}"
+            title="Interactive chart: specimen images retained per Lobelia species, on a log scale"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:620px; border:1px solid var(--global-divider-color); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+<div class="caption">
+Images retained per species after de-duplication, for the 22 species with a tally. Hover for records screened and share kept. On a <strong>log</strong> axis rather than bars: bar length encodes value from a zero baseline a log axis does not have.
+</div>
+
+**811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here would inherit that skew, and any clade-wide comparison has to carry it as a caveat rather than average it away.
+
+Note that the skew is a property of the world, not of this download: querying GBIF again in 2026 gives the same ordering, with _cardinalis_ still first and _apalachicolensis_ still holding two imaged, georeferenced sheets on Earth.
 
 ## Status
 
