@@ -24,7 +24,64 @@
 
   "owners": ["musharna", "mjarnold"],
 
+  "extra_surfaces": ["pypi:plant-genomics-mcp"],
+
   "retractions": [
+    {
+      "id": "lobelia-multisource-provenance",
+      "date": "2026-08-08",
+      "note": "The page said records were pulled from 'GBIF, SERNEC, iDigBio and the Kent State herbarium'. The acquisition ledger contains zero Kent State URLs; the download was GBIF only. NOTE the ban strings are the CLAIM, not the entity: 'Kent State' alone appears truthfully in the repo README as the institution the undergraduate research was done at, advised by Dr. Andrea Case. Banning an entity name flags true statements about that entity.",
+      "fixed_by": ["musharna.github.io#91"],
+      "retracted": ["Kent State herbarium", "SERNEC, iDigBio", "GBIF, SERNEC"],
+      "required": "GBIF Darwin Core Archive",
+      "required_on": ["github:musharna/lobelia-leaf-morphometrics"],
+      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "lobelia-data-custody-admission",
+      "date": "2026-08-08",
+      "note": "The page volunteered that the 2024 measurements no longer exist on disk, and leaned on 'recovered' and 'survives' to explain the counts. That is a lab-notebook custody admission, not something a reader of an academic project page needs, and it reads badly to anyone assessing the work. The counts stand on their own.",
+      "fixed_by": ["musharna.github.io#93"],
+      "retracted": ["no longer exist on disk", "survive in the measured set"],
+      "required": "usable leaf outlines",
+      "required_on": ["site"],
+      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "orchid-species-count-authority",
+      "date": "2026-08-08",
+      "note": "The page quoted Christenhusz & Byng's ~28,000 accepted species while the pipeline itself dedups against WCVP, whose map here gives 30,581 accepted from 72,253 raw (GBIF backbone: 33,355). Quoting one authority while deduplicating against another is the defect; 28,000 was also the lowest of the three, so it understated the difficulty being described.",
+      "fixed_by": ["musharna.github.io#99"],
+      "retracted": ["28,000 accepted species", "roughly 28,000"],
+      "required": "over 30,000 species",
+      "required_on": ["site"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "visualizer-transgression-not-artifact",
+      "date": "2026-08-08",
+      "note": "The page claimed the transgressive residual 'survives permutation testing and reproduces under a DINOv2 backbone, so it is not an artifact of the embedding'. The DINOv2 run is real, but both it and the v8 report carry verdict MARGINAL and genetics_pass false, and no permutation test or G1a off-chord output exists in stage15/16/17. What replicates is the CHORD, with numbers now on the page; the residual is graded marginal.",
+      "fixed_by": ["musharna.github.io#100"],
+      "retracted": ["not an artifact of the embedding", "survives permutation testing"],
+      "required": "replicates on an independent backbone",
+      "required_on": ["site"],
+      "surfaces": ["site", "github:musharna/orchid-hybrid-visualizer"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "mcp-tool-count-agreement",
+      "date": "2026-08-08",
+      "note": "Not a retraction but a cross-surface invariant, and the reason the pypi fetch path exists at all. The site and the plant-genomics-mcp PyPI description both state '50 tools across 23 backends', verified from source (Tool( appears exactly 50 times in server.py). The PyPI description is public and is never hyperlinked from the site, so nothing else can see it drift. An entry with no `retracted` list is legitimate: `required` alone pins a number that must agree everywhere it is published.",
+      "fixed_by": [],
+      "retracted": [],
+      "required": "50 tools",
+      "required_on": ["site", "pypi:plant-genomics-mcp"],
+      "surfaces": ["site", "pypi:plant-genomics-mcp"],
+      "allow_if_line_matches": []
+    },
     {
       "id": "orchidclip-stratified-holdout",
       "date": "2026-08-08",
