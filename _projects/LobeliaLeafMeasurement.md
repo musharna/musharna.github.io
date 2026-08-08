@@ -13,7 +13,6 @@ related_publications: true
   <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, with almost every measurable trait locked inside a photograph. This project built a <strong>semi-automated pipeline for getting leaf traits out</strong>: dismember and digitize a voucher, crop leaves in ImageJ, measure area and perimeter with the <code>LeafArea</code> package in R. The result: <strong>species differ in how leaf perimeter scales with leaf area, and populations of one species differ too.</strong> A second analysis two years later, by a different method, agrees.
   <div style="margin-top:0.7rem;">
     <a href="https://github.com/musharna/lobelia-leaf-morphometrics" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">💻 Code on GitHub</a>
-    <a href="https://doi.org/10.15468/dl.5gavr9" style="display:inline-block; background:#4a5d3a; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin-bottom:0.3rem;">🌿 GBIF download DOI</a>
   </div>
 </div>
 
@@ -134,9 +133,7 @@ Against 2024 the comparison is therefore by eye, species by species. _L. glandul
 
 ## The scale-up that never ran
 
-Everything above rests on ninety plants that had to be collected, dried, taken apart and photographed one at a time. The obvious next move was to skip all of that: segment measurable leaves straight off intact sheets that herbaria had already photographed, and run the whole clade at once.
-
-The acquisition for it happened. In January 2022 I pulled records from GBIF, SERNEC, iDigBio and the Kent State herbarium, filtered to preserved specimens with coordinates, no flagged geospatial issues and an image, then reconciled every species by hand — aggregators return the same physical sheet repeatedly under one `gbifID` — logging each deletion in a per-species ledger.
+The next step was to skip the dismembering: segment leaves off intact sheets herbaria had already photographed, and cover the clade. I pulled that acquisition from GBIF in January 2022, keyed by `gbifID` — aggregators return the same sheet more than once — and removed duplicates by hand, logging each deletion and its reason in a per-species ledger.
 
 | stage                       |     count |
 | --------------------------- | --------: |
@@ -148,11 +145,9 @@ The acquisition for it happened. In January 2022 I pulled records from GBIF, SER
 From the per-species ledger, retrieved 2022-01-14. <em>batsonii</em> was never tallied at all, and the screened figure covers only the 21 species that record intake, so the two rows do not span the same set of species.
 </div>
 
-A narrower pull for _L. siphilitica_ two years later is permanently citable, since GBIF mints a DOI per download {% cite gbif2024lobeliasiphilitica %}: **[10.15468/dl.5gavr9](https://doi.org/10.15468/dl.5gavr9)**, 452 preserved-specimen records across 19 institutional datasets, retrieved 2024-02-16.
+**The segmentation was never turned on _Lobelia_.** The GinJinn detection pipeline worked, but it was an overcomplication for the problem, and **not one of these 4,085 images produced a measurement.** Nothing on this page rests on them.
 
-**The segmentation stage was never completed on _Lobelia_.** The detection workflow was rehearsed against GinJinn's own tutorial dataset — every command in the notes names _leucanthemum_, not a _Lobelia_ — and the notes stop at `## not working???`. So **not one of these 4,085 images produced a measurement**, and nothing on this page rests on them. They are an acquisition, not a result.
-
-What the acquisition did produce is an honest picture of what herbarium data looks like at clade scale:
+The acquisition is still worth one look, for what it says about herbarium coverage:
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -167,9 +162,7 @@ What the acquisition did produce is an honest picture of what herbarium data loo
 Images retained per species after de-duplication, for the 22 species with a tally. Hover for records screened and share kept. On a <strong>log</strong> axis rather than bars: bar length encodes value from a zero baseline a log axis does not have.
 </div>
 
-**811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here would inherit that skew, and any clade-wide comparison has to carry it as a caveat rather than average it away.
-
-Note that the skew is a property of the world, not of this download: querying GBIF again in 2026 gives the same ordering, with _cardinalis_ still first and _apalachicolensis_ still holding two imaged, georeferenced sheets on Earth.
+**811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here inherits that skew. It is not an artefact of this download either — re-querying GBIF in 2026 gives the same order, with _apalachicolensis_ still on two imaged, georeferenced sheets worldwide.
 
 ## Status
 
