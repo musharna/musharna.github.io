@@ -84,14 +84,13 @@ That offset is the **transgressive residual**: the part of the real hybrid that 
 beyond both parents rather than a blend of them. It survives permutation testing and
 reproduces under a DINOv2 backbone, so it is not an artifact of the embedding.
 
-## Honest limits
+## Limits
 
 - The parent species reference photos are real and CC-licensed; **every generated bloom is a
   prediction, not a photograph.** Nothing here is evidence of what a cross actually produced.
-- There is **no automated recognition gate** on generation. An earlier design called for
-  scoring each sample against a per-species prototype and rejecting the ones that missed;
-  that loop is not implemented. Output quality currently rests on the phenotype engine and
-  the LoRA, with a human looking at the results.
+- There is **no automated recognition gate** on generation: samples are not scored against a
+  per-species prototype and filtered. Output quality rests on the phenotype engine and the
+  LoRA, with a human reviewing the results.
 - 119 species is a fraction of _Cattleya_ and its allied genera. Crosses outside that set
   fall back to weaker trait inference.
 
