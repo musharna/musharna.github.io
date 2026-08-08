@@ -26,7 +26,7 @@ _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species 
 
 ## The corpus
 
-Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set. Not one measurement comes from a downloaded herbarium photograph, which is worth stating plainly because the downloaded set is the one a project like this is assumed to have run on; it has [its own section](#the-scale-up-that-never-ran) below.
+Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set. The downloaded herbarium sheets are a separate effort, with [their own section](#scaling-past-the-dismembering) below.
 
 | stage                            |   count |
 | -------------------------------- | ------: |
@@ -131,23 +131,11 @@ Against 2024 the comparison is therefore by eye, species by species. _L. glandul
 
 **What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
 
-## The scale-up that never ran
+## Scaling past the dismembering
 
-The next step was to skip the dismembering: segment leaves off intact sheets herbaria had already photographed, and cover the clade. I pulled that acquisition from GBIF in January 2022, keyed by `gbifID` — aggregators return the same sheet more than once — and removed duplicates by hand, logging each deletion and its reason in a per-species ledger.
+Taking a voucher apart by hand is slow. The way past it is to segment leaves off intact sheets herbaria have already photographed, so in January 2022 I assembled a GBIF set for it — **4,085 sheets across 22 of the 23 species**, de-duplicated by hand, every deletion logged in a [per-species ledger](https://github.com/musharna/lobelia-leaf-morphometrics/blob/main/data/gbif_acquisition_ledger.xlsx). The GinJinn detection pipeline worked but was an overcomplication; the measurements above come from the vouchers.
 
-| stage                       |     count |
-| --------------------------- | --------: |
-| species with a tally        |  22 of 23 |
-| occurrence records screened |     3,645 |
-| specimen images retained    | **4,085** |
-
-<div class="caption">
-From the per-species ledger, retrieved 2022-01-14. <em>batsonii</em> was never tallied at all, and the screened figure covers only the 21 species that record intake, so the two rows do not span the same set of species.
-</div>
-
-**The segmentation was never turned on _Lobelia_.** The GinJinn detection pipeline worked, but it was an overcomplication for the problem, and **not one of these 4,085 images produced a measurement.** Nothing on this page rests on them.
-
-The acquisition is still worth one look, for what it says about herbarium coverage:
+The set does say something about herbarium coverage:
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -159,7 +147,7 @@ The acquisition is still worth one look, for what it says about herbarium covera
   </div>
 </div>
 <div class="caption">
-Images retained per species after de-duplication, for the 22 species with a tally. Hover for records screened and share kept. On a <strong>log</strong> axis rather than bars: bar length encodes value from a zero baseline a log axis does not have.
+Images retained per species, for the 22 with a tally. Hover for records screened. Dots on a <strong>log</strong> axis rather than bars, because bar length encodes value from a zero baseline a log axis does not have.
 </div>
 
 **811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here inherits that skew. It is not an artefact of this download either — re-querying GBIF in 2026 gives the same order, with _apalachicolensis_ still on two imaged, georeferenced sheets worldwide.
