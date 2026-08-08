@@ -162,12 +162,24 @@ def main():
     entries = ledger["retractions"]
 
     discovered = discover(args.root)
-    owned = {s for s in discovered if s.split(":", 1)[1].split("/")[0] in owners}
+    linked = {s for s in discovered if s.split(":", 1)[1].split("/")[0] in owners}
 
-    print(f"surfaces linked from site: {len(discovered)} ({len(owned)} owned)")
-    for s in sorted(owned):
+    # Surfaces that carry our claims but are never hyperlinked, so the crawler
+    # cannot find them: the MCPServers page names its packages via `pip install`
+    # rather than linking pypi.org, yet those PyPI descriptions are public and
+    # state a tool count. Declared explicitly here so they are covered, and so
+    # the pypi fetch path is exercised rather than shipped untested.
+    extra = set(ledger.get("extra_surfaces", []))
+    owned = linked | extra
+
+    print(f"surfaces linked from site: {len(discovered)} ({len(linked)} owned)")
+    for s in sorted(linked):
         print(f"  {s}")
-    skipped = sorted(discovered - owned)
+    if extra:
+        print(f"declared explicitly (not hyperlinked): {len(extra)}")
+        for s in sorted(extra):
+            print(f"  {s}")
+    skipped = sorted(discovered - linked)
     if skipped:
         print(f"not owned, ignored: {', '.join(skipped)}")
 
@@ -183,13 +195,14 @@ def main():
         eid = entry["id"]
         allow = [re.compile(p) for p in entry.get("allow_if_line_matches", [])]
 
-        # Inertness guard: a ledger surface the crawler never found is a failure.
+        # Inertness guard: a ledger surface that is neither discovered by the
+        # crawler nor declared in extra_surfaces is a failure, not a skip.
         for name in entry["surfaces"]:
             if name != "site" and name not in owned:
                 failures.append(
-                    f"[{eid}] surface {name} is in the ledger but is NOT linked "
-                    f"from any site page -- coverage silently dropped, or the "
-                    f"link markup changed."
+                    f"[{eid}] surface {name} is named in the ledger but is neither "
+                    f"linked from a site page nor listed in extra_surfaces -- "
+                    f"coverage silently dropped, or the link markup changed."
                 )
 
         for name in entry["surfaces"]:
