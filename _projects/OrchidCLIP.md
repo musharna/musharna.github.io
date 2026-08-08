@@ -11,7 +11,7 @@ related_publications: false
 ---
 
 <div style="border:1px solid var(--global-divider-color); border-left:4px solid #2c5282; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model: top-1 <strong>0.911</strong> across 5,124 species, with gains concentrated on the rarest genera. It also ran into a wall. Across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. The live demo therefore serves a <em>calibrated genus</em>, naming a species only when the top-1/top-2 margin earns it.
+  <strong>TL;DR.</strong> <strong>orchid-clip-v8</strong> is a long-tail-aware orchid CLIP model: <strong>+7.6 pp top-1 averaged per genus</strong> (0.844 vs BioCLIP 2's 0.768), with gains concentrated on the rarest. Averaged per <em>image</em> it reads 0.911, but that holdout is 70% <em>Ophrys</em> — a genus both models already handle — so the per-image figure understates the lift. It also ran into a wall. Across <em>six</em> independent extension attempts, <strong>genus structure transfers but within-genus species identity stays locked</strong>. The live demo therefore serves a <em>calibrated genus</em>, naming a species only when the top-1/top-2 margin earns it.
   <div style="margin-top:0.7rem;">
     <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id" style="display:inline-block; background:#cc4e0b; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🌿 Try the live demo</a>
     <a href="https://huggingface.co/mjarnold/orchid-clip-v8" style="display:inline-block; background:#2c5282; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">🤗 Model on HF</a>
@@ -30,16 +30,22 @@ related_publications: false
   </div>
 </div>
 
-**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 for fine-grained orchid identification. Orchidaceae is one of the largest plant families and one of the most heavily long-tailed domains in biological vision: a handful of cultivated genera dominate every public image source, while thousands of tropical-epiphyte species have fewer than 30 labeled images on the entire internet. v8 lifts top-1 accuracy from 0.873 (BioCLIP 2 baseline) to **0.911** on a stratified 4,000-image holdout. The gains fall where the training was aimed, on long-tail Pleurothallidinae genera, which gain +14 to +28 pp.
+**orchid-clip-v8** is a CLIP model fine-tuned from BioCLIP 2 for fine-grained orchid identification. Orchidaceae is one of the largest plant families and one of the most heavily long-tailed domains in biological vision: a handful of cultivated genera dominate every public image source, while thousands of tropical-epiphyte species have fewer than 30 labeled images on the entire internet. v8 lifts top-1 accuracy from 0.873 (BioCLIP 2 baseline) to **0.911** on a 4,000-image holdout. The gains fall where the training was aimed, on long-tail Pleurothallidinae genera, which gain +14 to +28 pp.
 
 ## Headline
 
-| model              | top-1     | top-5     | genus-top-1 |
-| ------------------ | --------- | --------- | ----------- |
-| BioCLIP 2          | 0.873     | 0.978     | 0.992       |
-| **orchid-clip-v8** | **0.911** | **0.986** | **0.991**   |
+| model              | top-1 per image | top-1 per genus | top-5     | genus-top-1 |
+| ------------------ | --------------- | --------------- | --------- | ----------- |
+| BioCLIP 2          | 0.873           | 0.768           | 0.978     | 0.992       |
+| **orchid-clip-v8** | **0.911**       | **0.844**       | **0.986** | **0.991**   |
 
-The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.992, within noise). The gains are therefore real species discrimination within genera: the decision boundary did not simply coarsen.
+**Read the per-genus column.** The holdout is a hash-partitioned random 2% of the corpus, so it inherits the corpus's skew: _Ophrys_ alone is **2,754 of the 4,000 images**, and it is a genus both models already do well on (0.933 vs 0.905). Averaging per image therefore weights the result 70% toward the case with the least to gain, and the lift reads **+3.8 pp**. Averaging per genus, it is **+7.6 pp** — double. On a page about the long tail, the per-genus figure is the one that answers the question being asked; the per-image figure answers a different one, how often the model is right on a random photo from this distribution.
+
+Either way the lift is real species discrimination, not a coarsened boundary: genus-top-1 is unchanged (0.991 vs 0.992, within noise).
+
+<div class="caption">
+Per-genus figures average the 14 genera with ≥20 holdout images, which is 3,937 of the 4,000. The genera below that cutoff are the rarest, so the per-genus number is if anything the optimistic one.
+</div>
 
 > **† Which number is the product?** This is a **closed-set** benchmark: each holdout image is ranked (image→text) against only the **547 species that appear in the 4,000-image holdout**. The deployed demo faces the full **open set** of all **18,858** named species, a 34× larger candidate pool, so its species top-1 starts at **0.71** before the abstain buys it back to **0.90**; genus stays reliable (~0.94) on the open set too. (The live demo now ranks each photo against per-species **image centroids** rather than the text table. The open-set rates are essentially unchanged, but a source-expansion pass has since lifted the _starved tail_ well above them; see below.) [How the two compare →](#building-around-the-boundary)
 
@@ -66,9 +72,9 @@ The +3.8 pp top-1 lift comes at no meaningful cost in genus-top-1 (0.991 vs 0.99
 | _Maxillaria_    |  94 | **0.787** | 0.649     | **+13.8 pp** |
 | _Pleurothallis_ | 100 | **0.800** | 0.690     | **+11.0 pp** |
 
-The biggest lifts come on the smallest, longest-tailed genera. _Stelis_ (~1,300 species worldwide, n=25 in our holdout) gains +24 pp; _Lepanthes_ (~1,200 species, n=40) gains +27.5 pp. Head genera like _Ophrys_ (n=2,754) gain modestly but never regress.
+The biggest lifts come on the smallest, longest-tailed genera. _Stelis_ (~1,300 species worldwide, n=25 in the holdout) gains +24 pp; _Lepanthes_ (~1,200 species, n=40) gains +27.5 pp. Head genera like _Ophrys_ (n=2,754) gain modestly but never regress.
 
-{% include figure.liquid path="assets/img/orchidclip/few_shot_curve.png" title="few-shot data efficiency" alt="A two-by-two grid of line charts comparing orchid-CLIP v8 (left column) with BioCLIP 2 (right), plotting top-1 and macro-genus accuracy against labels per species for three probes. v8's curves start high and stay near a dashed zero-shot ceiling; BioCLIP 2's start far lower and climb steeply." caption="Few-shot adaptation on rare *seen* species (190 species): top-1 and macro-genus vs labels-per-species for NN-prototype / linear-probe / prompt-init probes over frozen v8 (left) vs BioCLIP 2 (right). v8's zero-shot (dashed, 0.97) already sits at the ceiling — extra per-species labels barely help, because the long-tail signal is already in the embedding; BioCLIP 2 needs ~25 labels/species to approach where v8 starts." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/orchidclip/few_shot_curve.png" title="few-shot data efficiency" alt="A two-by-two grid of line charts comparing orchid-CLIP v8 (left column) with BioCLIP 2 (right), plotting top-1 and macro-genus accuracy against labels per species for three probes. v8's curves start high and stay near a dashed zero-shot ceiling; BioCLIP 2's start far lower and climb steeply." caption="Few-shot adaptation on 190 rare *seen* species, three probes over frozen v8 (left) vs BioCLIP 2 (right). v8's zero-shot (dashed, 0.97) already sits at the ceiling, so extra labels barely help; BioCLIP 2 needs ~25 labels/species to reach where v8 starts." class="img-fluid rounded z-depth-1" %}
 
 ## What lifted the long tail (and what didn't)
 
@@ -90,7 +96,7 @@ The training pool is 1.14M images covering 5,124 species after WCVP synonym dedu
 The recipe that worked:
 
 1. **Inverse-square-root long-tail sampler.** Sample each `(binomial, image)` pair with weight ∝ `1/√n_rows_in_class`, with a per-species cap of 2,000. Less aggressive than uniform-by-class (which over-corrects and hurts head accuracy), much more tail-friendly than uniform-by-row.
-2. **WCVP 2026 synonym dedup.** Of 26,928 unique binomials in the raw label space, 4,504 binomials covering 69,467 image rows resolved to a different _accepted_ name. The largest single confusion in our previous-generation v7 model was _Ophrys fuciflora_ → _Ophrys holosericea_ (29% of all v7 errors), which collapsed entirely under WCVP because they are the same accepted species.
+2. **WCVP 2026 synonym dedup.** Of 26,928 unique binomials in the raw label space, 4,504 binomials covering 69,467 image rows resolved to a different _accepted_ name. The largest single confusion in the previous-generation v7 model was _Ophrys fuciflora_ → _Ophrys holosericea_ (29% of all v7 errors), which collapsed entirely under WCVP because they are the same accepted species.
 3. **Previous-generation cosine filter.** Drop the bottom percentile of training rows by previous-generation image↔binomial cosine. Rows that score poorly against their claimed binomial under a previous orchid-specific model are most likely label errors or off-target images.
 
 {% include figure.liquid path="assets/img/orchidclip/synonym_collapse.png" title="WCVP synonym collapse" alt="A horizontal bar chart of the most frequent v7 intra-genus confusion pairs. The top bar, Ophrys fuciflora versus holosericea, is highlighted dark red at 149 errors and dwarfs every other pair, the next largest being 20." caption="The dominant v7 confusion pairs on the 4,000-row holdout. _Ophrys fuciflora_ → _holosericea_ (149 errors) is a WCVP synonym — the same accepted species — so it collapses entirely under the 2026 dedup; resolving synonyms removes the single largest error source before a single training step." class="img-fluid rounded z-depth-1" %}
@@ -149,7 +155,7 @@ That taxonomy-shaped error structure is something you can _see_. Below is the sa
   </div>
 </div>
 <div class="caption">
-  Interactive UMAP of all 18,601 orchid-clip-v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown (top-left) to recolor the same projection by tribe — the finer the level, the tighter the knots. Hover to identify a point; drag to zoom, double-click to reset.
+  UMAP of all 18,601 v8 species prototypes (per-binomial mean image embedding), colored by WCVP subfamily. Use the <strong>color</strong> dropdown to recolor by tribe — the finer the level, the tighter the knots.
 </div>
 
 > **Three species counts, three scopes.** The page carries three numbers because three things are being measured: **5,124** species have ≥3 training images (the holdout-eval space); **18,858** is every species in the shipped gallery the live demo ranks each photo against, now one per-species v8 **image centroid** each (each built from ≥1 photo); **18,601** of those _also_ carry a known orchid subfamily, and those are the points plotted above (a few hundred centroids whose subfamily is empty or non-orchid are dropped from that plot).
@@ -158,7 +164,7 @@ Zoom into almost any neighborhood and the points resolve into tight, same-genus 
 
 ## Can the species gap be closed? Six attempts, one wall
 
-That "this genus, probably this species" framing raises the obvious question: can the residual species-disambiguation problem be fixed? v8 already shows the embedding organizes the domain hierarchically, so the species detail ought to be reachable with the right extra lever. We ran six independent extension attempts, each from a different mechanism class, each with its own kill-gate. All six landed in the same place: **genus structure transfers and stays decodable; species identity does not.**
+That "this genus, probably this species" framing raises the obvious question: can the residual species-disambiguation problem be fixed? v8 already shows the embedding organizes the domain hierarchically, so the species detail ought to be reachable with the right extra lever. I ran six independent extension attempts, each from a different mechanism class, each with its own kill-gate. All six landed in the same place: **genus structure transfers and stays decodable; species identity does not.**
 
 | extension lever                                            | genus               | species                      |
 | ---------------------------------------------------------- | ------------------- | ---------------------------- |
@@ -171,11 +177,11 @@ That "this genus, probably this species" framing raises the obvious question: ca
 
 Two are worth spelling out. **A second modality** is the most direct lever: give the model a dried herbarium specimen or a written description per species. It recovers genus cheaply, but within-genus species climbs only from 0.005 to 0.686 as the alignment improves, and there it sticks; neither more capacity nor more data moves it. Each modality separates species _from itself_ (herbarium→herbarium 0.88, photo→photo 0.99), but those axes don't line up across the gap between them.
 
-The **model-free control** is the cleanest. We threw out v8 entirely and measured fourteen classical computer-vision features (color clusters, texture, symmetry, aspect ratio) straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera we tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. That locates the wall in the data itself.
+The **model-free control** is the cleanest. Setting v8 aside entirely, I measured fourteen classical computer-vision features (color clusters, texture, symmetry, aspect ratio) straight off the pixels. Within photos they tell congeneric species apart above chance across all 52 genera tested; across the photo-to-herbarium gap the per-species values correlate at essentially zero on every axis, even for the best-measured species. That locates the wall in the data itself.
 
 {% include figure.liquid path="assets/img/orchidclip/crossmodal_climb.png" title="the cross-modal climb" alt="A line chart across three training stages with two series. Genus top-1 stays roughly flat near 0.81 to 0.93, while species top-1 climbs from 0.005 through 0.077 to 0.686 and then stops short of 0.69." caption="The most direct lever, spelled out. Across three alignment stages the genus signal stays flat near the top while within-genus species top-1 climbs two orders of magnitude — 0.005 → 0.077 → 0.686 — and then stalls below 0.69. The mechanism keeps improving; the species ceiling holds." class="img-fluid rounded z-depth-1" %}
 
-A single failed extension would be a tuning anecdote. Six independent failures, each with its own gate, all landing on the identical _genus-survives / species-locked_ split is evidence about the embedding itself. It also generalizes: this is the fine-grained-taxonomy face of the **modality gap** that contrastive image-text models are known to exhibit, and no published herbarium-to-field plant system reports clean within-genus species transfer either.
+A single failed extension would be a tuning anecdote. Six independent failures, each with its own gate, all landing on the identical _genus-survives / species-locked_ split is evidence about the embedding itself. It also generalizes: this is the fine-grained-taxonomy face of the **modality gap** that contrastive image-text models are known to exhibit.
 
 ## Building around the boundary
 
@@ -195,7 +201,7 @@ The trade-off is adjustable: every point below is one threshold on the top1−to
   </div>
 </div>
 <div class="caption">
-  Risk–coverage trade-off for the species-abstain, straight from the deployed calibration (n=7,137 leakage-safe in-vocab holdout). The orange star is the live operating point — margin τ=0.0164, precision 0.90 at 57% coverage; the grey dot at far right is the no-abstain baseline (0.71). Hover any point to read its τ.
+  Risk–coverage for the species-abstain, from the deployed calibration (n=7,137 leakage-safe holdout). The orange star is the live operating point — τ=0.0164, precision 0.90 at 57% coverage; grey at far right is the no-abstain baseline (0.71).
 </div>
 
 <strong><a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">Try it live →</a></strong> Upload an orchid photo; the card names a species when the margin is confident and falls back to the genus when it isn't.
@@ -230,7 +236,7 @@ The trade-off is adjustable: every point below is one threshold on the top1−to
   </div>
 </div>
 <div class="caption">
-  Photos per species for the 3,597 starved-tail species the haul fed — corpus only vs after the source-expansion. Mass drains out of the 1–2-photo bin into 3–30: the rare species finally getting the views they lacked (median coverage 2 → 5). This is the coverage the within-genus species signal was starved of.
+  Photos per species for the 3,597 starved-tail species, before and after the source-expansion. Mass drains out of the 1–2-photo bin into 3–30 — the coverage the within-genus signal was starved of (median 2 → 5).
 </div>
 
 <div class="row justify-content-center mt-3 mb-2">
@@ -243,7 +249,7 @@ The trade-off is adjustable: every point below is one threshold on the top1−to
   </div>
 </div>
 <div class="caption">
-  Where the 27,770 net-new images came from: the cultivated, curated, and literature sources the iNaturalist- and GBIF-dominated corpus misses; hover for per-source species counts. Three homogeneous catalogs (New Guinea, Epidendra, OrchidWeb) were scraped but <em>discarded</em>: their standardized rendering drags species centroids off the field-photo manifold and <em>hurts</em> accuracy, so clean labels aren't enough if every photo looks the same.
+  Where the 27,770 net-new images came from. Three homogeneous catalogs (New Guinea, Epidendra, OrchidWeb) were scraped but <em>discarded</em>: standardized rendering drags centroids off the field-photo manifold and hurts accuracy.
 </div>
 
 Six embedding-side levers couldn't move within-genus species identity, but part of the wall sits in the _inputs_. The deepest-tail species are starved: the corpus carries a median of ~2 photos for them, too few to pin a stable centroid. A targeted **source-expansion** pass, drawing on vendor, captive, and curated photo sources the iNaturalist-dominated corpus misses, feeds those species the views they lacked, and the deployed card ranks against the expanded image-centroid gallery.
@@ -283,4 +289,4 @@ That 768-d feature is the foundation embedding. Cosine-rank it against per-speci
 
 ---
 
-<p style="font-size:0.85em; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a stratified, iNaturalist-dominated holdout; closed-set unless noted.</p>
+<p style="font-size:0.85em; margin-top:1rem;">Last updated June 2026 · <a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> (MIT) · live demo <a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">orchid-genus-id</a> · code <a href="https://github.com/musharna/orchid-clip">github.com/musharna/orchid-clip</a>. All accuracies are on a hash-partitioned random 2% holdout, iNaturalist-dominated; closed-set unless noted.</p>
