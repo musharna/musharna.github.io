@@ -1,0 +1,62 @@
+{
+  "_comment": [
+    "Ledger of claims that have been CORRECTED, and therefore must not survive anywhere.",
+    "",
+    "This exists because a correction's scope is the CLAIM, not the file. On 2026-08-08 the",
+    "OrchidCLIP page was corrected to stop calling its holdout 'stratified' and to lead with",
+    "the per-genus average; the same two claims stayed live for a day in the orchid-clip",
+    "README and in the orchid-clip-v8 model card, where a reader clicking through from the",
+    "site would hit the retracted version. Nothing in CI could see that, because every",
+    "existing guard stops at the repository boundary.",
+    "",
+    "Each entry names:",
+    "  retracted            strings that must appear on NONE of its surfaces",
+    "  required             a string that MUST appear on at least one surface. This is the",
+    "                       positive control and is not optional: without it a fetch that",
+    "                       silently returns nothing reads as 'retracted text absent' and the",
+    "                       check passes while observing nothing at all.",
+    "  surfaces             where this claim is published. A surface named here that the",
+    "                       crawler did not discover is a FAILURE, not a skip -- otherwise a",
+    "                       change to link markup quietly reduces coverage to zero.",
+    "  allow_if_line_matches  regexes for lines where the old value legitimately appears,",
+    "                       i.e. a correction notice that quotes what it is correcting."
+  ],
+
+  "owners": ["musharna", "mjarnold"],
+
+  "retractions": [
+    {
+      "id": "orchidclip-stratified-holdout",
+      "date": "2026-08-08",
+      "note": "The holdout is md5(source_id) under --val-fraction 0.02; --cap-per-species, the balancing flag, defaults to 0. Calling it stratified claimed the one design choice that would have evened out the composition.",
+      "fixed_by": ["musharna.github.io#96", "musharna/orchid-clip#10", "hf:orchid-clip-v8 PR 1"],
+      "retracted": ["stratified 4,000-image holdout", "stratified 4000-image holdout", "stratified hash-bucketed holdout"],
+      "required": "hash-partitioned",
+      "required_on": ["site"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "orchidclip-per-image-headline",
+      "date": "2026-08-08",
+      "note": "top1 in the harness is correct1/n, per image. Ophrys is 2,754 of 4,000 images and gains least (+2.8 pp), so the per-image mean is the statistic that hides the long tail the page argues for. Macro over the 14 reported genera is 0.768 -> 0.844, +7.6 pp.",
+      "fixed_by": ["musharna.github.io#96", "musharna/orchid-clip#10", "hf:orchid-clip-v8 PR 1"],
+      "retracted": [],
+      "required": "0.844",
+      "required_on": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "allow_if_line_matches": []
+    },
+    {
+      "id": "lobelia-ledger-undercount",
+      "date": "2026-08-07",
+      "note": "Transcribing the intake ledger at a fixed row read '?' for the two tabs with a 7-row header and silently dropped them, giving 2,733 across 20 species. Reading by label gives 4,085 across 22 of 23 tabs. The repo README quotes the old figure inside its own correction notice, which is exactly right and must not trip this check -- hence allow_if_line_matches.",
+      "fixed_by": ["musharna.github.io#89", "musharna/lobelia-leaf-morphometrics#3"],
+      "retracted": ["2,733 across 20 species", "2,906"],
+      "required": "4,085",
+      "required_on": ["github:musharna/lobelia-leaf-morphometrics"],
+      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
+      "allow_if_line_matches": ["stood in this README", "until 2026-", "undercount"]
+    }
+  ]
+}
