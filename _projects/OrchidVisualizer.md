@@ -81,8 +81,14 @@ midpoint. Where a _real_ example of the hybrid exists, it is plotted **perpendic
 that chord, and its off-chord distance is what the plot is for.
 
 That offset is the **transgressive residual**: the part of the real hybrid that is novel
-beyond both parents rather than a blend of them. It survives permutation testing and
-reproduces under a DINOv2 backbone, so it is not an artifact of the embedding.
+beyond both parents rather than a blend of them.
+
+The chord it is measured against **replicates on an independent backbone**. Across 1,002
+registered grexes a hybrid sits nearer its parent midpoint than a shuffled null — cosine
+0.910 against 0.730 under orchid-clip-v8, 0.886 against 0.539 under DINOv2 — and its
+nearest neighbour is one of its parents under both. The residual off that chord is the
+weaker half of the result: the same evaluation grades it **marginal**, so read it as a
+direction worth measuring rather than a settled effect.
 
 ## Limits
 
