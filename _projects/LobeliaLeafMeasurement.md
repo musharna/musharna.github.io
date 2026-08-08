@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Automating leaf measurement
-description: Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, and what became of the attempt to do it at aggregator scale.
+description: Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, by two independent methods two years apart.
 img: assets/img/lobelia/clade_leaf_shapes.png
 og_image: https://musharna.github.io/assets/img/lobelia/shape_synthesis.png
 importance: 2
@@ -26,7 +26,7 @@ _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species 
 
 ## The corpus
 
-Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set. The downloaded herbarium sheets are a separate effort, with [their own section](#scaling-past-the-dismembering) below.
+Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set.
 
 | stage                            |   count |
 | -------------------------------- | ------: |
@@ -130,27 +130,6 @@ Against 2024 the comparison is therefore by eye, species by species. _L. glandul
 **Damage shifts PC1 without accounting for it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
 
 **What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is also **calibrated against itself**, against my own width-to-length measurement of the same masks rather than any outside description; the external version I tried was underpowered.
-
-## Scaling past the dismembering
-
-Taking a voucher apart by hand is slow. The way past it is to segment leaves off intact sheets herbaria have already photographed, so in January 2022 I assembled a GBIF set for it — **4,085 sheets across 22 of the 23 species**, de-duplicated by hand, every deletion logged in a [per-species ledger](https://github.com/musharna/lobelia-leaf-morphometrics/blob/main/data/gbif_acquisition_ledger.xlsx). The GinJinn detection pipeline worked but was an overcomplication; the measurements above come from the vouchers.
-
-The set does say something about herbarium coverage:
-
-<div class="row justify-content-center mt-3 mb-2">
-  <div class="col-12 p-0">
-    <iframe src="{{ '/assets/plotly/lobelia_species_counts.html' | relative_url }}"
-            title="Interactive chart: specimen images retained per Lobelia species, on a log scale"
-            loading="lazy" frameborder="0" scrolling="no"
-            style="width:100%; height:620px; border:1px solid var(--global-divider-color); border-radius:8px;">
-    </iframe>
-  </div>
-</div>
-<div class="caption">
-Images retained per species, for the 22 with a tally. Hover for records screened. Dots on a <strong>log</strong> axis rather than bars, because bar length encodes value from a zero baseline a log axis does not have.
-</div>
-
-**811 sheets for _L. cardinalis_, one usable sheet for _L. apalachicolensis_.** Showy, common, cultivated plants get collected; narrow endemics do not. Any model trained here inherits that skew. It is not an artefact of this download either — re-querying GBIF in 2026 gives the same order, with _apalachicolensis_ still on two imaged, georeferenced sheets worldwide.
 
 ## Status
 
