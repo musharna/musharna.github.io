@@ -30,6 +30,28 @@ name: Content guards
 # invisible. That is how a comment on publications.md describing the new author
 # filter silently re-rendered the whole unfiltered bibliography beneath it.
 #
+# 4. CORRECTED CLAIMS STILL LIVE OFF-SITE
+#
+# Every other guard here stops at the repository boundary. A reader does not:
+# they click through to the GitHub README, the model card, the demo. On
+# 2026-08-08 the OrchidCLIP page was corrected to stop calling its holdout
+# "stratified" and to lead with the per-genus average -- and both retracted
+# claims stayed live for a day on the two surfaces that page links to, one of
+# them understating the result by half. Nothing could see it, because nothing
+# in CI had ever read those surfaces.
+#
+# The scope of a correction is the CLAIM, not the file. bin/retractions.json is
+# the ledger of what has been corrected; the check fails if a retracted string
+# survives anywhere, and equally if the REPLACEMENT text is missing -- that
+# second half is a positive control, without which an empty fetch reads as
+# "retracted text absent" and passes having observed nothing.
+#
+# This step needs network (raw.githubusercontent.com, huggingface.co) and
+# retries three times before giving up. An unreachable surface fails the build
+# rather than warning: a surface you publish claims on that cannot be read is
+# itself worth knowing about, and a guard that degrades to a warning is a guard
+# that stops being read.
+#
 # Deliberately NOT path-filtered. deploy.yml filters paths, which is fine for a
 # build, but a filtered guard cannot fire on the pull request that introduces
 # it -- the check would merge having never run once.
@@ -62,3 +84,8 @@ jobs:
       - name: Check no HTML comment hides a live Liquid tag
         if: always()
         run: ruby bin/check-liquid-in-comments.rb
+      # Python, not Ruby, because this one fetches: stdlib urllib only, and the
+      # runner image ships python3, so it still needs no setup step.
+      - name: Check no corrected claim is still live on a linked surface
+        if: always()
+        run: python3 bin/check-claim-consistency.py
