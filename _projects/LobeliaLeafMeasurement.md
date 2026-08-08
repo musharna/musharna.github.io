@@ -29,12 +29,12 @@ _Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species 
 
 Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf. Ninety of those plants survive in the measured set. Not one measurement comes from a downloaded herbarium photograph, which is worth stating plainly because the downloaded set is the one a project like this is assumed to have run on; it has [its own section](#the-scale-up-that-never-ran) below.
 
-| stage                             |   count |
-| --------------------------------- | ------: |
-| recovered specimen masks           |     104 |
-| leaf components across them        |   1,206 |
-| **usable leaf outlines**           | **490** |
-| vouchers represented among those   |      90 |
+| stage                            |   count |
+| -------------------------------- | ------: |
+| recovered specimen masks         |     104 |
+| leaf components across them      |   1,206 |
+| **usable leaf outlines**         | **490** |
+| vouchers represented among those |      90 |
 
 <div class="caption">
 Leaves too folded, torn or truncated to measure were excluded by explicit criterion rather than by eye, which is why fewer than half survived. <strong>Recovered</strong> is the operative word: the 2024 measurements no longer exist on disk, so 104 is what survives, not what was collected.
@@ -42,18 +42,18 @@ Leaves too folded, torn or truncated to measure were excluded by explicit criter
 
 Nine species are represented, plus one leaf whose label was lost:
 
-| species                | leaves | vouchers |
-| ---------------------- | -----: | -------: |
-| _L. puberula_          |     93 |       10 |
-| _L. elongata_          |     88 |       10 |
-| _L. appendiculata_     |     83 |       17 |
-| _L. siphilitica_       |     57 |       10 |
-| _L. spicata_           |     50 |       12 |
-| _L. glandulosa_        |     48 |       21 |
-| _L. apalachicolensis_  |     41 |        3 |
-| _L. inflata_           |     26 |        5 |
-| _L. cardinalis_        |      3 |        1 |
-| unlabelled             |      1 |        1 |
+| species               | leaves | vouchers |
+| --------------------- | -----: | -------: |
+| _L. puberula_         |     93 |       10 |
+| _L. elongata_         |     88 |       10 |
+| _L. appendiculata_    |     83 |       17 |
+| _L. siphilitica_      |     57 |       10 |
+| _L. spicata_          |     50 |       12 |
+| _L. glandulosa_       |     48 |       21 |
+| _L. apalachicolensis_ |     41 |        3 |
+| _L. inflata_          |     26 |        5 |
+| _L. cardinalis_       |      3 |        1 |
+| unlabelled            |      1 |        1 |
 
 <div class="caption">
 Counted from the recovered outline set itself. The 2026 analysis below drops <em>cardinalis</em> (three leaves off a single plant) and the unlabelled leaf, leaving the <strong>486 leaves from 88 specimens across 8 species</strong> it reports.
@@ -140,7 +140,7 @@ The acquisition for it happened. In January 2022 I pulled records from GBIF, SER
 
 | stage                       |     count |
 | --------------------------- | --------: |
-| species with a tally        | 22 of 23  |
+| species with a tally        |  22 of 23 |
 | occurrence records screened |     3,645 |
 | specimen images retained    | **4,085** |
 
