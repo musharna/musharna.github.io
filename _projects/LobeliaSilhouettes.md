@@ -19,7 +19,7 @@ related_publications: true
   </div>
 </div>
 
-{% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale.** One silhouette per species, ordered by height, each resampled to a common pixels-per-centimetre using the **10 cm bar drawn into its own file**. These heights are measured, not styled, and run from _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. The plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale**, ordered by height and resampled to a common scale using the **10 cm bar drawn into each file** — _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. The plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
 
 This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest published piece of my involvement in the lab's _Lobelia_ project. The [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
 
@@ -41,7 +41,7 @@ That is what makes the plate above possible. The files run from 30 to 85 pixels 
 
 ## Explore the set
 
-Every restored specimen, on one centimetre axis. Hover any plant for its species and measured size. The set reaches past _Lobelia_ sect. _Lobelia_ itself, taking in _L. amoena_, _L. berlandieri_, _L. boykinii_ and _L. fenestralis_.
+Every restored specimen, on one centimetre axis. Hover any plant for its species and measured size. Six reach past _Lobelia_ sect. _Lobelia_ as scoped in 2021: _L. amoena_, _L. anatina_, _L. berlandieri_, _L. boykinii_, _L. fenestralis_ and _L. laxiflora_.
 
 <div style="overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--global-divider-color); border-radius:8px;">
   <iframe src="{{ '/assets/plotly/lobelia_silhouette_explorer.html' | relative_url }}"
@@ -51,23 +51,23 @@ Every restored specimen, on one centimetre axis. Hover any plant for its species
   </iframe>
 </div>
 <div class="caption">
-All <strong>39</strong> specimens at one shared scale, ordered by height, with <strong>axes locked to equal aspect</strong> so nothing is stretched to fit. Scroll sideways to reach <em>L. brevifolia</em>. Species restored from several sheets appear more than once and need not agree: the three <em>L. cardinalis</em> stand at 24, 47 and 52 cm, a spread between <em>specimens</em> and not a claim about the species.
+All <strong>39</strong> specimens at one shared scale, axes locked to equal aspect. Scroll sideways to reach <em>L. brevifolia</em>. The three <em>L. cardinalis</em> stand at 24, 47 and 52 cm — a spread between specimens, not a claim about the species.
 </div>
 
 ## How the set measures against real plants
 
-Everything here is scaled from a ruler, so the obvious check is whether these plants come out the size real ones do. Restored heights against published stature, for the two species I could find a reference for:
+Everything here is scaled from a ruler, so the obvious check is whether these plants come out the size real ones do. Restored heights against published stature, for the two species with a published reference:
 
 | species              | restored      | published                 |
 | -------------------- | ------------- | ------------------------- |
 | _L. siphilitica_     | 61 cm         | 46–122 cm, inside         |
 | _L. cardinalis_ (×3) | 24, 47, 52 cm | 122–152 cm, **far below** |
 
-The disagreement is the informative half. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts the pressed specimen, not the species: read every height here as the height of what was mounted. (The reference is horticultural and covers 2 of 27 species, so it is indicative at best.)
+The disagreement is the informative half. **A herbarium sheet holds what fits on a herbarium sheet.** For a tall species the mounted specimen is often a portion of the plant, or a small individual. So a silhouette faithfully depicts the pressed specimen, not the species: read every height here as the height of what was mounted. The reference is horticultural and covers 2 of 27 species.
 
 ## Where the specimens came from
 
-The source sheets were kept alongside the artwork, filed by **herbarium accession and state**: `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi`. So every silhouette traces back to a physical specimen, and the collection localities survive even though the photographs themselves can't be reproduced here.
+Source sheets are filed by **herbarium accession and state**: `LSU00039459Louisiana`, `USMS_000008523Mississippi`, `IND-0119684Mississippi`. So every silhouette traces back to a physical specimen, and the collection localities are on record even though the photographs cannot be reproduced here.
 
 <div class="row justify-content-center mt-3 mb-2">
   <div class="col-12 p-0">
@@ -79,7 +79,7 @@ The source sheets were kept alongside the artwork, filed by **herbarium accessio
   </div>
 </div>
 <div class="caption">
-Collection localities for the <strong>60 source sheets</strong> retained, across <strong>18 states</strong>. Hover a state for its sheets and species. The distribution is the clade's: overwhelmingly eastern, densest in Florida, the Carolinas and the mid-Atlantic. Sheets were kept for six species only (<em>cardinalis, canbyi, elongata, dortmanna, brevifolia, feayana</em>), so this maps where <em>those</em> were collected, not the whole set.
+Collection localities for <strong>60 source sheets</strong> across <strong>18 states</strong>. Accession records cover six species (<em>brevifolia, canbyi, cardinalis, dortmanna, elongata, feayana</em>), so the map shows those, not the whole set.
 </div>
 
 ## Where they ended up
