@@ -212,7 +212,20 @@ ul.task-list input[type="checkbox"] {
     color: var(--global-text-color-light);
 
     p {
-      display: inline-block;
+      // BLOCK, not al-folio's inline-block. Each line of the address is its own <p>,
+      // but inline-block siblings share a line whenever one fits, so the line breaks
+      // were coming from GLYPH WIDTH filling the line box rather than from the markup.
+      // Monospace was silently holding that up: at 1rem it was wide enough that each
+      // <p> filled the row. Dropping it above narrowed the text and, at the 390px
+      // mobile width where .more-info spans the full column rather than a ~266px
+      // sidebar, "1230 Washington St SW" and "Blacksburg, Virginia 24060" collapsed
+      // onto one line -- measured at the same y=646, and it read as a typo. Desktop
+      // never showed it.
+      //
+      // Restoring monospace would have hidden it again while leaving the real defect:
+      // an address's line structure must come from its markup, not from how wide the
+      // glyphs happen to be, or it breaks again on any copy, font, or width change.
+      display: block;
       margin: 0;
     }
   }
