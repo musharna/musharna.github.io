@@ -419,8 +419,22 @@ more_authors_animation_delay: 10 # more authors are revealed on click using anim
 # assets/img/publication_preview/ (brownian-motion.gif, wave-mechanics.gif) are
 # al-folio demo assets belonging to demo entries that no longer exist.
 #
-# Set this back to true the moment a real preview image exists; software releases
-# do not have figures, so that will be a paper, not a package.
+# MISNOMER, and it matters: this flag does not gate thumbnails. `_layouts/bib.liquid`
+# line 4 wraps the ENTIRE `col col-sm-2 abbr` column in it, and that column holds the
+# `abbr` venue badge as well as the preview image. Turning it off therefore also hides
+# every venue badge.
+#
+# That is the right trade today and only today. The nine entries that reach
+# /publications/ all carry `abbr = {Software}`, rendering nine identical badges under
+# a heading that already reads "software and datasets" -- redundancy occupying a
+# gutter. The two entries with informative abbrs (`MPE`, `Data`) are cited references,
+# not authored work, and the author filter removes them from the page anyway.
+#
+# So set this back to true when a PEER-REVIEWED PAPER lands, not when a preview image
+# does: at that point the venue badge starts carrying information, and it is the badge,
+# not the thumbnail, that this flag is really controlling. Note `_data/venues.yml`
+# still holds only al-folio's demo venues (AJP, PhysRev, Vision) and will need a real
+# entry to colour that badge.
 enable_publication_thumbnails: false
 
 # -----------------------------------------------------------------------------
