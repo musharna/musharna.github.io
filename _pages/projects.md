@@ -46,7 +46,15 @@ horizontal: false
     </div>
   </div>
   {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
+  <!-- Two columns, not al-folio's default three. The grid is per CATEGORY, and the
+       categories hold 2 / 1 / 1 cards, so at three columns every single row was
+       part-empty: one row of two with a third of it blank, then two rows holding one
+       card each against two-thirds white. The right-aligned category heading then sat
+       out over that emptiness, far from the card it labelled. At two columns the
+       academic-research row fills exactly, the singles leave one gap instead of two,
+       and the cards themselves render larger, which suits figure-led thumbnails.
+       Revisit if a category ever reaches three. -->
+  <div class="row row-cols-1 row-cols-md-2">
     {% for project in sorted_projects %}
       {% include projects.liquid %}
     {% endfor %}
