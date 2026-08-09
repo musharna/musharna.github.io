@@ -201,7 +201,15 @@ ul.task-list input[type="checkbox"] {
   .more-info {
     margin-bottom: 5px;
     margin-top: 5px;
-    font-family: monospace;
+    // al-folio sets `font-family: monospace` here. The block holds a postal address,
+    // and monospace made it read as terminal output sitting under a photograph --
+    // the one element on the landing page that looked like a machine wrote it.
+    // Monospace earns its place where character alignment carries meaning (code,
+    // the model-card tables); a street address is prose. Kept smaller and muted so
+    // it still reads as metadata rather than body copy.
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--global-text-color-light);
 
     p {
       display: inline-block;
