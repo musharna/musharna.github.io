@@ -73,6 +73,13 @@ ninja.data = [{
           window.open("https://github.com/musharna", "_blank");
         },
       },{
+        id: 'social-huggingface',
+        title: 'Huggingface',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://huggingface.co/musharna", "_blank");
+        },
+      },{
         id: 'social-orcid',
         title: 'ORCID',
         section: 'Socials',
