@@ -81,6 +81,6 @@ reached training.
 <a href="https://github.com/musharna/orchid-clip">orchid-clip</a> ·
 <a href="https://github.com/musharna/orchid-hybrid-visualizer">orchid-hybrid-visualizer</a><br>
 <strong>Models &amp; demos:</strong>
-<a href="https://huggingface.co/mjarnold/orchid-clip-v8">orchid-clip-v8</a> ·
-<a href="https://huggingface.co/spaces/mjarnold/orchid-genus-id">live genus ID demo</a>
+<a href="https://huggingface.co/musharna/orchid-clip-v8">orchid-clip-v8</a> ·
+<a href="https://huggingface.co/spaces/musharna/orchid-genus-id">live genus ID demo</a>
 </div>
