@@ -70,7 +70,7 @@ jobs:
     name: Content guards
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # No setup-ruby: the runner image ships Ruby, and these need only the
       # stdlib -- YAML (Psych) is the same parser Jekyll uses, so the check
       # agrees with the build by construction rather than by approximation.
