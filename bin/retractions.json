@@ -57,7 +57,7 @@
       "retracted": ["28,000 accepted species", "roughly 28,000"],
       "required": "over 30,000 species",
       "required_on": ["site"],
-      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
       "allow_if_line_matches": []
     },
     {
@@ -90,7 +90,7 @@
       "retracted": ["stratified 4,000-image holdout", "stratified 4000-image holdout", "stratified hash-bucketed holdout"],
       "required": "hash-partitioned",
       "required_on": ["site"],
-      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
       "allow_if_line_matches": []
     },
     {
@@ -100,8 +100,8 @@
       "fixed_by": ["musharna.github.io#96", "musharna/orchid-clip#10", "hf:orchid-clip-v8 PR 1"],
       "retracted": [],
       "required": "0.844",
-      "required_on": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
-      "surfaces": ["site", "github:musharna/orchid-clip", "hf:mjarnold/orchid-clip-v8"],
+      "required_on": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
+      "surfaces": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
       "allow_if_line_matches": []
     },
     {
