@@ -1,0 +1,6 @@
+name: "CodeQL config"
+
+# Vendored, archived distill.pub template (third-party, not maintained upstream);
+# its findings are not ours to fix. Same file is already in .prettierignore.
+paths-ignore:
+  - "assets/js/distillpub/**"

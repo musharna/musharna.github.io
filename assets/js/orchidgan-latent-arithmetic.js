@@ -17,9 +17,12 @@
   }
 
   function updateImage() {
-    const seed = seedSelect.value.padStart(4, "0");
+    // Validate every DOM-sourced value before it is composed into the image URL.
+    const seedNumber = parseInt(seedSelect.value, 10);
     const colorStrength = parseFloat(colorSlider.value);
     const sizeStrength = parseFloat(sizeSlider.value);
+    if (Number.isNaN(seedNumber) || !Number.isFinite(colorStrength) || !Number.isFinite(sizeStrength)) return;
+    const seed = String(seedNumber).padStart(4, "0");
 
     colorValue.textContent = colorStrength.toFixed(1);
     sizeValue.textContent = sizeStrength.toFixed(1);
@@ -38,7 +41,7 @@
 
     preview.src = url;
 
-    const parts = [`seed ${parseInt(seed)}`];
+    const parts = [`seed ${seedNumber}`];
     if (colorStrength !== 0) {
       parts.push(colorStrength > 0 ? `whiter (+${colorStrength.toFixed(1)})` : `more colorful (${colorStrength.toFixed(1)})`);
     }
