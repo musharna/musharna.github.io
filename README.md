@@ -44,11 +44,11 @@ Every workflow here runs against **this** site; none are inherited-but-inert.
 | `axe.yml`               | manual dispatch              | Accessibility audit via `@axe-core/cli`. Targets come from the built `sitemap.xml`, so **every published page is covered automatically** and a new page needs no workflow change. Optional `url` input checks a single page. |
 | `broken-links-site.yml` | after a successful deploy    | lychee over the **built** site, internal and external links. Runs against `_site` rather than source `.md`, so Liquid is already resolved.                                                                                   |
 | `codeql.yml`            | push, PR, schedule           | Static analysis.                                                                                                                                                                                                             |
+| `front-matter.yml`      | push to `main`, PR           | Content guards: front-matter and page-level invariants the other checks cannot see.                                                                                                                                          |
 | `prettier.yml`          | push, PR                     | Formatting check for authored files.                                                                                                                                                                                         |
-| `update-citations.yml`  | schedule, dispatch           | Refreshes publication citations.                                                                                                                                                                                             |
 | `update-tocs.yml`       | push, dispatch               | Regenerates tables of contents.                                                                                                                                                                                              |
 
-Accessibility is currently clean: **8 of 8 published pages report zero axe violations**, and
+Accessibility is currently clean: **every published page (per sitemap.xml) reports zero axe violations**, and
 the pygments syntax theme was re-toned to meet WCAG 2 AA contrast (4.5:1) in both light and
 dark mode.
 
