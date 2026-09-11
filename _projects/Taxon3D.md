@@ -14,16 +14,15 @@ related_publications: false
   <a href="https://huggingface.co/datasets/musharna/taxon3d-corpus-v1" style="display:inline-block; background:#cc4e0b; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">Corpus on HF</a>
 </div>
 
-Most evaluation of generative 3D models runs on furniture and game props, where "looks
-plausible" is close enough. Organisms are a harder target. A maize plant, a lion's mane
-mushroom and a monarch butterfly have self-similar branching, thin surfaces, heavy
-self-occlusion, and a correctness criterion that is anatomical rather than aesthetic.
+Most benchmarks for generative 3D models use furniture and game props, where looking
+plausible is good enough. Organisms are harder. A maize plant or a monarch butterfly has
+branching structure, thin surfaces and a lot of self-occlusion, and whether the model is
+right is a question of anatomy, not aesthetics.
 
 [Taxon3D](https://taxon3d.org) is a Chatbot-Arena-style site for blind comparison of 3D
-generators on exactly those subjects. A voter gets a biological task and two anonymised 3D
-outputs, rotates and zooms each, and picks the closer one. CC-licensed reference photographs
-of the real organism sit above the pair, so the question being asked is fidelity to the
-organism, not taste.
+generators on exactly those subjects. You get a task, two anonymised 3D models, and reference
+photographs of the real organism above them. Rotate, zoom, and pick the one closer to the
+photos.
 
 <div class="row justify-content-sm-center mt-4">
   <div class="col-sm-10 mt-3 mt-md-0">
@@ -51,12 +50,12 @@ script and held there by a test.
   confounds are measured rather than assumed away.
 - **Vote integrity**: gold-standard attention checks score voter trust, low-trust sessions
   are excluded from the fit, and a generator is never matched against itself.
-- Each board states how many further votes would separate its next pair of models. At the
-  time of writing that is under twenty per board, which is the honest reason to go vote.
+- Each board shows how many more votes it would take to separate its next pair of models.
+  At the time of writing that is under twenty per board.
 
-The project was called Bio 3D Arena until August 2026. The name collided with the bio3d R
-package and with Arena3D, so it was renamed; the old host and repository path still
-resolve.
+The project was called Bio 3D Arena until August 2026, when I renamed it because the name
+collided with the bio3d R package and with Arena3D. The old host and repository path still
+work.
 
 ---
 
