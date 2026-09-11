@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "projects-automating-leaf-measurement",
+        },{id: "post-why-infer-tree-has-no-way-to-skip-the-bootstrap",
+        
+          title: "Why infer_tree has no way to skip the bootstrap",
+        
+        description: "A short note on a design decision in phylokit-mcp.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/a-tree-without-its-support/";
+          
+        },
+      },{id: "projects-automating-leaf-measurement",
           title: 'Automating leaf measurement',
           description: "Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, by two independent methods two years apart.",
           section: "Projects",handler: () => {
@@ -58,6 +69,11 @@ ninja.data = [{
           description: "What would this orchid cross look like? SDXL steered by a botanical phenotype engine, for hybrids that take 4-7 years to actually flower.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidVisualizer/";
+            },},{id: "projects-taxon3d",
+          title: 'Taxon3D',
+          description: "A blind-comparison benchmark for AI-generated 3D models of living organisms, judged against reference photographs. Bradley-Terry rankings with confidence intervals.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Taxon3D/";
             },},{
         id: 'social-email',
         title: 'email',
