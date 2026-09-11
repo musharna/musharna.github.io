@@ -9,7 +9,7 @@ category: orchid deep dive
 related_publications: false
 ---
 
-Part of the [Orchid Vision]({{ '/projects/OrchidVision/' | relative_url }}) program.
+Part of the [Orchid Vision]({{ '/projects/OrchidVision/' | relative_url }}) program. A live demo runs as a Hugging Face Space: [musharna/orchid-hybrid-visualizer](https://huggingface.co/spaces/musharna/orchid-hybrid-visualizer).
 
 Orchid breeding is slow. A _Cattleya_ cross takes roughly **four to seven years** from
 pollination to first flowering, and the decision about which cross to attempt is made years

@@ -22,7 +22,7 @@ nav_order: 3
 # `category: orchid deep dive`, which is absent here, so they keep their pages and
 # URLs but come off the grid. Orchid Vision is the hub and already links all three,
 # so the grid was duplicating it.
-display_categories: [academic research, independent research, research tooling]
+display_categories: [academic research, independent research, orchid deep dive, research tooling]
 horizontal: false
 ---
 

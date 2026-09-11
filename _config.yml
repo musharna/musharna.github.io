@@ -20,9 +20,9 @@ contact_note: > #
 # metadata.liquid interpolates this raw into an HTML attribute and into JSON — so no
 # double quotes and no bare ampersands here, or the JSON-LD breaks. Hence "and".
 description: >
-  PhD student in Genetics, Bioinformatics and Computational Biology at Virginia Tech,
-  working on computer vision and machine learning for plant science and on open-source
-  tooling for plant genomics.
+  PhD student in Genetics, Bioinformatics and Computational Biology at Virginia Tech.
+  Builds MCP servers and tools for plant genomics and research with LLMs, and
+  computer-vision models for orchids.
 # The al-folio default credited Unsplash here. Every Unsplash image belonged to the
 # demo content, all of which is now deleted (the last two, assets/img/2.jpg and 12.jpg,
 # went with the WIP project stubs on 2026-09-07). Every image the site actually

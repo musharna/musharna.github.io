@@ -28,7 +28,8 @@ exactly like a right one until you see the supporting output.
   <p><strong>50 tools across 23 public backends</strong>: Ensembl Plants, Phytozome,
   UniProt, AlphaFold DB, PDBe, InterPro, JASPAR, PANTHER, OrthoDB, AraGWAS, NCBI BLAST,
   Gramene, KEGG, STRING-DB, ATTED-II, BAR and more. Includes cross-source synthesis tools
-  so one locus question does not turn into twenty browser tabs. stdio and Streamable-HTTP.</p>
+  so one locus question does not turn into twenty browser tabs. stdio and Streamable-HTTP.
+  There is a hosted demo on <a href="https://huggingface.co/spaces/musharna/plant-genomics-mcp">Hugging Face Spaces</a>.</p>
 </div>
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/data-aggregator-mcp">data-aggregator-mcp</a></h3>
