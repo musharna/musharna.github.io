@@ -1,101 +1,106 @@
 ---
 layout: page
 title: MCP Servers
-description: "Model Context Protocol servers that let an AI agent run the instrument: plant genomics, phenotyping, phylogenetics, breeding simulation, research-data acquisition, and the broker that schedules the GPU work."
+description: "MCP servers for plant genomics and research with LLMs: locus lookup, dataset search, phenotyping, phylogenetics, breeding simulation, and the job broker that runs the heavy work."
 img: assets/img/mcpservers/card.svg
 importance: 1
 category: research tooling
 related_publications: false
 ---
 
-Most of what an AI agent can reach through the **Model Context Protocol** is _retrieval_:
-search an index, fetch a record, summarize it. That tier is crowded.
+These are the Model Context Protocol servers I maintain. Most of them are for plant
+genomics: they let an agent in Claude Code or any other MCP client look up a locus, pull
+a dataset, measure a plant image, build a tree or simulate a breeding programme without
+leaving the conversation. Each one is on PyPI and speaks stdio, so it needs one config
+entry to install.
 
-The harder tier is **compute**. Tools that run the analysis, return a number that did not
-exist before the call, and show enough of their working that the number can be checked.
-These servers sit in that tier. Each one is on PyPI and speaks stdio, so it drops into
-Claude Code or any MCP client with a single config entry.
+The design rule I try to hold across all of them is simple: when a tool computes a
+number, it also returns what the number was computed from. A trait comes with its
+segmentation mask, a tree with its bootstrap values, a breeding outcome with its spread
+across replicates. That is not decoration. In each of these cases a wrong answer looks
+exactly like a right one until you see the supporting output.
 
-## The servers
+## Genomics
 
 <div class="row mt-4">
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/plant-genomics-mcp">plant-genomics-mcp</a></h3>
   <p><strong>50 tools across 23 public backends</strong>: Ensembl Plants, Phytozome,
   UniProt, AlphaFold DB, PDBe, InterPro, JASPAR, PANTHER, OrthoDB, AraGWAS, NCBI BLAST,
-  Gramene, KEGG, STRING-DB, ATTED-II, BAR and more, plus cross-source synthesis, so a
-  locus question does not become twenty browser tabs. stdio and Streamable-HTTP.</p>
+  Gramene, KEGG, STRING-DB, ATTED-II, BAR and more. Includes cross-source synthesis tools
+  so one locus question does not turn into twenty browser tabs. stdio and Streamable-HTTP.</p>
 </div>
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/data-aggregator-mcp">data-aggregator-mcp</a></h3>
-  <p>Unified research-data acquisition. Search and fetch datasets across <strong>Zenodo,
-  DataCite, NCBI omics (GEO / SRA / BioProject)</strong> and the literature
-  (PubMed, OpenAIRE) behind <em>one normalized model</em>, so finding data on a topic
-  stops depending on which registry you happened to guess.</p>
+  <p>Search and fetch datasets across <strong>Zenodo, DataCite, NCBI omics (GEO / SRA /
+  BioProject)</strong> and the literature (PubMed, OpenAIRE) through one interface with
+  one record format. Finding data on a topic stops depending on which registry you
+  happened to guess first.</p>
 </div>
 </div>
 
 <div class="row mt-3">
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/plantcv-mcp">plantcv-mcp</a></h3>
-  <p>Exposes <strong>PlantCV as a measurement instrument</strong>: plant traits <em>and the
-  segmentation overlay they were measured from</em>. The overlay comes back with every
-  call because a wrong segmentation still produces a perfectly plausible trait value.</p>
+  <p>Plant trait measurement with <strong>PlantCV</strong>. Every call returns the trait
+  values <em>and the segmentation overlay they were measured from</em>. A bad segmentation
+  still produces a plausible-looking leaf area, so the overlay is the only way to catch it.</p>
 </div>
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/phylokit-mcp">phylokit-mcp</a></h3>
-  <p>Phylogenetic inference driving <strong>IQ-TREE 2</strong> through piqtree.
-  <code>infer_tree</code> always runs a bootstrap and returns per-clade support, and there is
-  no flag to skip it. On an alignment simulated from a known 7-taxon tree and cut to 60
-  sites, the returned topology contains a clade that does not exist. The support values are
-  the only part of the output that says so.</p>
+  <p>Phylogenetic inference with <strong>IQ-TREE 2</strong> via piqtree.
+  <code>infer_tree</code> always runs a bootstrap and returns per-clade support. On an
+  alignment simulated from a known 7-taxon tree and cut to 60 sites, the returned topology
+  contained a clade that does not exist, and the support values were the only part of the
+  output that said so.</p>
 </div>
 </div>
 
 <div class="row mt-3">
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/breedsim-mcp">breedsim-mcp</a></h3>
-  <p>Breeding-scheme simulation over <strong>AlphaSimR</strong>, genomic selection included.
-  <code>run_program</code> enforces a replicate floor and returns per-cycle mean, standard
-  deviation and confidence interval. Five seeds of one identical three-cycle programme gave
-  genetic gains with <strong>sd 0.247</strong>, so a single run quoted to three decimals
-  reports noise at the precision of a measurement.</p>
+  <p>Breeding-scheme simulation with <strong>AlphaSimR</strong>, genomic selection included.
+  <code>run_program</code> runs several replicates and reports per-cycle mean, standard
+  deviation and confidence interval. Five seeds of the same three-cycle programme gave
+  genetic gains with <strong>sd 0.247</strong>, which is why a single run is not an answer.</p>
 </div>
+<div class="col-md-6">
+  <h3><a href="https://github.com/musharna/jobd">jobd</a></h3>
+  <p>A <strong>self-hosted, GPU-aware job broker</strong> for your own machines, with the
+  queue exposed over MCP. An agent submits a long job, the broker routes it by GPU and tool
+  tags and serializes GPU access across machines and sessions, and the job outlives the
+  conversation that started it. It is what runs the heavy work the other servers imply.</p>
+</div>
+</div>
+
+## Not genomics
+
+<div class="row mt-3">
 <div class="col-md-6">
   <h3><a href="https://github.com/musharna/ldraw-mcp">ldraw-mcp</a></h3>
   <p>Renders LDraw / LEGO models to images with <strong>real part geometry</strong> (studs,
-  glass, tires) via headless Blender and ImportLDraw. It gives a vision-capable model eyes
-  for brick builds, which turns "describe this model" into something it can actually check.
-  The odd one out, and the most fun.</p>
+  glass, tires) through headless Blender and ImportLDraw, so a vision-capable model can
+  actually look at a brick build instead of guessing from a parts list.</p>
 </div>
-</div>
-
-## The thing underneath
-
-<div class="row mt-3">
-<div class="col-md-12">
-  <h3><a href="https://github.com/musharna/jobd">jobd</a></h3>
-  <p>A <strong>self-hostable, GPU-aware job broker</strong> for your own machines, with
-  native MCP integration. It is what runs the work the others imply. Agents submit long
-  jobs, the broker serializes GPU access across machines and sessions, and the job outlives
-  the conversation that started it. It exists because "run this overnight" and "an agent
-  starts it" are hard to hold together otherwise.</p>
+<div class="col-md-6">
+  <h3><a href="https://github.com/musharna/tmodloader-mcp">tmodloader-mcp</a></h3>
+  <p>Drives a running <strong>tModLoader</strong> (Terraria) instance from an agent: launch
+  it, query it, screenshot it, and read the game state back as structured data. Built for
+  testing mods with an agent in the loop.</p>
 </div>
 </div>
 
 ## Install
 
-All seven are on PyPI, and six of them install straight from it:
-
 ```bash
-pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp phylokit-mcp ldraw-mcp jobd
+pip install plant-genomics-mcp data-aggregator-mcp plantcv-mcp phylokit-mcp jobd ldraw-mcp tmodloader-mcp
 ```
 
-`breedsim-mcp` is the exception worth knowing about before you start it: it needs R 4.3 or
-newer with a shared library, and installing it compiles AlphaSimR, which takes minutes
-rather than seconds. Its README covers the prerequisites.
+`breedsim-mcp` is also on PyPI but needs R 4.3 or newer with a shared library, and
+installing it compiles AlphaSimR, which takes minutes rather than seconds. Its README
+covers the prerequisites.
 
-Each ships an MCP client config example in its README.
+Each server ships an MCP client config example in its README.
 
 ---
 
