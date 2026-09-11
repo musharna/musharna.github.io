@@ -35,7 +35,7 @@ ninja.data = [{
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-mcp-servers",
           title: 'MCP Servers',
-          description: "Model Context Protocol servers that let an AI agent run the instrument: plant genomics, phenotyping, phylogenetics, breeding simulation, research-data acquisition, and the broker that schedules the GPU work.",
+          description: "MCP servers for plant genomics and research with LLMs: locus lookup, dataset search, phenotyping, phylogenetics, breeding simulation, and the job broker that runs the heavy work.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MCPServers/";
             },},{id: "projects-orchidclip",
