@@ -246,12 +246,11 @@ exclude:
   # was listed in sitemap.xml.
   - _news/announcement_*.md
   - _pages/news.md
-  - _pages/blog.md
   # _posts/ (31 al-folio feature-demo posts) and assets/jupyter/blog.ipynb are DELETED,
   # not excluded — same reasoning as the template pages above. Excluding them kept ~45 MB
   # of demo images, video and audio in the repo that ONLY those posts referenced.
   - _news/
-  # _pages/cv.md stays excluded, and BOTH of its data sources are deleted. There were two,
+  # _pages/cv.md was excluded until 2026-09-25 and BOTH of its original data sources were deleted. There were two,
   # and both held al-folio's Albert Einstein demo CV:
   #   assets/json/resume.json  - the primary. Because assets/ is copied verbatim this one
   #                              was LIVE at /assets/json/resume.json (HTTP 200, complete
@@ -261,11 +260,9 @@ exclude:
   #                              site.data.resume is empty). Not web-served, but it meant
   #                              simply dropping this exclude line would have published an
   #                              Einstein CV rather than an empty one.
-  # With both gone, un-excluding cv.md renders an empty CV — wrong-and-obvious beats
-  # wrong-and-plausible. To build a real one: add your own _data/cv.yml, or recreate
-  # assets/json/resume.json and restore the jekyll_get_json / jsonresume blocks near the
-  # bottom of this file.
-  - _pages/cv.md
+  # Both were deleted; the real CV now lives in _data/cv.yml (added 2026-09-25) and
+  # _pages/cv.md is published. assets/json/resume.json must stay absent, or it would
+  # take precedence over _data/cv.yml (_layouts/cv.liquid:4).
 
 keep_files:
   - CNAME

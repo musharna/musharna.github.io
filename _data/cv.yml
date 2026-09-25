@@ -1,0 +1,64 @@
+# Rendered by _layouts/cv.liquid (fallback source when assets/json/resume.json is absent).
+# Every fact here is already stated elsewhere on the site or in the linked repositories.
+# Manuscripts in preparation are deliberately not listed.
+
+- title: Education
+  type: time_table
+  contents:
+    - title: PhD, Genetics, Bioinformatics & Computational Biology
+      institution: Virginia Tech, Blacksburg, VA
+      year: 2024 –
+      description:
+        - Wright lab (from Spring 2025), co-advised by David Haak
+        - Translational Plant Science Center
+    - title: B.S. Biotechnology
+      institution: Kent State University, Kent, OH
+      year: 2022
+
+- title: Research experience
+  type: time_table
+  contents:
+    - title: Graduate researcher, Wright lab
+      institution: Virginia Tech
+      year: 2025 –
+      description:
+        - Auxin / ARF genomics and RNA-seq differential expression
+        - Applications of computer vision, artificial intelligence and data science to plant science
+    - title: Undergraduate researcher, Case lab
+      institution: Kent State University
+      year: 2018 – 2022
+      description:
+        - Leaf area and perimeter measured from photographs of dismembered <em>Lobelia</em> sect. <em>Lobelia</em> vouchers (ImageJ, LeafArea), supported by NSF award <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606">DEB-2015606</a>
+        - Whole-plant <em>Lobelia</em> silhouettes reconstructed from herbarium sheets (2018 – 2019)
+      linkitems:
+        - linkname: leaf measurement
+          link: /projects/LobeliaLeafMeasurement/
+        - linkname: silhouettes
+          link: /projects/LobeliaSilhouettes/
+
+- title: Research projects
+  type: time_table
+  contents:
+    - title: orchid-clip — orchid identification with a fine-tuned BioCLIP 2
+      year: 2026
+      description:
+        - Per-genus top-1 0.768 → 0.844 over BioCLIP 2 on a 14-genus holdout; the demo reports genus and names a species only when confident
+      linkitems:
+        - linkname: write-up
+          link: /projects/OrchidCLIP/
+        - linkname: code
+          link: https://github.com/musharna/orchid-clip
+        - linkname: demo
+          link: https://huggingface.co/spaces/musharna/orchid-genus-id
+
+- title: Software (archived on Zenodo)
+  type: list
+  contents:
+    - <a href="https://doi.org/10.5281/zenodo.21636352">plant-genomics-mcp</a> — 50+ plant-genomics tools over 23 public backends via the Model Context Protocol
+    - <a href="https://doi.org/10.5281/zenodo.21636332">data-aggregator-mcp</a> — research-data discovery across Zenodo, DataCite, NCBI omics and the literature
+    - <a href="https://doi.org/10.5281/zenodo.21713516">plantcv-mcp</a> — PlantCV trait measurements returned with the overlay they came from
+    - <a href="https://doi.org/10.5281/zenodo.21713870">phylokit-mcp</a> — phylogenetic inference that always reports branch support
+    - <a href="https://doi.org/10.5281/zenodo.21713210">breedsim-mcp</a> — breeding-scheme simulation reporting results across replicates
+    - <a href="https://doi.org/10.5281/zenodo.21789280">Taxon3D</a> — blind comparison benchmark for generative 3D models of organisms
+    - <a href="https://doi.org/10.5281/zenodo.21636354">ghostcite</a> — deterministic detection of ghost citations and retracted references
+    - <a href="https://doi.org/10.5281/zenodo.21636369">jobd</a> — self-hostable GPU-aware job broker with agent (MCP) integration

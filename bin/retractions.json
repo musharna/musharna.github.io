@@ -28,28 +28,6 @@
 
   "retractions": [
     {
-      "id": "lobelia-multisource-provenance",
-      "date": "2026-08-08",
-      "note": "The page said records were pulled from 'GBIF, SERNEC, iDigBio and the Kent State herbarium'. The acquisition ledger contains zero Kent State URLs; the download was GBIF only. NOTE the ban strings are the CLAIM, not the entity: 'Kent State' alone appears truthfully in the repo README as the institution the undergraduate research was done at, advised by Dr. Andrea Case. Banning an entity name flags true statements about that entity.",
-      "fixed_by": ["musharna.github.io#91"],
-      "retracted": ["Kent State herbarium", "SERNEC, iDigBio", "GBIF, SERNEC"],
-      "required": "GBIF Darwin Core Archive",
-      "required_on": ["github:musharna/lobelia-leaf-morphometrics"],
-      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
-      "allow_if_line_matches": []
-    },
-    {
-      "id": "lobelia-data-custody-admission",
-      "date": "2026-08-08",
-      "note": "The page volunteered that the 2024 measurements no longer exist on disk, and leaned on 'recovered' and 'survives' to explain the counts. That is a lab-notebook custody admission, not something a reader of an academic project page needs, and it reads badly to anyone assessing the work. The counts stand on their own.",
-      "fixed_by": ["musharna.github.io#93"],
-      "retracted": ["no longer exist on disk", "survive in the measured set"],
-      "required": "usable leaf outlines",
-      "required_on": ["site"],
-      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
-      "allow_if_line_matches": []
-    },
-    {
       "id": "orchid-species-count-authority",
       "date": "2026-08-08",
       "note": "The page quoted Christenhusz & Byng's ~28,000 accepted species while the pipeline itself dedups against WCVP, whose map here gives 30,581 accepted from 72,253 raw (GBIF backbone: 33,355). Quoting one authority while deduplicating against another is the defect; 28,000 was also the lowest of the three, so it understated the difficulty being described.",
@@ -74,10 +52,10 @@
     {
       "id": "mcp-tool-count-agreement",
       "date": "2026-08-08",
-      "note": "Not a retraction but a cross-surface invariant, and the reason the pypi fetch path exists at all. The site and the plant-genomics-mcp PyPI description both state '50 tools across 23 backends', verified from source (Tool( appears exactly 50 times in server.py). The PyPI description is public and is never hyperlinked from the site, so nothing else can see it drift. An entry with no `retracted` list is legitimate: `required` alone pins a number that must agree everywhere it is published.",
+      "note": "Not a retraction but a cross-surface invariant, and the reason the pypi fetch path exists at all. The site and the plant-genomics-mcp PyPI description both state '53 tools across 23 backends' (PyPI 1.23.0, 2026-09-25; was 50 on 2026-08-08). The PyPI description is public and is never hyperlinked from the site, so nothing else can see it drift. An entry with no `retracted` list is legitimate: `required` alone pins a number that must agree everywhere it is published.",
       "fixed_by": [],
       "retracted": [],
-      "required": "50 tools",
+      "required": "53 tools",
       "required_on": ["site", "pypi:plant-genomics-mcp"],
       "surfaces": ["site", "pypi:plant-genomics-mcp"],
       "allow_if_line_matches": []
@@ -103,17 +81,6 @@
       "required_on": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
       "surfaces": ["site", "github:musharna/orchid-clip", "hf:musharna/orchid-clip-v8"],
       "allow_if_line_matches": []
-    },
-    {
-      "id": "lobelia-ledger-undercount",
-      "date": "2026-08-07",
-      "note": "Transcribing the intake ledger at a fixed row read '?' for the two tabs with a 7-row header and silently dropped them, giving 2,733 across 20 species. Reading by label gives 4,085 across 22 of 23 tabs. The repo README quotes the old figure inside its own correction notice, which is exactly right and must not trip this check -- hence allow_if_line_matches.",
-      "fixed_by": ["musharna.github.io#89", "musharna/lobelia-leaf-morphometrics#3"],
-      "retracted": ["2,733 across 20 species", "2,906"],
-      "required": "4,085",
-      "required_on": ["github:musharna/lobelia-leaf-morphometrics"],
-      "surfaces": ["site", "github:musharna/lobelia-leaf-morphometrics"],
-      "allow_if_line_matches": ["stood in this README", "until 2026-", "undercount"]
     }
   ]
 }

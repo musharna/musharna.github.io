@@ -1,136 +1,27 @@
 ---
 layout: page
-title: Automating leaf measurement
-description: Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, by two independent methods two years apart.
-img: assets/img/lobelia/clade_leaf_shapes.png
-og_image: https://musharna.github.io/assets/img/lobelia/shape_synthesis.png
+title: Leaf measurement in Lobelia
+description: Leaf area and perimeter measured from photographs of dismembered Lobelia sect. Lobelia vouchers.
+img: assets/img/lobelia/truescale_plate.png
 importance: 2
 category: academic research
 related_publications: true
 ---
 
-<div style="border:1px solid var(--global-divider-color); border-left:4px solid #4a5d3a; border-radius:8px; padding:0.9rem 1.1rem; margin:0.3rem 0 1.4rem;">
-  <strong>TL;DR.</strong> Herbaria hold hundreds of millions of pressed plants, with almost every measurable trait locked inside a photograph. This project built a <strong>semi-automated pipeline for getting leaf traits out</strong>: dismember and digitize a voucher, crop leaves in ImageJ, measure area and perimeter with the <code>LeafArea</code> package in R. The result: <strong>species differ in how leaf perimeter scales with leaf area, and populations of one species differ too.</strong> A second analysis two years later, by a different method, agrees.
-  <div style="margin-top:0.7rem;">
-    <a href="https://github.com/musharna/lobelia-leaf-morphometrics" style="display:inline-block; background:#24292e; color:#fff; padding:0.35rem 0.85rem; border-radius:6px; text-decoration:none; font-weight:600; margin:0 0.4rem 0.3rem 0;">💻 Code on GitHub</a>
-  </div>
-</div>
+Undergraduate research at Kent State University in Dr. Andrea Case's lab, supported by NSF award [DEB-2015606](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606). The award uses _Lobelia_ sect. _Lobelia_ to study why close relatives do or do not live alongside each other. As an undergraduate I worked on measuring leaf traits from voucher photographs. The [_Lobelia_ silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}) came earlier, in 2018–2019.
 
-Undergraduate research at Kent State University, advised by Dr. Andrea Case. It sat inside the NSF programme [BEE](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606) (DEB-2015606), which uses _Lobelia_ sect. _Lobelia_ as a model for why close relatives do or don't live alongside each other; my piece was the phenotype side. The [_Lobelia_ silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}) came earlier, in 2019: **that one is reconstruction for depiction and keeps true size, this one is segmentation for measurement and normalises size away.**
+## Why leaf shape
 
-## Why bother
+Leaf shape varies between close relatives growing in the same place, and that variation is tied to how a leaf works: light interception, temperature, water supply and plasticity {% cite nicotra2011leafshape tsukaya2018leafshape %}. Comparing it across a group of species needs shape measured as numbers, for many plants.
 
-Leaf shape varies between close relatives in the same place, and that variation is tied to how a leaf works: light interception, thermoregulation, water-supply trade-offs, plasticity {% cite nicotra2011leafshape tsukaya2018leafshape %}. Testing any of it across a clade needs shape as a _number_, for a lot of plants.
+_Lobelia_ sect. _Lobelia_ is an awkward case for this. It included 23 species as scoped when this work began, from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_. Several grow as basal rosettes, and a rosette pressed flat is a pile of overlapping leaves radiating from one point.
 
-_Lobelia_ sect. _Lobelia_ is a good test case because it is awkward: 23 species as scoped in 2021, 26 in the 2025 phylogenomic revision {% cite godden2025lobelia %}, from the tall red-flowered _L. cardinalis_ to the small aquatic _L. dortmanna_. Several grow as **basal rosettes**, where herbarium-vision work generally assumes separated, planar leaves on a stem. A rosette pressed flat is a pile of overlapping blades radiating from one point.
+## What I did
 
-## The corpus
+1. Vouchers were taken apart and photographed so the leaves lie flat and separate.
+2. I cropped leaves one by one in **ImageJ**, excluding by eye those too folded or torn to measure.
+3. I measured leaf area and perimeter with the **`LeafArea`** R package, calibrated against a 1 cm scale.
 
-Every measurement on this page comes from **plants collected in the field and taken apart by hand** — dismembered and photographed so the leaves lie flat, separated and unobscured, then cropped leaf by leaf.
+In exploratory plots of the best-sampled species, the relationship between leaf perimeter and leaf area looked different between species, and between collection sites of _L. elongata_. This was not tested statistically. The specimen photographs and measurements belong to the Case lab and are not published here.
 
-| stage                       |   count |
-| --------------------------- | ------: |
-| specimen masks              |     104 |
-| leaf components across them |   1,206 |
-| **usable leaf outlines**    | **490** |
-| vouchers represented        |      90 |
-
-<div class="caption">
-Folded, torn and truncated leaves were excluded by explicit criterion, not by eye.
-</div>
-
-Nine species are represented:
-
-| species               | leaves | vouchers |
-| --------------------- | -----: | -------: |
-| _L. puberula_         |     93 |       10 |
-| _L. elongata_         |     88 |       10 |
-| _L. appendiculata_    |     83 |       17 |
-| _L. siphilitica_      |     57 |       10 |
-| _L. spicata_          |     50 |       12 |
-| _L. glandulosa_       |     48 |       21 |
-| _L. apalachicolensis_ |     41 |        3 |
-| _L. inflata_          |     26 |        5 |
-| _L. cardinalis_       |      3 |        1 |
-| unassigned            |      1 |        1 |
-
-<div class="caption">
-The 2026 analysis below drops <em>cardinalis</em> and the unassigned leaf, leaving <strong>486 leaves from 88 specimens across 8 species</strong>.
-</div>
-
-**Sampling is uneven in both directions, and they are different problems.** Twenty-one _glandulosa_ plants contribute 48 leaves; three _apalachicolensis_ plants contribute 41. Few leaves per plant limits what you can say about one individual; few plants per species limits what you can say about the species, and no amount of leaves off those three plants fixes it.
-
-## The pipeline
-
-"Semi-automated" is the operative word. A human is in the loop throughout:
-
-1. **Voucher collection** from multiple sites.
-2. **Digitization and "dismemberment."** The specimen is taken apart and photographed, so leaves lie flat, separated and unobscured.
-3. **Whole-plant traits** in **ImageJ** against the 1 cm scale standard: base-to-first-leaf, base-to-first-flower, stem thickness at base and at first flower. Images are rotated to a common axis, which nearly every morphometrics tool assumes.
-4. **Leaf cropping** (ImageJ), one sheet becoming many single-leaf images. Leaves too folded or torn to read are excluded by explicit criterion, not by eye.
-5. **Area and perimeter** via the **`LeafArea`** R package driving ImageJ, calibrated at 85 px/cm:
-
-```r
-library(LeafArea)
-run.ij(set.directory = ".../leafcrops",
-       distance.pixel = 85,
-       known.distance = 1,   # cm
-       trim.pixel     = 0)
-```
-
-6. **Analysis** in R / RStudio.
-
-Thresholding each crop gives the binary mask the measurements come from, and it is where specimen condition matters most:
-
-{% include figure.liquid path="assets/img/lobelia/leaf_series_spicata.png" title="thresholded leaf series showing damaged laminae, Lobelia spicata" alt="Ten black leaf outlines from one Lobelia spicata specimen; several are visibly torn or truncated and one carries a hole through the middle of the blade." caption="One _L. spicata_ specimen (voucher AC17073): several laminae torn through, one punctured. **An area measured from these is wrong while looking perfectly valid in a spreadsheet.**" class="img-fluid rounded z-depth-1" %}
-
-It is not a rare problem, and it is the reason for the attrition in the table above: of those leaf components big enough to measure at all, a third were rejected as too damaged.
-
-Existing tools were surveyed first. Most assume material digitized herbarium sheets never supply:
-
-| tool               | outcome                                                                       |
-| ------------------ | ----------------------------------------------------------------------------- |
-| **MorphoLeaf**     | Needs single leaves, clean high-contrast background, uniform orientation.     |
-| **LeafJ** (ImageJ) | Failed to detect whole leaves; hand-correcting cost more than hand-measuring. |
-| **LeafMachine**    | Promising, but MATLAB-licensed.                                               |
-| **MASS**           | Also MATLAB.                                                                  |
-| **TraitEx**        | Would not import our images.                                                  |
-| **Morphidas**      | Too little documentation to evaluate.                                         |
-
-The binding constraint was rarely the model. These tools assume idealized input, which pressed specimens, and flattened rosettes especially, do not provide.
-
-## What it showed
-
-Perimeter scales with area differently in different species. That is a shape statement, not a size one: a leaf gaining perimeter quickly as it gains area is narrower, or more dissected, or more toothed.
-
-{% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_species.png" title="Leaf area versus perimeter across the four best-sampled species" alt="Scatter plot of leaf perimeter against leaf area for four Lobelia species, each with its own dashed regression line; glandulosa rises most steeply, elongata least." caption="The four best-sampled species (n > 49 each), each with its own slope. _L. glandulosa_ gains perimeter fastest per unit area, _L. elongata_ slowest, and _elongata_ also reaches far larger leaves." class="img-fluid rounded z-depth-1" %}
-
-{% include figure.liquid path="assets/img/lobelia/leafarea_perimeter_sites.png" title="Leaf area versus perimeter within Lobelia elongata, by collection site" alt="Scatter plot of leaf perimeter against leaf area for Lobelia elongata, coloured by four collection site codes, each with its own dashed regression line of differing slope." caption="_L. elongata_ alone, split by collection site. The four sites do not share a slope, so whatever drives leaf shape here operates **below the species level**." class="img-fluid rounded z-depth-1" %}
-
-**Shape differs between species, and between populations of the same species.** A clade-scale story has to hold at both levels.
-
-{% include figure.liquid path="assets/img/lobelia/clade_leaf_shapes.png" title="Leaf outlines across nine species of Lobelia sect. Lobelia" alt="Nine black leaf silhouettes in a row, labelled by species, ranging from a very narrow linear blade for glandulosa to broad ovate blades for apalachicolensis and spicata." caption="A **composed montage**: one leaf per species, from that species' own mask, **scaled to a common length** so it compares _shape_, not size. Leaves were chosen by solidity, not size." class="img-fluid rounded z-depth-1" %}
-
-Nine species, not ten. The largest component in a mask is often a stem fragment, and _L. canbyi_'s only mask is nothing else: 3,257 px at 0.55 solidity against 0.93–0.97 for a clean blade. Including it would have shown a stem fragment under the species name.
-
-## A second method, two years later
-
-In 2026 I re-analysed the same 104 masks by an independent route: 486 leaves from 88 specimens across 8 species, each outline resampled to 128 pseudo-landmarks, aligned, scaled to unit centroid size and ordinated by PCA. It uses neither area nor perimeter, and shares no code with the 2024 pipeline.
-
-PC1 carries 48% of shape variance and is almost exactly leaf breadth, correlating with measured width-to-length at r = 0.978. Species order along it monotonically, _L. glandulosa_ at 0.109 to _L. apalachicolensis_ at 0.439, and it holds essentially all the species signal: between-species share (η²) 0.493 on PC1 against 0.006 on PC2. PC2 carries another 26% of shape variance but splits by _plant_ rather than species, η² 0.211 by specimen: leaf-to-leaf variation within one individual.
-
-Classifying from outline alone, cross-validated grouped by specimen so no test plant's leaves appear in training, gives 0.372 against a 0.166 permuted-label null and a 0.191 majority-class baseline. Roughly twice chance: a genuine species character, if a weak one. A naive split letting one plant's leaves span train and test scores 0.430, a 6-point gap that measures the pseudo-replication in treating ten leaves off one plant as ten observations.
-
-{% include figure.liquid path="assets/img/lobelia/shape_synthesis.png" title="Landmark shape versus perimeter-to-area, across 486 leaves" alt="Scatter of perimeter over square-root of area against PC1 of leaf outline for 486 leaves, showing a strong negative relationship, with species means labelled by leader lines and Lobelia glandulosa a clear outlier at the narrow end." caption="PC1 against perimeter/√area, both computed in 2026 from the same 128-landmark outlines. Dimensionless, so size cancels and no calibration is needed. At r = −0.82 the landmark axis closely tracks the simple ratio — a **within-method consistency check**, since both quantities come from the same outlines." class="img-fluid rounded z-depth-1" %}
-
-Against 2024 the comparison is species by species rather than leaf by leaf. _L. glandulosa_ is the outlier here and is also the species the 2024 plot picks out with the steepest slope. They part company on _L. elongata_: perimeter grows with the **square root** of area for a fixed shape, so a straight-line slope depends on the size range a species spans, and _elongata_ reaches ~30 cm² where the others stop near 5–10. Its gentle slope is partly a size effect; on the dimensionless index it sits mid-pack, which sharpens the original result rather than undoing it.
-
-**Damage shifts PC1 without accounting for it.** Solidity, the filter the pipeline already uses to reject torn leaves, still tracks PC1 among the leaves that passed it (r = 0.360), and within species too (mean 0.308): a torn leaf reads as narrower. Residualising it out costs little, η² 0.493 → 0.434 and accuracy 0.372 → 0.360. Damage carrying no shape information at all classifies at **0.195** against a 0.191 baseline, which is what licenses reading PC1 as shape rather than preservation. One caveat: _L. glandulosa_ is both the most damaged species and the outlier carrying the agreement above.
-
-**What this does not show.** Sampling is uneven (93 leaves from _puberula_, 26 from _inflata_; 21 specimens for _glandulosa_, 3 for _apalachicolensis_). Absolute size is discarded by construction though size is a real diagnostic character, and venation, dentition and pubescence are not in an outline at all. PC1 is interpreted against a width-to-length measurement of the same outlines rather than an independent character set, so it describes this material rather than validating against an external standard.
-
-## Status
-
-Completed undergraduate work, recorded here rather than maintained.
-
-Code, protocol, notebooks and ledger: [**musharna/lobelia-leaf-morphometrics**](https://github.com/musharna/lobelia-leaf-morphometrics). **No specimen imagery is included**: the raw sheets carry all-rights-reserved notices burned into the pixels regardless of the licence field on the aggregator record. Images belong to their holding institutions; the GBIF download is CC BY-NC 4.0.
+A deep-learning step to segment leaves directly from whole herbarium sheets was planned but not carried out.

@@ -21,7 +21,7 @@ related_publications: true
 
 {% include figure.liquid path="assets/img/lobelia/truescale_plate.png" title="Twenty-seven Lobelia species at true scale" alt="Twenty-seven black plant silhouettes in a row on a common baseline, ordered left to right from shortest to tallest, from Lobelia feayana at 14 cm to Lobelia brevifolia at 134 cm, with a 50 cm scale bar." caption="**Every species in the set, at true scale**, ordered by height and resampled to a common scale using the **10 cm bar drawn into each file** — _L. feayana_ at 14 cm to _L. brevifolia_ at 134 cm. The plants never stood together, but their relative sizes are real." class="img-fluid rounded z-depth-1" %}
 
-This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and the earliest published piece of my involvement in the lab's _Lobelia_ project. The [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
+This was undergraduate work at **Kent State University** with **Dr. Andrea Case**, and my earliest work in the lab's _Lobelia_ project. The [leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) came several years later.
 
 ## How they were made
 
@@ -94,7 +94,7 @@ The 39 originals, the plate, and a manifest of every measured height, all **CC B
 
 ## A related but separate project
 
-Both this and the [automated leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is why they blur together. This one is reconstruction for depiction and keeps true size; that one is segmentation for measurement and normalises size away.
+Both this and the [leaf-measurement work]({{ '/projects/LobeliaLeafMeasurement/' | relative_url }}) end in a plant reduced to an outline, which is why they blur together. This one is reconstruction for depiction and keeps true size; that one measures cropped leaves.
 
 ## Status
 
