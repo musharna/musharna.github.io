@@ -16,9 +16,9 @@ nav_order: 2
 <div class="publications">
 
 {% comment %}
-  Filtered to work I authored (author filter below). Do not quote the query argument;
-  jekyll-scholar passes quote characters through. bin/check-bibliography.rb fails CI if an
-  authored entry in papers.bib is not selected by any query on this page.
+Filtered to work I authored (author filter below). Do not quote the query argument;
+jekyll-scholar passes quote characters through. bin/check-bibliography.rb fails CI if an
+authored entry in papers.bib is not selected by any query on this page.
 {% endcomment %}
 
 <h2 class="year">software and datasets</h2>
