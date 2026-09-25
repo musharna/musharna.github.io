@@ -43,10 +43,8 @@ in the generation itself.
 ## The phenotype engine
 
 Parent traits are blended as **pigment chemistry, not colour names**. Anthocyanin,
-carotenoid and co-pigment are modelled as independent biochemical channels. This matters
-because a magenta _Cattleya_ crossed with a yellow one does not give you an orange
-_Cattleya_: the pigment pathways are independent, so you get a magenta-and-yellow flower,
-often mottled or patterned. A naive RGB blend gets this exactly wrong.
+carotenoid and co-pigment are modelled as independent channels rather than blended as
+colour names. This is a modelling choice, not a model of the underlying genetics.
 
 On top of the channel merge:
 
@@ -54,8 +52,8 @@ On top of the channel merge:
 - **Dominance overrides** (`dominance_rules.json`) encode species-specific behaviour that a
   weighted average would flatten.
 - **Recessive expression is generation-dependent.** The threshold relaxes as ancestry
-  dilutes — F1 suppresses recessives hard, F2 admits them at 50%, F3 and beyond at 25% —
-  so a trait hidden in the first generation can surface in the second, as it does in life.
+  dilutes — F1 suppresses recessives hard, F2 admits them at 50%, F3 and beyond at 25%. These
+  thresholds are heuristics, chosen so a trait hidden in the first generation can surface in the second.
 
 The engine emits a ~77-token description shaped for CLIP's context window, which is what
 actually reaches the model.

@@ -25,7 +25,7 @@ exactly like a right one until you see the supporting output.
 <div class="row mt-4">
 <div class="col-md-6">
   <h3><img src="{{ '/assets/img/mcpservers/plant-genomics-mcp.png' | relative_url }}" alt="" width="48" height="48" style="vertical-align: middle; border-radius: 10px; margin-right: 12px;"><a href="https://github.com/musharna/plant-genomics-mcp">plant-genomics-mcp</a></h3>
-  <p><strong>50 tools across 23 public backends</strong>: Ensembl Plants, Phytozome,
+  <p><strong>53 tools across 23 public backends</strong>: Ensembl Plants, Phytozome,
   UniProt, AlphaFold DB, PDBe, InterPro, JASPAR, PANTHER, OrthoDB, AraGWAS, NCBI BLAST,
   Gramene, KEGG, STRING-DB, ATTED-II, BAR and more. Includes cross-source synthesis tools
   so one locus question does not turn into twenty browser tabs. stdio and Streamable-HTTP.

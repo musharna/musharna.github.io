@@ -9,9 +9,7 @@ category: orchid deep dive
 related_publications: false
 ---
 
-OrchidGAN is a StyleGAN2-ADA model fine-tuned on a curated set of _Cattleya_ images, from weights pretrained on a public flowers dataset. It was the first piece of the [orchid programme]({{ '/projects/OrchidVision/' | relative_url }}), and it answered one question: whether orchid floral morphology is learnable from photographs at all.
-
-It is. What the model returns is a latent space you can move around in, which the panels below do four ways — sampling seeds, interpolating between them, mixing style across resolutions, and laying the space out as a UMAP.
+OrchidGAN is a StyleGAN2-ADA model fine-tuned on a curated set of _Cattleya_ images, from weights pretrained on a public flowers dataset. It was the first piece of the [orchid programme]({{ '/projects/OrchidVision/' | relative_url }}). It generates plausible _Cattleya_ blooms, and its latent space can be explored four ways, shown in the panels below — sampling seeds, interpolating between them, mixing style across resolutions, and laying the space out as a UMAP.
 
 The model has no notion of _which_ orchid it has drawn, which is what led to [orchid-clip-v8]({{ '/projects/OrchidCLIP/' | relative_url }}).
 
