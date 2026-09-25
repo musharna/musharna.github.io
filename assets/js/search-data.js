@@ -23,6 +23,20 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum Vitae",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
         },{id: "post-why-infer-tree-has-no-way-to-skip-the-bootstrap",
         
           title: "Why infer_tree has no way to skip the bootstrap",
@@ -34,9 +48,9 @@ ninja.data = [{
             window.location.href = "/blog/2026/a-tree-without-its-support/";
           
         },
-      },{id: "projects-automating-leaf-measurement",
-          title: 'Automating leaf measurement',
-          description: "Measuring leaf shape from ninety dismembered Lobelia sect. Lobelia vouchers, by two independent methods two years apart.",
+      },{id: "projects-leaf-measurement-in-lobelia",
+          title: 'Leaf measurement in Lobelia',
+          description: "Leaf area and perimeter measured from photographs of dismembered Lobelia sect. Lobelia vouchers.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaLeafMeasurement/";
             },},{id: "projects-lobelia-silhouettes",
@@ -51,7 +65,7 @@ ninja.data = [{
               window.location.href = "/projects/MCPServers/";
             },},{id: "projects-orchidclip",
           title: 'OrchidCLIP',
-          description: "A long-tail-aware CLIP model for fine-grained orchid identification across 5,124 species.",
+          description: "A BioCLIP 2 fine-tune for orchid identification, with a demo that names a species only when confident.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidCLIP/";
             },},{id: "projects-orchid-gan",
