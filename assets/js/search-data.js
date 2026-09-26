@@ -32,12 +32,12 @@ ninja.data = [{
           },
         },{id: "projects-leaf-measurement-in-lobelia",
           title: 'Leaf measurement in Lobelia',
-          description: "Leaf area and perimeter measured from photographs of dismembered Lobelia sect. Lobelia vouchers.",
+          description: "Moved to the Lobelia page.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaLeafMeasurement/";
-            },},{id: "projects-lobelia-silhouettes",
-          title: 'Lobelia Silhouettes',
-          description: "Digitally restored herbarium specimens of Lobelia, reduced to true-scale silhouettes.",
+            },},{id: "projects-lobelia",
+          title: 'Lobelia',
+          description: "True-scale silhouettes from herbarium specimens, and leaf measurement.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-mcp-servers",
