@@ -84,7 +84,7 @@ Collection localities for <strong>60 source sheets</strong> across <strong>18 st
 
 ## Where they ended up
 
-The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}. The true-scale rule is for uses like that one: set beside the tips of a tree, one species reading knee-high next to another reading waist-high is the comparison being made, not styling.
+The silhouettes are credited in the acknowledgements of the phylogenomic paper from the lab's programme {% cite godden2025lobelia %}, where they form the **morphology panel of the phylogeny figure** (Fig. 2B): a band of plants on a shared ground line, each aligned over its own clade. That arrangement is what the true-scale rule was for. At the tips of a tree, one species reading knee-high beside another reading waist-high is the comparison being made, not styling.
 
 ## Archived, and free to use
 
