@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "projects",
-          description: "Computer vision on the long tail of plant diversity, and the research tooling built along the way.",
+          description: "Research, and the software I built for it.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -42,32 +42,32 @@ ninja.data = [{
               window.location.href = "/projects/LobeliaSilhouettes/";
             },},{id: "projects-mcp-servers",
           title: 'MCP Servers',
-          description: "MCP servers for plant genomics and research with LLMs: locus lookup, dataset search, phenotyping, phylogenetics, breeding simulation, and the job broker that runs the heavy work.",
+          description: "MCP servers for plant genomics research with LLMs: locus lookup, dataset search, phenotyping, phylogenetics, breeding simulation, and a job broker.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MCPServers/";
-            },},{id: "projects-orchidclip",
-          title: 'OrchidCLIP',
-          description: "A BioCLIP 2 fine-tune for orchid identification, with a demo that names a species only when confident.",
+            },},{id: "projects-orchids",
+          title: 'Orchids',
+          description: "Computer vision on orchids. An identification model, a GAN, and a hybrid visualizer.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidCLIP/";
             },},{id: "projects-orchid-gan",
           title: 'Orchid GAN',
-          description: "StyleGAN2-ADA fine-tuned on Cattleya, giving a navigable latent morphospace for orchid floral form. The starting point of the orchid programme.",
+          description: "Moved to the Orchids page.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidGAN/";
             },},{id: "projects-orchid-vision",
           title: 'Orchid Vision',
-          description: "A computer-vision program built on orchids - generation, recognition, and guided hybridization - because the long tail is where fine-grained models actually break.",
+          description: "Moved to the Orchids page.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidVision/";
             },},{id: "projects-cattleya-hybrid-visualizer",
           title: 'Cattleya Hybrid Visualizer',
-          description: "What would this orchid cross look like? SDXL steered by a botanical phenotype engine, for hybrids that take 4-7 years to actually flower.",
+          description: "Moved to the Orchids page.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidVisualizer/";
             },},{id: "projects-taxon3d",
           title: 'Taxon3D',
-          description: "A blind-comparison benchmark for AI-generated 3D models of living organisms, judged against reference photographs. Bradley-Terry rankings with confidence intervals.",
+          description: "A blind-comparison benchmark for AI-generated 3D models of living organisms, judged against reference photographs.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Taxon3D/";
             },},{
