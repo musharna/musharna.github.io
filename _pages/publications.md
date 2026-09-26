@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
-description: Presentations, and software I maintain (cited by concept DOI). Peer-reviewed publications will appear here as they are published.
+description: Presentations, datasets and software I maintain (cited by concept DOI). Peer-reviewed publications will appear here as they are published.
 nav: true
 nav_order: 2
 ---
@@ -24,7 +24,10 @@ authored entry in papers.bib is not selected by any query on this page.
 <h2 class="year">presentations</h2>
 {% bibliography --query @misc[author^=Arnold] %}
 
-<h2 class="year">software and datasets</h2>
+<h2 class="year">datasets</h2>
+{% bibliography --query @dataset[author^=Arnold] %}
+
+<h2 class="year">software</h2>
 {% bibliography --query @software[author^=Arnold] %}
 
 </div>
