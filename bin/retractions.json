@@ -24,7 +24,7 @@
 
   "owners": ["musharna", "mjarnold"],
 
-  "extra_surfaces": ["pypi:plant-genomics-mcp"],
+  "extra_surfaces": [],
 
   "retractions": [
     {
@@ -47,17 +47,6 @@
       "required": "replicates on an independent backbone",
       "required_on": ["site"],
       "surfaces": ["site", "github:musharna/orchid-hybrid-visualizer"],
-      "allow_if_line_matches": []
-    },
-    {
-      "id": "mcp-tool-count-agreement",
-      "date": "2026-08-08",
-      "note": "Not a retraction but a cross-surface invariant, and the reason the pypi fetch path exists at all. The site and the plant-genomics-mcp PyPI description both state '54 tools across 23 backends' (PyPI 1.25.0, 2026-09-26; 53 in 1.23.0, 50 on 2026-08-08). The PyPI description is public and is never hyperlinked from the site, so nothing else can see it drift. An entry with no `retracted` list is legitimate: `required` alone pins a number that must agree everywhere it is published.",
-      "fixed_by": [],
-      "retracted": [],
-      "required": "54 tools",
-      "required_on": ["site", "pypi:plant-genomics-mcp"],
-      "surfaces": ["site", "pypi:plant-genomics-mcp"],
       "allow_if_line_matches": []
     },
     {

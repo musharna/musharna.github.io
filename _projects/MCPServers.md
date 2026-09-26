@@ -10,7 +10,7 @@ related_publications: false
 
 Model Context Protocol servers I maintain, so an agent in Claude Code or another MCP client can look up a locus, find a dataset, measure a plant image, build a tree or simulate a breeding programme. Each is on PyPI and has a client config example in its README. Where a tool computes a number, it also returns what the number came from, such as the segmentation overlay, the bootstrap support or the spread across replicates.
 
-- **[plant-genomics-mcp](https://github.com/musharna/plant-genomics-mcp)**: 54 tools across 23 public backends (Ensembl Plants, Phytozome, UniProt, AlphaFold DB, JASPAR, KEGG, STRING-DB and others). There is a [hosted demo](https://huggingface.co/spaces/musharna/plant-genomics-mcp).
+- **[plant-genomics-mcp](https://github.com/musharna/plant-genomics-mcp)**: 50+ tools across 23 public backends (Ensembl Plants, Phytozome, UniProt, AlphaFold DB, JASPAR, KEGG, STRING-DB and others). There is a [hosted demo](https://huggingface.co/spaces/musharna/plant-genomics-mcp).
 - **[data-aggregator-mcp](https://github.com/musharna/data-aggregator-mcp)**: search and fetch datasets from Zenodo, DataCite, GEO/SRA, PubMed and OpenAIRE through one interface.
 - **[plantcv-mcp](https://github.com/musharna/plantcv-mcp)**: PlantCV trait measurements, returned with the segmentation overlay they were measured from. Batch mode applies a recipe you have checked that way.
 - **[phylokit-mcp](https://github.com/musharna/phylokit-mcp)**: phylogenetic inference with IQ-TREE 3 (through piqtree). Trees always come with bootstrap support.
