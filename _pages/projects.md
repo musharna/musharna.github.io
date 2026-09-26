@@ -2,27 +2,17 @@
 layout: page
 title: projects
 permalink: /projects/
-description: Computer vision on the long tail of plant diversity, and the research tooling built along the way.
+description: Research, and the software I built for it.
 nav: true
 nav_order: 3
-# Grid order. `enable_project_categories` was already true in _config.yml, but this
-# list was empty and every project had an empty `category:`, so all cards rendered
-# as one ungrouped pile — four of five of them orchid.
-#
-# The three groups separate work by WHERE IT COMES FROM, not by subject:
+# Grid order. Groups separate work by where it comes from:
 #   academic research    — lab / grant-funded work (Case lab Lobelia; Wright & Haak lab
-#                          work such as auxin and Phelipanche belongs here as it lands)
-#   independent research — self-directed research not attached to a lab (the orchid programme)
+#                          work belongs here as it lands)
+#   independent research — self-directed research not attached to a lab (orchids)
 #   research tooling     — software built to support the above
-# "independent" rather than "personal": the orchid work is real research, it just isn't
-# lab work, and the label should not read as demoting it.
-#
-# Only categories LISTED HERE render as cards. That is deliberate: the orchid
-# deep-dive pages (OrchidCLIP / OrchidGAN / OrchidVisualizer) carry
-# `category: orchid deep dive`, which is absent here, so they keep their pages and
-# URLs but come off the grid. Orchid Vision is the hub and already links all three,
-# so the grid was duplicating it.
-display_categories: [academic research, independent research, orchid deep dive, research tooling]
+# Only categories listed here render as cards. The old orchid pages (OrchidVision,
+# OrchidGAN, OrchidVisualizer) are redirect stubs with no category, so they stay off the grid.
+display_categories: [academic research, independent research, research tooling]
 horizontal: false
 ---
 
