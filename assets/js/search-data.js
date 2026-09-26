@@ -23,13 +23,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "nav-blog",
-          title: "blog",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/blog/";
-          },
         },{id: "nav-cv",
           title: "cv",
           description: "Curriculum Vitae",
@@ -37,18 +30,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-why-infer-tree-has-no-way-to-skip-the-bootstrap",
-        
-          title: "Why infer_tree has no way to skip the bootstrap",
-        
-        description: "A short note on a design decision in phylokit-mcp.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/a-tree-without-its-support/";
-          
-        },
-      },{id: "projects-leaf-measurement-in-lobelia",
+        },{id: "projects-leaf-measurement-in-lobelia",
           title: 'Leaf measurement in Lobelia',
           description: "Leaf area and perimeter measured from photographs of dismembered Lobelia sect. Lobelia vouchers.",
           section: "Projects",handler: () => {
