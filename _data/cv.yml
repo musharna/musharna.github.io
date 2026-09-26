@@ -1,6 +1,7 @@
 # Rendered by _layouts/cv.liquid (fallback source when assets/json/resume.json is absent).
 # Facts come from the site, the linked repositories, or the user's résumé (added 2026-09-26:
 # awards, VT-REEL, assistantship, skills). Case-lab dates 2017 – 2022 confirmed by the user.
+# The poster is from its Zenodo record (10.5281/zenodo.22259958), checked 2026-09-26.
 # Manuscripts in preparation are deliberately not listed.
 
 - title: Education
@@ -37,6 +38,18 @@
       linkitems:
         - linkname: write-up
           link: /projects/LobeliaSilhouettes/
+
+- title: Presentations
+  type: time_table
+  contents:
+    - title: The parasitic plant <em>Phelipanche aegyptiaca</em> adapts gene expression to different host species (poster)
+      institution: Translational Plant Science Center Symposium, Virginia Tech
+      year: 2026
+      description:
+        - J. Arnold, S. Kaur, C. Wright, D. Haak, S. Park, J. Westwood
+      linkitems:
+        - linkname: poster
+          link: https://doi.org/10.5281/zenodo.22259958
 
 - title: Awards
   type: time_table
