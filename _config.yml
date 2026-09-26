@@ -250,6 +250,10 @@ exclude:
   # not excluded — same reasoning as the template pages above. Excluding them kept ~45 MB
   # of demo images, video and audio in the repo that ONLY those posts referenced.
   - _news/
+  # _pages/blog.md is excluded while there are no posts. The only post (added 2026-09-10 as
+  # nav filler) was not written by me and was deleted 2026-09-25. Drop this line when there
+  # is a real post; latest_posts on the about page is off too.
+  - _pages/blog.md
   # _pages/cv.md was excluded until 2026-09-25 and BOTH of its original data sources were deleted. There were two,
   # and both held al-folio's Albert Einstein demo CV:
   #   assets/json/resume.json  - the primary. Because assets/ is copied verbatim this one
