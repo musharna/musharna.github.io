@@ -18,7 +18,7 @@ vision, machine learning and data science can do for agriculture.
 | [MCP Servers](https://musharna.github.io/projects/MCPServers/) | plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, phylokit-mcp, breedsim-mcp and jobd              |
 | [`/publications/`](https://musharna.github.io/publications/)   | Zenodo-archived software, by concept DOI                                                               |
 
-The Orchids and Lobelia Silhouettes pages embed interactive Plotly figures from `assets/plotly/`.
+The Orchids and Lobelia pages embed interactive Plotly figures from `assets/plotly/`.
 
 ## Running it locally
 
