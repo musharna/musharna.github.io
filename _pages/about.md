@@ -29,7 +29,7 @@ latest_posts:
 
 PhD student, Genetics, Bioinformatics, & Computational Biology (GBCB) — Translational Plant Science Center
 
-I build MCP servers and tools for plant genomics and for doing research with LLMs, and computer-vision models for orchids. The tools are collected on the [MCP Servers]({{ '/projects/MCPServers/' | relative_url }}) page and the vision work under [Orchid Vision]({{ '/projects/OrchidVision/' | relative_url }}); everything is open source on [GitHub](https://github.com/musharna).
+I build MCP servers and tools for plant genomics and for doing research with LLMs, and computer-vision models for orchids. The tools are collected on the [MCP Servers]({{ '/projects/MCPServers/' | relative_url }}) page and the vision work under [Orchids]({{ '/projects/OrchidCLIP/' | relative_url }}); everything is open source on [GitHub](https://github.com/musharna).
 
 Jaret graduated from Kent State University with a B.S. in Biotechnology in 2022. There he worked with [Dr. Andrea Case](https://directory.natsci.msu.edu/directory/Profiles/Person/103256) on the _Lobelia_ genus, visualizing phenotypic diversity across North American species by digitally reconstructing herbarium specimens — written up as [Lobelia Silhouettes]({{ '/projects/LobeliaSilhouettes/' | relative_url }}).
 

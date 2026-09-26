@@ -10,16 +10,15 @@ vision, machine learning and data science can do for agriculture.
 
 ## What is on the site
 
-| Page                                                               | Contents                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`/`](https://musharna.github.io/)                                 | About, contact, links                                                                                                                                                                                                                                                                                                    |
-| [`/projects/`](https://musharna.github.io/projects/)               | Project index, grouped by category                                                                                                                                                                                                                                                                                       |
-| [Orchid Vision](https://musharna.github.io/projects/OrchidVision/) | Umbrella page for the orchid computer-vision work: [OrchidGAN](https://musharna.github.io/projects/OrchidGAN/) (generative), [orchid-clip-v8](https://musharna.github.io/projects/OrchidCLIP/) (recognition), [Cattleya Hybrid Visualizer](https://musharna.github.io/projects/OrchidVisualizer/) (guided hybridization) |
-| [MCP Servers](https://musharna.github.io/projects/MCPServers/)     | Model Context Protocol servers: plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, ldraw-mcp, and the jobd broker                                                                                                                                                                                                     |
-| [`/publications/`](https://musharna.github.io/publications/)       | Zenodo-archived software, by concept DOI                                                                                                                                                                                                                                                                                 |
+| Page                                                           | Contents                                                                                               |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [`/`](https://musharna.github.io/)                             | About, contact, links                                                                                  |
+| [`/projects/`](https://musharna.github.io/projects/)           | Project index, grouped by category                                                                     |
+| [Orchids](https://musharna.github.io/projects/OrchidCLIP/)     | Orchid computer vision: orchid-clip-v8 (identification), OrchidGAN, and the Cattleya hybrid visualizer |
+| [MCP Servers](https://musharna.github.io/projects/MCPServers/) | plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, phylokit-mcp, breedsim-mcp and jobd              |
+| [`/publications/`](https://musharna.github.io/publications/)   | Zenodo-archived software, by concept DOI                                                               |
 
-Several project pages carry live interactive demos (latent-space sampling, style mixing,
-interpolation) driven by static assets under `assets/img/orchidgan/`.
+The Orchids and Lobelia Silhouettes pages embed interactive Plotly figures from `assets/plotly/`.
 
 ## Running it locally
 
