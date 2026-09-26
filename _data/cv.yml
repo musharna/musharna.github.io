@@ -1,5 +1,6 @@
 # Rendered by _layouts/cv.liquid (fallback source when assets/json/resume.json is absent).
-# Every fact here is already stated elsewhere on the site or in the linked repositories.
+# Facts come from the site, the linked repositories, or the user's résumé (added 2026-09-26:
+# awards, VT-REEL, assistantship, skills). Case-lab dates 2017 – 2022 confirmed by the user.
 # Manuscripts in preparation are deliberately not listed.
 
 - title: Education
@@ -10,8 +11,8 @@
       year: 2024 –
       description:
         - Wright lab (from Spring 2025), co-advised by David Haak
-        - Translational Plant Science Center
-    - title: B.S. Biotechnology
+        - Translational Plant Science Center Graduate Assistantship (Fall 2024 – Fall 2025)
+    - title: B.S. Biotechnology, cum laude
       institution: Kent State University, Kent, OH
       year: 2022
 
@@ -24,15 +25,31 @@
       description:
         - Auxin / ARF genomics and RNA-seq differential expression
         - Applications of computer vision, artificial intelligence and data science to plant science
+    - title: VT-REEL summer research fellow, Haak and Derr labs
+      institution: Virginia Tech
+      year: 2019
     - title: Undergraduate researcher, Case lab
       institution: Kent State University
-      year: 2018 – 2022
+      year: 2017 – 2022
       description:
         - Leaf area and perimeter measured from photographs of dismembered <em>Lobelia</em> sect. <em>Lobelia</em> vouchers (ImageJ, LeafArea), supported by NSF award <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2015606">DEB-2015606</a>
         - Whole-plant <em>Lobelia</em> silhouettes reconstructed from herbarium sheets (2018 – 2019)
       linkitems:
         - linkname: write-up
           link: /projects/LobeliaSilhouettes/
+
+- title: Awards
+  type: time_table
+  contents:
+    - title: Choose Ohio First Scholarship
+      institution: Kent State University
+      year: 2017 – 2022
+    - title: Clinton & Olive Hobbs Endowment Botany Scholarship
+      institution: Kent State University
+      year: 2022
+    - title: Dr. and Mrs. Robert W. Squires Scholarship
+      institution: Kent State University
+      year: 2022
 
 - title: Research projects
   type: time_table
@@ -60,3 +77,13 @@
     - <a href="https://doi.org/10.5281/zenodo.21789280">Taxon3D</a> — blind comparison benchmark for generative 3D models of organisms
     - <a href="https://doi.org/10.5281/zenodo.21636354">ghostcite</a> — deterministic detection of ghost citations and retracted references
     - <a href="https://doi.org/10.5281/zenodo.21636369">jobd</a> — self-hostable GPU-aware job broker with agent (MCP) integration
+
+- title: Skills
+  type: map
+  contents:
+    - name: Computational
+      value: R, Python, Linux/Bash, HPC, RNA-seq analysis, ImageJ and computer vision, MCP/LLM tooling
+    - name: Wet lab
+      value: PCR (RT-PCR, nested PCR), DNA/RNA extraction, gel electrophoresis, bacterial transformation
+    - name: Plant
+      value: Plant care, seed collection and sowing, image collection and analysis
