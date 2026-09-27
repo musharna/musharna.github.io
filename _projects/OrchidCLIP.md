@@ -47,7 +47,7 @@ My first orchid model: StyleGAN2-ADA, starting from weights pretrained on a publ
 
 ## Cattleya hybrid visualizer
 
-A _Cattleya_ cross takes four to seven years to flower. The [visualizer](https://huggingface.co/spaces/musharna/orchid-hybrid-visualizer) renders a guess at what a cross between two species might look like. A rule-based phenotype engine blends the parents' traits (pigment channels handled separately, dominance rules, recessive traits allowed through more in later generations) into a short prompt for SDXL with an ancestry LoRA. It covers 119 species, and the rules are heuristics. Every image is a prediction, not a photograph.
+A _Cattleya_ cross takes four to seven years to flower. The [visualizer](https://huggingface.co/spaces/musharna/orchid-hybrid-visualizer) shows what 27 registered crosses might look like. A rule-based phenotype engine blends the parents' traits (pigment channels handled separately, dominance rules, recessive traits allowed through more in later generations) into a short prompt for SDXL with an ancestry LoRA. The engine covers 119 species, and its rules are heuristics. Every image is a prediction, not a photograph.
 
 <div class="row justify-content-sm-center mt-3">
   <div class="col-sm-6">
@@ -58,6 +58,6 @@ A _Cattleya_ cross takes four to seven years to flower. The [visualizer](https:/
   Predicted <em>Cattleya</em> Hardyana (<em>C. dowiana</em> × <em>C. warscewiczii</em>).
 </div>
 
-Across 1,002 registered hybrids, a hybrid's orchid-clip-v8 embedding sits closer to the midpoint of its parents than a shuffled null (cosine 0.910 vs 0.730), and this replicates on an independent backbone (DINOv2: 0.886 vs 0.539).
+Across 1,002 registered hybrids, a real hybrid's orchid-clip-v8 embedding sits closer to its parents' midpoint than a shuffled null (cosine 0.910 vs 0.730), and this replicates on an independent backbone (DINOv2: 0.886 vs 0.539). Hybrids also sit off the line between their parents, and further off when the parents look more different (Spearman ρ 0.52, n = 485, permutation p < 0.001; 0.65 on DINOv2). This is visual similarity, not genetics. Weighting the blend by the dominance rules did not beat the plain midpoint.
 
 Code: [orchid-clip](https://github.com/musharna/orchid-clip) · [orchid-hybrid-visualizer](https://github.com/musharna/orchid-hybrid-visualizer)

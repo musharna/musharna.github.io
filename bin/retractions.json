@@ -41,7 +41,7 @@
     {
       "id": "visualizer-transgression-not-artifact",
       "date": "2026-08-08",
-      "note": "The page claimed the transgressive residual 'survives permutation testing and reproduces under a DINOv2 backbone, so it is not an artifact of the embedding'. The DINOv2 run is real, but both it and the v8 report carry verdict MARGINAL and genetics_pass false, and no permutation test or G1a off-chord output exists in stage15/16/17. What replicates is the CHORD, with numbers now on the page; the residual is graded marginal.",
+      "note": "The page claimed the transgressive residual 'survives permutation testing and reproduces under a DINOv2 backbone, so it is not an artifact of the embedding'. The DINOv2 run is real, but both it and the v8 report carry verdict MARGINAL and genetics_pass false, and no permutation test or G1a off-chord output exists in stage15/16/17. What replicates is the CHORD, with numbers now on the page; the residual is graded marginal. Correction 2026-09-27: a G1a off-chord output does exist, data/stage16/g0_offchord_g1.json (orchid-sdxl de39554, 2026-06-11): off-chord magnitude vs parent divergence, Spearman 0.518, n 485, perm_p 1e-4, verdict PASS; DINOv2 0.653 (g0_offchord_g1_dino.json). The MARGINAL verdicts are other tests: stage15 g1a_fusion_report (trait fusion) and stage16 g0_report (dominance/genetics lift). Stating the stage16 result is allowed; the two retracted phrases stay retracted.",
       "fixed_by": ["musharna.github.io#100"],
       "retracted": ["not an artifact of the embedding", "survives permutation testing"],
       "required": "replicates on an independent backbone",
