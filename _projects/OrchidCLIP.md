@@ -58,6 +58,6 @@ A _Cattleya_ cross takes four to seven years to flower. The [visualizer](https:/
   Predicted <em>Cattleya</em> Hardyana (<em>C. dowiana</em> × <em>C. warscewiczii</em>).
 </div>
 
-Across 1,002 registered hybrids, a real hybrid's orchid-clip-v8 embedding sits closer to its parents' midpoint than a shuffled null (cosine 0.910 vs 0.730), and this holds on DINOv2 (0.886 vs 0.539). Hybrids also sit off the line between their parents, and further off when the parents look more different (Spearman ρ 0.52, n = 485, permutation p < 0.001; 0.65 on DINOv2). This is visual similarity, not genetics. Weighting the blend by the dominance rules did not beat the plain midpoint.
+Across 1,002 registered hybrids, a real hybrid's orchid-clip-v8 embedding sits closer to its parents' midpoint than a shuffled null (cosine 0.910 vs 0.730), and this replicates on an independent backbone (DINOv2: 0.886 vs 0.539). Hybrids also sit off the line between their parents, and further off when the parents look more different (Spearman ρ 0.52, n = 485, permutation p < 0.001; 0.65 on DINOv2). This is visual similarity, not genetics. Weighting the blend by the dominance rules did not beat the plain midpoint.
 
 Code: [orchid-clip](https://github.com/musharna/orchid-clip) · [orchid-hybrid-visualizer](https://github.com/musharna/orchid-hybrid-visualizer)
