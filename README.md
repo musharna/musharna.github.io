@@ -14,7 +14,7 @@ vision, machine learning and data science can do for agriculture.
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [`/`](https://musharna.github.io/)                             | About, contact, links                                                                                  |
 | [`/projects/`](https://musharna.github.io/projects/)           | Project index, grouped by category                                                                     |
-| [Orchids](https://musharna.github.io/projects/OrchidCLIP/)     | Orchid computer vision: orchid-clip-v8 (identification), OrchidGAN, and the Cattleya hybrid visualizer |
+| [Orchids](https://musharna.github.io/projects/OrchidCLIP/)     | orchid-clip-v8 (identification), OrchidGAN, the Cattleya hybrid visualizer, Cattleya hybridization trends |
 | [MCP Servers](https://musharna.github.io/projects/MCPServers/) | plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, phylokit-mcp, breedsim-mcp and jobd              |
 | [`/publications/`](https://musharna.github.io/publications/)   | Zenodo-archived software, by concept DOI                                                               |
 

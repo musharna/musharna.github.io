@@ -78,6 +78,15 @@
           link: https://github.com/musharna/orchid-clip
         - linkname: demo
           link: https://huggingface.co/spaces/musharna/orchid-genus-id
+    - title: <em>Cattleya</em> hybridization over time and its phylogenetic signal (course project)
+      year: 2025
+      description:
+        - About 18,700 RHS-registered hybrids; hybrid counts are phylogenetically clustered on a species-level tree but not on a tree of subgeneric ranks
+      linkitems:
+        - linkname: write-up
+          link: /projects/OrchidCLIP/#cattleya-hybridization-over-time
+        - linkname: code
+          link: https://github.com/musharna/cattleya-hybridization
 
 - title: Software (archived on Zenodo)
   type: list
