@@ -70,7 +70,7 @@ A course project (2025) on about 18,700 registered _Cattleya_ hybrids from the R
 
 <div class="row justify-content-sm-center mt-3">
   <div class="col-sm-10">
-    {% include figure.liquid path="assets/img/cattleya/trends_by_type.png" title="Cattleya hybrid registrations by type" alt="Line chart of Cattleya hybrid registrations per year from 1848 to 2024, split into primary, complex and highly complex crosses, with the corsage era of 1920 to 1950 shaded." class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/cattleya/trends_by_type.png" title="Cattleya hybrid registrations by type" alt="Two panels. Top: Cattleya hybrid registrations per year from 1848 to 2024 (5-year moving average), split into primary, complex and highly complex crosses, with the corsage era of 1920 to 1950 shaded. Bottom: each kind of cross as a share of registrations in each 5-year period." class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
 
