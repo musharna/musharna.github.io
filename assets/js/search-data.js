@@ -47,7 +47,7 @@ ninja.data = [{
               window.location.href = "/projects/MCPServers/";
             },},{id: "projects-orchids",
           title: 'Orchids',
-          description: "Computer vision on orchids. An identification model, a GAN, and a hybrid visualizer.",
+          description: "An identification model, a GAN, a hybrid visualizer, and 170 years of Cattleya hybrid registrations.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/OrchidCLIP/";
             },},{id: "projects-orchid-gan",
