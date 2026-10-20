@@ -10,13 +10,13 @@ vision, machine learning and data science can do for agriculture.
 
 ## What is on the site
 
-| Page                                                           | Contents                                                                                               |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [`/`](https://musharna.github.io/)                             | About, contact, links                                                                                  |
-| [`/projects/`](https://musharna.github.io/projects/)           | Project index, grouped by category                                                                     |
-| [Orchids](https://musharna.github.io/projects/OrchidCLIP/)     | Orchid computer vision: orchid-clip-v8 (identification), OrchidGAN, and the Cattleya hybrid visualizer |
-| [MCP Servers](https://musharna.github.io/projects/MCPServers/) | plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, phylokit-mcp, breedsim-mcp and jobd              |
-| [`/publications/`](https://musharna.github.io/publications/)   | Zenodo-archived software, by concept DOI                                                               |
+| Page                                                           | Contents                                                                                                  |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [`/`](https://musharna.github.io/)                             | About, contact, links                                                                                     |
+| [`/projects/`](https://musharna.github.io/projects/)           | Project index, grouped by category                                                                        |
+| [Orchids](https://musharna.github.io/projects/OrchidCLIP/)     | orchid-clip-v8 (identification), OrchidGAN, the Cattleya hybrid visualizer, Cattleya hybridization trends |
+| [MCP Servers](https://musharna.github.io/projects/MCPServers/) | plant-genomics-mcp, data-aggregator-mcp, plantcv-mcp, phylokit-mcp, breedsim-mcp and jobd                 |
+| [`/publications/`](https://musharna.github.io/publications/)   | Zenodo-archived software, by concept DOI                                                                  |
 
 The Orchids and Lobelia pages embed interactive Plotly figures from `assets/plotly/`.
 

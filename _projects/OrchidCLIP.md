@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Orchids
-description: Computer vision on orchids. An identification model, a GAN, and a hybrid visualizer.
+description: An identification model, a GAN, a hybrid visualizer, and 170 years of Cattleya hybrid registrations.
 img: assets/img/orchidclip/orchidclip_card.png
 importance: 1
 category: independent research
@@ -61,3 +61,17 @@ A _Cattleya_ cross takes four to seven years to flower. The [visualizer](https:/
 Across 1,002 registered hybrids, a real hybrid's orchid-clip-v8 embedding sits closer to its parents' midpoint than a shuffled null (cosine 0.910 vs 0.730), and this replicates on an independent backbone (DINOv2: 0.886 vs 0.539). Hybrids also sit off the line between their parents, and further off when the parents look more different (Spearman ρ 0.52, n = 485, permutation p < 0.001; 0.65 on DINOv2). This is visual similarity, not genetics. Weighting the blend by the dominance rules did not beat the plain midpoint.
 
 Code: [orchid-clip](https://github.com/musharna/orchid-clip) · [orchid-hybrid-visualizer](https://github.com/musharna/orchid-hybrid-visualizer)
+
+## Cattleya hybridization over time
+
+A course project (2025) on about 18,700 registered _Cattleya_ hybrids from the RHS register, as republished on [OrchidRoots](https://www.orchidroots.com/). Nineteenth-century crosses were mostly species × species. Hybrid × hybrid crosses rose through the corsage era, peaked around 1960, then fell steeply, and the three kinds of cross are closer to an even mix today. Mean ancestors per hybrid rose from about 2 to about 22 by the 1970s and has stayed there since.
+
+<div class="row justify-content-sm-center mt-3">
+  <div class="col-sm-10">
+    {% include figure.liquid path="assets/img/cattleya/trends_by_type.png" title="Cattleya hybrid registrations by type" alt="Line chart of Cattleya hybrid registrations per year from 1848 to 2024, split into primary, complex and highly complex crosses, with the corsage era of 1920 to 1950 shaded." class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+The number of hybrids a species has produced is clustered on the phylogeny, but only a species-level tree shows it: Pagel's λ, Moran's I and Abouheif's C<sub>mean</sub> are significant there, and nothing is significant on a tree of subgeneric ranks. Blomberg's K is not significant on either.
+
+Code and write-up: [cattleya-hybridization](https://github.com/musharna/cattleya-hybridization)
