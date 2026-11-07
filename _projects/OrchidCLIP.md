@@ -8,7 +8,7 @@ category: independent research
 related_publications: false
 ---
 
-[Demo](https://huggingface.co/spaces/musharna/orchid-genus-id) · [Model](https://huggingface.co/musharna/orchid-clip-v8) · [Code](https://github.com/musharna/orchid-clip) · [Hybrid visualizer](https://huggingface.co/spaces/musharna/orchid-hybrid-visualizer)
+[Demo](https://huggingface.co/spaces/musharna/orchid-genus-id) · [Model v8](https://huggingface.co/musharna/orchid-clip-v8) · [Model v9cw05](https://huggingface.co/musharna/orchid-clip-v9cw05) · [Code](https://github.com/musharna/orchid-clip) · [Hybrid visualizer](https://huggingface.co/spaces/musharna/orchid-hybrid-visualizer)
 
 Orchids have over 30,000 species, and photos of them online are uneven. A few cultivated genera have most of the images, many tropical species have only a handful, and labels are often slightly wrong: the right genus with the wrong species, old synonyms, cultivar names. Most of my time on this went into cleaning data.
 
@@ -33,7 +33,7 @@ The holdout is 4,000 images from a hash-partitioned 2% bucket. It is mostly _Oph
   </div>
 </div>
 
-The demo ranks a photo against 25,083 species, so species accuracy there is lower: on 8,837 photos held out of training, species top-1 is 0.69 and genus top-1 is 0.92. It names a species only when the top two scores are far enough apart, and otherwise gives just the genus. The cutoff was tuned and scored on those same photos (named species right 90% of the time, a name given for 55% of photos), so those two numbers are optimistic. For species with no reference images in the demo, genus top-1 is about 0.55. It works best on field photos, and much worse on herbarium sheets and illustrations.
+The demo ranks a photo against 24,388 species, so species accuracy there is lower. Since November 2026 it averages the scores of two models: orchid-clip-v8 and [orchid-clip-v9cw05](https://huggingface.co/musharna/orchid-clip-v9cw05), a fine-tune of BioCLIP 2.5 (ViT-H/14) averaged half-and-half with its base weights. On 8,837 photos held out of training, species top-1 is 0.74 and genus top-1 is 0.94 (v8 alone: 0.71 and 0.92). It names a species only when the top two scores are far enough apart, and otherwise gives just the genus. The cutoff was tuned and scored on those same photos (named species right 90% of the time, a name given for 66% of photos), so those two numbers are optimistic. v9cw05 was also chosen from four candidates on the same photos. For species with no reference images in the demo, genus top-1 is about 0.63. It works best on field photos, and much worse on herbarium sheets and illustrations.
 
 Until October 2026 the demo was missing about 5,200 species in the tribes Vandeae and Cymbidieae, including _Phalaenopsis_, _Vanda_, _Oncidium_ and _Cymbidium_. The build step filtered by subfamily and left out the older name Vandoideae, which those species carry in the source data, so photos of them could only match some other genus. Adding them raised held-out genus top-1 from 0.80 to 0.92.
 
