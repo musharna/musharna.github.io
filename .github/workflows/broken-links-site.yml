@@ -34,7 +34,9 @@ jobs:
           # to 3.3.5, and css_parser 3.0.0 (a transitive dep) now requires >= 3.3 —
           # so `bundle install` exited 5 and this job reported RED for a dependency
           # failure, not for broken links. It had never actually checked a link.
-          ruby-version: "3.3.5"
+          # "3.3", not a patch pin: newer runner images (ubuntu-26.04) build only the
+          # latest 3.3.x, so "3.3.5" failed setup-ruby with a 404 from 2026-11-03.
+          ruby-version: "3.3"
           bundler-cache: true
       - name: Update _config.yml ⚙️
         # Pinned: @main is a floating branch ref — whatever lands there runs here.
