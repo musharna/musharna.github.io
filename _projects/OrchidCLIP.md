@@ -33,7 +33,7 @@ The holdout is 4,000 images from a hash-partitioned 2% bucket. It is mostly _Oph
   </div>
 </div>
 
-The demo ranks a photo against 25,342 species, so species accuracy there is lower. Since November 2026 it averages the scores of two models: orchid-clip-v8 and [orchid-clip-v9cw05](https://huggingface.co/musharna/orchid-clip-v9cw05), a fine-tune of BioCLIP 2.5 (ViT-H/14) averaged half-and-half with its base weights. On 8,837 photos held out of training, species top-1 is 0.74 and genus top-1 is 0.94 (v8 alone: 0.71 and 0.92). It names a species only when the top two scores are far enough apart, and otherwise gives just the genus. The cutoff was tuned and scored on those same photos (named species right 90% of the time, a name given for 66% of photos), so those two numbers are optimistic. v9cw05 was also chosen from four candidates on the same photos. On 5,438 iNaturalist photos posted in November 2026, which nothing was trained or tuned on, species top-1 was 0.79 (v8 alone: 0.71) and named species were right 92% of the time (v8 alone: 87%). Many of those photos show only leaves or seed pods, where the second model helps most, so the gain on flower photos is probably smaller. For species with no reference images in the demo, genus top-1 is about 0.62. It works best on field photos, and much worse on herbarium sheets and illustrations.
+The demo ranks a photo against 25,342 species, so species accuracy there is lower. Since November 2026 it averages the scores of two models: orchid-clip-v8 and [orchid-clip-v9cw05](https://huggingface.co/musharna/orchid-clip-v9cw05), a fine-tune of BioCLIP 2.5 (ViT-H/14) averaged half-and-half with its base weights. It names a species only when the top two scores are far enough apart, and otherwise gives just the genus. On 5,050 photos held out of training and of the demo's references, species top-1 is 0.78 and genus top-1 is 0.93. The cutoff was tuned and scored on those same photos (named species right 90% of the time, a name given for 72% of photos), so those two numbers are optimistic. On 1,885 iNaturalist photos posted in early November 2026, which nothing was trained or tuned on, species top-1 was 0.82 and named species were right 93% of the time, with a name given for 73% of photos. The second model was chosen from four candidates on the held-out photos. On 5,438 other November photos it raised species top-1 from 0.71 to 0.79, but many of those show only leaves or seed pods, where it helps most, so the gain on flower photos is probably smaller. For species with no reference images in the demo, genus top-1 is about 0.66, and the demo wrongly names a species for 38% of their photos. It works best on field photos, and much worse on herbarium sheets and illustrations.
 
 Until October 2026 the demo was missing about 5,200 species in the tribes Vandeae and Cymbidieae, including _Phalaenopsis_, _Vanda_, _Oncidium_ and _Cymbidium_. The build step filtered by subfamily and left out the older name Vandoideae, which those species carry in the source data, so photos of them could only match some other genus. Adding them raised held-out genus top-1 from 0.80 to 0.92. A similar error left out another 1,020 species until November 2026, mostly in genera such as _Satyrium_ and _Arethusa_ whose photos were tagged with a wrong subfamily (_Satyrium_ is also a butterfly genus). Later that month, 66 duplicate entries were merged into the species they copied. Most were a species filed under the wrong genus, such as _Orchis acaule_ for _Cypripedium acaule_, or a misspelling. Each sat so close to the real species that the demo would not name it: it named _C. acaule_ correctly on 4 of 63 November photos before the merge and 60 after.
 
@@ -51,6 +51,26 @@ The fix is a second reference for each of those species, built from its uncolore
             title="Species top-1 in the demo with and without color-form references, by photo set"
             loading="lazy" frameborder="0" scrolling="no"
             style="width:100%; height:400px; border:1px solid var(--global-divider-color); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+
+### Reference photos
+
+Each species used to be scored against one reference, the average of its photos. A photo that looks unlike that average, such as an odd angle, a color form or a plant not in flower, scored poorly even when the collection held a near-identical photo. The demo now also compares a photo with each of its 435,962 reference photos, and scores a species by the mean of its average-reference score and its closest photo's score.
+
+I found this while checking the test set. The 8,837 held-out photos were split off photo by photo, and 3,773 of them have another photo of the same iNaturalist observation (the same plant on the same day) among the references. The old demo scored 0.78 on those and 0.72 on the 5,050 without one. Earlier versions of this page gave 0.74 for all of them together, which was too high. The held-out figures above use only the 5,050.
+
+On those 5,050 photos, the change raised species top-1 from 0.72 to 0.78. I then fixed the method and the cutoff and scored 1,885 new iNaturalist photos once. Species top-1 went from 0.79 to 0.82, photos named correctly from 65% to 68%, and photos named wrongly from 6.2% to 5.3%. A second idea did not survive that step: reweighting the embedding to ignore variation within a species gained 2 points on the held-out photos and nothing on new ones.
+
+The gain is in species with many photos. On three photos from each of 4,605 species, most of them rarely photographed, nothing changed. The cutoff is also lower now, so for species with no references the demo wrongly names a species for 38% of photos instead of 32%. The color-form references stay: without them, form photos lose 8 points. The close relatives that had paid for those references go from 74% to 79%.
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_photo_refs.html' | relative_url }}"
+            title="Species top-1 in the demo before and after comparing with single reference photos, by photo set"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:440px; border:1px solid var(--global-divider-color); border-radius:8px;">
     </iframe>
   </div>
 </div>
