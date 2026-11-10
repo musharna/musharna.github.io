@@ -37,6 +37,24 @@ The demo ranks a photo against 25,342 species, so species accuracy there is lowe
 
 Until October 2026 the demo was missing about 5,200 species in the tribes Vandeae and Cymbidieae, including _Phalaenopsis_, _Vanda_, _Oncidium_ and _Cymbidium_. The build step filtered by subfamily and left out the older name Vandoideae, which those species carry in the source data, so photos of them could only match some other genus. Adding them raised held-out genus top-1 from 0.80 to 0.92. A similar error left out another 1,020 species until November 2026, mostly in genera such as _Satyrium_ and _Arethusa_ whose photos were tagged with a wrong subfamily (_Satyrium_ is also a butterfly genus). Later that month, 66 duplicate entries were merged into the species they copied. Most were a species filed under the wrong genus, such as _Orchis acaule_ for _Cypripedium acaule_, or a misspelling. Each sat so close to the real species that the demo would not name it: it named _C. acaule_ correctly on 4 of 63 November photos before the merge and 60 after.
 
+### Color forms
+
+Many orchid species have rare color forms, such as white (alba) forms that lack the usual pink or purple. Growers value them, but there are few photos of them, so the demo had learned most species from their usual color. To find them, I cut out the flower in each photo with SAM 3 and measured how much of it was pink, purple or red. In 378 species whose flowers are normally strongly colored, 2,373 photos (leaving out herbarium sheets and illustrations) had almost none. I looked at the most promising photos and confirmed a real color form in 118 species from 37 genera. Most of the rest showed only leaves, a tiny flower, or an orange flower, which the color rule counts as uncolored.
+
+The demo got these photos wrong. With each photo removed from the demo's references, the top match was the right species for 44% of form photos in 107 species, against 89% for ordinary photos of the same species. The wrong answer was usually a close relative, often one that is normally pale, such as _Laelia albida_ for a white _Laelia autumnalis_.
+
+The fix is a second reference for each of those species, built from its uncolored photos. A photo is scored against both, and the better match counts. In a test planned before it was run, top-1 on 98 form photos rose from 45% to 68%, and a named species was right 92% of the time instead of 63%. Results on ordinary photos, the November photos and the held-out photos moved by 0.1 points or less. The form photos come from the training collection, and only species with a confirmed form get the second reference, so the gain on new photos is probably smaller. The color rule still misses blue and orange forms.
+
+<div class="row justify-content-center mt-3 mb-2">
+  <div class="col-12 p-0">
+    <iframe src="{{ '/assets/plotly/orchidclip_color_forms.html' | relative_url }}"
+            title="Species top-1 in the demo with and without color-form references, by photo set"
+            loading="lazy" frameborder="0" scrolling="no"
+            style="width:100%; height:400px; border:1px solid var(--global-divider-color); border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+
 ## OrchidGAN
 
 My first orchid model: StyleGAN2-ADA, starting from weights pretrained on a public flowers dataset and fine-tuned on curated _Cattleya_ photos. It makes plausible blooms, but it has no idea which orchid it drew, which is what led to the identification model. The training images are not redistributed.
