@@ -55,6 +55,8 @@ The fix is a second reference for each of those species, built from its uncolore
   </div>
 </div>
 
+Coerulea forms, where the usual purple turns bluish, need a different search, because the color measure puts ordinary purple flowers in the same blue-purple range. I downloaded 253 Flickr photos that growers had captioned as coerulea, semi-alba or aurea, and used half the species to find the direction in the demo's embedding that separates coerulea photos from ordinary photos of their species. On the other half, tested once, it ranked a coerulea photo above an ordinary reference photo 88% of the time (42 photos, 14 species). The same method failed for semi-alba, and I have not searched with aurea. I then looked at the reference photos that scored highest. In _Cattleya_, the source of most of the captioned photos, 43 of 76 were coerulea (14 species), counting flowers that show it only in the lip, as growers do. In other genera 2 of 45 were. A coerulea reference for those species did not help. The demo named the right species on 63 of 77 captioned coerulea photos with or without one, and the misses were look-alike _Cattleya_ species.
+
 ### Reference photos
 
 Each species used to be scored against one reference, the average of its photos. A photo that looks unlike that average, such as an odd angle, a color form or a plant not in flower, scored poorly even when the collection held a near-identical photo. The demo now also compares a photo with each of its 435,962 reference photos, and scores a species by the mean of its average-reference score and its closest photo's score.
